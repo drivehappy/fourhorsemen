@@ -16,12 +16,21 @@ let runWebSocket (webSocket : WebSocket) (context : HttpContext) =
     socket {
         let mutable loop = true
 
+        // We wait for the client to send us a message after connecting
         while (loop) do
             let! msg = webSocket.read()
 
             match msg with
             | (Text, data, true) ->
                 printfn "Received text data from client: %A" data
+
+                let str = UTF8.toString data
+                let response = sprintf "response to %s" str
+                let byteResponse =
+                    response
+                    |> System.Text.Encoding.ASCII.GetBytes
+                    |> ByteSegment
+                do! webSocket.send Text byteResponse true
 
             | (Binary, data, true) ->
                 (*

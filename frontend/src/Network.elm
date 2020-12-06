@@ -8,75 +8,46 @@ import Html.Attributes exposing (checked, disabled, href, size, style, type_, va
 import Html.Events exposing (onClick, onInput)
 import Json.Encode exposing (Value)
 
+import Message exposing (..)
+import Model exposing (..)
 
-handlers : List (Handler Model Msg)
+
+handlers : List (Handler WebsocketModel Msg)
 handlers =
     [ WebSocketHandler socketHandler
     ]
 
 
-subscriptions : Model -> Sub Msg
+subscriptions : WebsocketModel -> Sub Msg
 subscriptions =
-    PortFunnels.subscriptions Process
+    PortFunnels.subscriptions (Process >> Websocket)
 
 
-funnelDict : FunnelDict Model Msg
+funnelDict : FunnelDict WebsocketModel Msg
 funnelDict =
     PortFunnels.makeFunnelDict handlers getCmdPort
 
 
 {-| Get a possibly simulated output port.
 -}
-getCmdPort : String -> Model -> (Value -> Cmd Msg)
+getCmdPort : String -> WebsocketModel -> (Value -> Cmd Msg)
 getCmdPort moduleName model =
-    PortFunnels.getCmdPort Process moduleName model.useSimulator
+    PortFunnels.getCmdPort (Process >> Websocket) moduleName model.useSimulator
 
 
 {-| The real output port.
 -}
 cmdPort : Value -> Cmd Msg
 cmdPort =
-    PortFunnels.getCmdPort Process "" False
+    PortFunnels.getCmdPort (Process >> Websocket) "" False
 
 
-
--- MODEL
-
-
-initState = PortFunnels.initialState
-
-
-defaultUrl : String
-defaultUrl =
-    "wss://echo.websocket.org"
-
-
-type alias Model =
-    { send : String
-    , log : List String
-    , url : String
-    , useSimulator : Bool
-    , wasLoaded : Bool
-    , state : State
-    , key : String
-    , error : Maybe String
-    }
 
 
 -- UPDATE
 
 
-type Msg
-    = UpdateSend String
-    | UpdateUrl String
-    | ToggleUseSimulator
-    | ToggleAutoReopen
-    | Connect
-    | Close
-    | Send
-    | Process Value
-
-update : Msg -> Model -> ( Model, Cmd Msg )
+update : WebsocketMsg -> WebsocketModel -> ( WebsocketModel, Cmd Msg )
 update msg model =
     case msg of
         UpdateSend newsend ->
@@ -134,6 +105,7 @@ update msg model =
             }
                 |> withCmd
                     (WebSocket.makeSend model.key model.send
+
                         |> send model
                     )
 
@@ -157,12 +129,12 @@ update msg model =
                     res
 
 
-send : Model -> WebSocket.Message -> Cmd Msg
+send : WebsocketModel -> WebSocket.Message -> Cmd Msg
 send model message =
     WebSocket.send (getCmdPort WebSocket.moduleName model) message
 
 
-doIsLoaded : Model -> Model
+doIsLoaded : WebsocketModel -> WebsocketModel
 doIsLoaded model =
     if not model.wasLoaded && WebSocket.isLoaded model.state.websocket then
         { model
@@ -174,7 +146,7 @@ doIsLoaded model =
         model
 
 
-socketHandler : Response -> State -> Model -> ( Model, Cmd Msg )
+socketHandler : Response -> State -> WebsocketModel -> ( WebsocketModel, Cmd Msg )
 socketHandler response state mdl =
     let
         model =
@@ -186,14 +158,23 @@ socketHandler response state mdl =
     in
     case response of
         WebSocket.MessageReceivedResponse { message } ->
+            let
+                foo = Debug.log "MessageReceivedResponse" ()
+            in
             { model | log = ("Received \"" ++ message ++ "\"") :: model.log }
                 |> withNoCmd
 
         WebSocket.ConnectedResponse r ->
+            let
+                foo = Debug.log "Connected" ()
+            in
             { model | log = ("Connected: " ++ r.description) :: model.log }
                 |> withNoCmd
 
         WebSocket.ClosedResponse { code, wasClean, expected } ->
+            let
+                foo = Debug.log "Closed" ()
+            in
             { model
                 | log =
                     ("Closed, " ++ closedString code wasClean expected)
@@ -202,6 +183,9 @@ socketHandler response state mdl =
                 |> withNoCmd
 
         WebSocket.ErrorResponse error ->
+            let
+                foo = Debug.log "Error" error
+            in
             { model | log = WebSocket.errorToString error :: model.log }
                 |> withNoCmd
 
@@ -256,7 +240,8 @@ docp string =
     p [] [ text string ]
 
 
-view : Model -> Html Msg
+{-
+view : WebsocketModel -> Html Msg
 view model =
     let
         isConnected =
@@ -355,3 +340,4 @@ view model =
                 [ text "github.com/billstclair/elm-websocket-client" ]
             ]
         ]
+-}
