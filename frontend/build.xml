@@ -1,11 +1,11 @@
 <project>
 
 	<target name="frontend" depends="init">
-		<exec executable="elm" dir="${frontend.dir}">
+		<exec executable="elm" dir="${frontend.dir}" failonerror="true">
 			<arg line="make src/Main.elm --output ${frontend.out.dir}/main.js"/>
 		</exec>
 		
-		<copy todir="${frontend.out.dir}">
+		<copy todir="${frontend.out.dir}" overwrite="true">
 			<fileset dir="${frontend.dir}">
 				<include name="index.html"/>
 				<include name="js/**/*"/>

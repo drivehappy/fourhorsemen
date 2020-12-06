@@ -1,7 +1,7 @@
 <project>
 
 	<target name="server" depends="init">
-		<exec executable="dotnet" dir="${server.dir}">
+		<exec executable="dotnet" dir="${server.dir}" failonerror="true">
 			<arg value="build"/>
 			<arg line="--output ${server.out.dir}"/>
 		</exec>
