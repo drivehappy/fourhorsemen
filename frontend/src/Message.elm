@@ -19,3 +19,4 @@ type Msg
     = NewWebsocketConnect
     | NewWebsocketConnected String
     | WebsocketDataReceived String
+    | WebsocketError String

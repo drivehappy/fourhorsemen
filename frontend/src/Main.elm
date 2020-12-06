@@ -57,6 +57,13 @@ update msg model =
                         i = Debug.log "Elm WS Received data: " d
                     in
                     (model, Cmd.none)
+
+                WebsocketError e ->
+                    let
+                        i = Debug.log "Elm WS Received Error: " e
+                    in
+                    (model, Cmd.none)
+
     in
     {-
     ( { model | websocketModel = newWSModel
@@ -125,5 +132,6 @@ subscriptions m =
     Sub.batch
         [ wsConnected NewWebsocketConnected
         , wsReceivedMsg WebsocketDataReceived
+        , wsError WebsocketError
         ]
 

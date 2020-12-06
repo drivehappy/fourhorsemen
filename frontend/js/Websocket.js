@@ -29,7 +29,7 @@ function connectWebSocket() {
 }
 
 // TODO: Global
-gConnectedWebSocket;
+let gConnectedWebSocket = null;
 
 // Begins a connection to the server, if the connection can't be established
 // or is disconnected, then it will automatically attempt to retry the connection.
@@ -51,7 +51,8 @@ function startWebsocketConnection() {
             return socket
         }).catch(e => {
             console.log("Start WS debug 3: " + e);
-            window.setTimeout(startWebsocketConnection, gConnectionBackoff.next())
+            app.ports.wsError.send("Failed to connect to server")
+            //window.setTimeout(startWebsocketConnection, gConnectionBackoff.next())
         })
 }
 
