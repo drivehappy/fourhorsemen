@@ -1,8 +1,6 @@
 
-url = "ws://localhost:8081/websocket"
-
 //
-function connectWebSocket() {
+function connectWebSocket(url) {
     return new Promise(function (resolve, reject) {
         // Connect to the websocket server
         try {
@@ -23,6 +21,7 @@ function connectWebSocket() {
             })
         } catch (err) {
             console.error('Could not connect to websocket server: ', url)
+            app.ports.wsError.send("Failed to connect to server")
             reject()
         }
     })
@@ -35,10 +34,10 @@ let gConnectedWebSocket = null;
 // or is disconnected, then it will automatically attempt to retry the connection.
 //
 // TODO: Readd: This uses an exponential backoff to stagger server load
-function startWebsocketConnection() {
+function startWebsocketConnection(url) {
     console.log("Start WS debug 0");
 
-    gConnectedWebSocket = connectWebSocket()
+    gConnectedWebSocket = connectWebSocket(url)
 
     gConnectedWebSocket
         .then(function (socket) {
@@ -64,7 +63,7 @@ function createReceiveEvent(socket) {
         //deserializeMessage(msgEvent)
     }
     socket.onclose = function (msgEvent) {
-        store.dispatch('setWebsocketConnected', false)
+        app.ports.wsDisconnected.send("TODO");
     }
 }
 

@@ -15,6 +15,8 @@ port wsSend : String -> Cmd msg
 
 port wsConnected : (String -> msg) -> Sub msg
 
+port wsDisconnected : (String -> msg) -> Sub msg
+
 port wsReceivedMsg : (String -> msg) -> Sub msg
 
 port wsError : (String -> msg) -> Sub msg

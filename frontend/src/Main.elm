@@ -9,7 +9,6 @@ import Html.Events exposing (onClick, onInput)
 
 import GameModel exposing (..)
 import GameView exposing (..)
---import Network exposing (..)
 import Message exposing (..)
 import Model exposing (..)
 import WebsocketPort exposing (..)
@@ -26,9 +25,7 @@ main =
 
 init : () -> ( Model, Cmd Msg )
 init _ =
-    { websocketModel = initWebsocketModel
-        
-    , isConnected = False
+    { isConnected = False
     }
         |> withNoCmd
 
@@ -40,17 +37,24 @@ update msg model =
     let
         (newWSModel, newCmd) = 
             case msg of
-                --Websocket w ->
-                --    Network.update w model.websocketModel
+                WebsocketConnect url ->
+                    (model, wsConnect url)
 
-                NewWebsocketConnect ->
-                    (model, wsConnect "Test")
-
-                NewWebsocketConnected s ->
+                WebsocketConnected s ->
                     let
                         i = Debug.log "Elm WS Connected: " s
                     in
-                    (model, wsSend "Hello Server")
+                    ( { model | isConnected = True }
+                    , wsSend "Hello Server"
+                    )
+
+                WebsocketClosed s ->
+                    let
+                        i = Debug.log "Elm WS Disconnected: " s
+                    in
+                    ( { model | isConnected = False }
+                    , Cmd.none
+                    )
 
                 WebsocketDataReceived d ->
                     let
@@ -65,15 +69,13 @@ update msg model =
                     (model, Cmd.none)
 
     in
-    {-
-    ( { model | websocketModel = newWSModel
-      }
-    -}
     ( model
     , newCmd
     )
 
-
+defaultUrl : String
+defaultUrl =
+    "ws://localhost:8081/websocket"
 
 
 -- VIEW
@@ -98,7 +100,7 @@ view model =
                     ]
                     []
                 , br [] []
-                , button [ onClick NewWebsocketConnect ] [ text "Join" ]
+                , button [ onClick (WebsocketConnect defaultUrl) ] [ text "Join" ]
                 , br [] []
                 , text ("Server connection: " ++ (if model.isConnected then "true" else "false"))
                 ]
@@ -127,11 +129,9 @@ view model =
 
 subscriptions : Model -> Sub Msg
 subscriptions m =
-    --Network.subscriptions m.websocketModel
-
     Sub.batch
-        [ wsConnected NewWebsocketConnected
+        [ wsConnected WebsocketConnected
+        , wsDisconnected WebsocketClosed
         , wsReceivedMsg WebsocketDataReceived
         , wsError WebsocketError
         ]
-
