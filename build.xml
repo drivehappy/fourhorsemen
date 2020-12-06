@@ -1,0 +1,19 @@
+<project>
+
+	<import file="frontend/build.xml"/>
+	<import file="server/build.xml"/>
+
+
+	<target name="init">
+		<property name="frontend.dir" location="frontend"/>
+		<property name="server.dir" location="server"/>
+		
+		<property name="out.dir" location="_output"/>
+		<property name="frontend.out.dir" location="${out.dir}/frontend"/>
+		<property name="server.out.dir" location="${out.dir}/server"/>
+	</target>
+
+	<target name="build" depends="init">
+	</target>
+	
+</project>

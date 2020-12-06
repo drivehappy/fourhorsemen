@@ -1,0 +1,10 @@
+<project>
+
+	<target name="server" depends="init">
+		<exec executable="dotnet" dir="${server.dir}">
+			<arg value="build"/>
+			<arg line="--output ${server.out.dir}"/>
+		</exec>
+	</target>
+	
+</project>
