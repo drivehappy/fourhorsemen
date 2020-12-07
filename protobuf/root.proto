@@ -1,0 +1,24 @@
+package codegen.proto;
+
+syntax = "proto3";
+
+
+message CS_Main {
+    enum Type {
+        CS_TEST = 0;
+        CS_TEST2 = 1;
+    }
+
+    Type type = 1;
+    
+}
+
+
+message SC_Main {
+    enum Type {
+        SC_TEST2 = 0;
+    }
+    
+    Type type = 1;
+    string test = 2;
+}

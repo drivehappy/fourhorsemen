@@ -9,7 +9,7 @@ open Suave.Sockets.Control
 open Suave.Sockets.Control.SocketMonad
 open System.Net
 open System.IO
-
+open Google.Protobuf
 
 
 let runWebSocket (webSocket : WebSocket) (context : HttpContext) =
@@ -24,13 +24,22 @@ let runWebSocket (webSocket : WebSocket) (context : HttpContext) =
             | (Text, data, true) ->
                 printfn "Received text data from client: %A" data
 
+                // Build protobuf
+                let root = new SC_Main()
+                root.Test <- "Test"
+
                 let str = UTF8.toString data
-                let response = sprintf "response to %s" str
+                let response =
+                    root.ToByteArray()
+                    |> ByteSegment
+
+                (*
                 let byteResponse =
                     response
                     |> System.Text.Encoding.ASCII.GetBytes
                     |> ByteSegment
-                do! webSocket.send Text byteResponse true
+                *)
+                do! webSocket.send Text response true
 
             | (Binary, data, true) ->
                 (*
@@ -87,7 +96,7 @@ let runWebSocket (webSocket : WebSocket) (context : HttpContext) =
                     printfn "Received unknown request from client: %A" pbCSMain.Request
                 *)
 
-                printfn "Received data from client: %A" data
+                printfn "Received binary data from client: %A" data
 
             | (Close, _, _) ->
                 printfn "Client closed"

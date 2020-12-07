@@ -4,8 +4,6 @@ function connectWebSocket(url) {
     return new Promise(function (resolve, reject) {
         // Connect to the websocket server
         try {
-            console.log("Attempting to connect to " + url);
-
             var ws = new WebSocket(url)
             ws.binaryType = 'arraybuffer'
 
@@ -35,21 +33,16 @@ let gConnectedWebSocket = null;
 //
 // TODO: Readd: This uses an exponential backoff to stagger server load
 function startWebsocketConnection(url) {
-    console.log("Start WS debug 0");
-
     gConnectedWebSocket = connectWebSocket(url)
 
     gConnectedWebSocket
         .then(function (socket) {
             //gConnectionBackoff.reset()
-            console.log("Start WS debug 1");
             return socket
         }).then(function (socket) {
-            console.log("Start WS debug 2");
             createReceiveEvent(socket)
             return socket
         }).catch(e => {
-            console.log("Start WS debug 3: " + e);
             app.ports.wsError.send("Failed to connect to server")
             //window.setTimeout(startWebsocketConnection, gConnectionBackoff.next())
         })
@@ -57,9 +50,8 @@ function startWebsocketConnection(url) {
 
 function createReceiveEvent(socket) {
     socket.onmessage = function (msgEvent) {
-        console.log('onmessage: ', msgEvent)
-
-        app.ports.wsReceivedMsg.send(msgEvent.data);
+        let base64Data = btoa(msgEvent.data);
+        app.ports.wsReceivedMsg.send(base64Data);
         //deserializeMessage(msgEvent)
     }
     socket.onclose = function (msgEvent) {

@@ -13,6 +13,15 @@ import Message exposing (..)
 import Model exposing (..)
 import WebsocketPort exposing (..)
 
+import Bytes exposing (..)
+import Bytes.Decode as BD
+import Base64
+import Protobuf.Decode as PBDecode
+import Protobuf.Encode as PBEncode
+
+import Proto exposing (..)
+
+
 
 main =
     Browser.element
@@ -34,44 +43,49 @@ init _ =
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
-    let
-        (newWSModel, newCmd) = 
-            case msg of
-                WebsocketConnect url ->
-                    (model, wsConnect url)
+    case msg of
+        WebsocketRequestConnect url ->
+            (model, wsConnect url)
 
-                WebsocketConnected s ->
-                    let
-                        i = Debug.log "Elm WS Connected: " s
-                    in
-                    ( { model | isConnected = True }
-                    , wsSend "Hello Server"
-                    )
+        WebsocketConnected s ->
+            ( { isConnected = True }
+            , wsSend "Hello Server"
+            )
 
-                WebsocketClosed s ->
-                    let
-                        i = Debug.log "Elm WS Disconnected: " s
-                    in
-                    ( { model | isConnected = False }
-                    , Cmd.none
-                    )
+        WebsocketClosed s ->
+            ( { isConnected = False }
+            , Cmd.none
+            )
 
-                WebsocketDataReceived d ->
-                    let
-                        i = Debug.log "Elm WS Received data: " d
-                    in
-                    (model, Cmd.none)
+        WebsocketDataReceived d ->
+            let
+                -- Base64 decode string data
+                result : Maybe Bytes
+                result = Base64.toBytes d
 
-                WebsocketError e ->
-                    let
-                        i = Debug.log "Elm WS Received Error: " e
-                    in
-                    (model, Cmd.none)
+                newCmd =
+                    result
+                        -- |> Maybe.andThen (\bytes -> BD.decode (BD.string (Bytes.width bytes)) bytes)
+                        |> Maybe.map (\data ->
+                            -- TODO decode Protobuf here
+                            let
+                                pbSCMain =
+                                    PBDecode.decode Proto.sCMainDecoder data
 
-    in
-    ( model
-    , newCmd
-    )
+                                i = Debug.log "Elm Data Received" pbSCMain
+                            in
+                            Cmd.none
+                        )
+                        |> Maybe.withDefault Cmd.none
+            in
+            (model, newCmd)
+
+        WebsocketError e ->
+            let
+                i = Debug.log "Elm WS Received Error: " e
+            in
+            (model, Cmd.none)
+
 
 defaultUrl : String
 defaultUrl =
@@ -82,10 +96,6 @@ defaultUrl =
 
 view : Model -> Html Msg
 view model =
-    --
-    -- maybe: Network.view model
-    --
-
     div []
         [
             div
@@ -100,9 +110,9 @@ view model =
                     ]
                     []
                 , br [] []
-                , button [ onClick (WebsocketConnect defaultUrl) ] [ text "Join" ]
+                , button [ onClick (WebsocketRequestConnect defaultUrl) ] [ text "Join" ]
                 , br [] []
-                , text ("Server connection: " ++ (if model.isConnected then "true" else "false"))
+                , text ("Server connection: " ++ (if model.isConnected then "True" else "False"))
                 ]
         ,   div
                 [ style "display" "flex"

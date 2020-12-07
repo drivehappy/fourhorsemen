@@ -1,6 +1,16 @@
 <project>
 
-	<target name="server" depends="init">
+	<target name="server-codegen" depends="buildtools-init">
+		<mkdir dir="${server.codegen.dir}"/>
+
+		<exec executable="${buildtools.protoc.dir}/protoc" dir="${protobuf.dir}">
+			<arg value="--csharp_out=${server.codegen.dir}"/>
+
+			<arg value="root.proto"/>
+		</exec>
+	</target>
+
+	<target name="server" depends="init, server-codegen">
 		<exec executable="dotnet" dir="${server.dir}" failonerror="true">
 			<arg value="build"/>
 			<arg line="--output ${server.out.dir}"/>

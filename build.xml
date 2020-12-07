@@ -1,16 +1,24 @@
 <project>
 
+	<import file="buildtools/build.xml"/>
 	<import file="frontend/build.xml"/>
 	<import file="server/build.xml"/>
 
 
 	<target name="init">
+		<property name="buildtools.dir" location="buildtools"/>
+		<property name="protobuf.dir" location="protobuf"/>
 		<property name="frontend.dir" location="frontend"/>
 		<property name="server.dir" location="server"/>
-		
+
 		<property name="out.dir" location="_output"/>
+		<property name="buildtools.out.dir" location="${out.dir}/buildtools"/>
 		<property name="frontend.out.dir" location="${out.dir}/frontend"/>
 		<property name="server.out.dir" location="${out.dir}/server"/>
+
+		<!-- We dump codegen into our source tree, easier on the IDE -->
+		<property name="frontend.codegen.dir" location="${frontend.dir}/src/codegen/"/>
+		<property name="server.codegen.dir" location="${server.dir}/FourHorsemenProtobuf"/>
 	</target>
 
 	<target name="build" depends="init">

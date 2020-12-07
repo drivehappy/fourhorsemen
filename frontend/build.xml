@@ -1,8 +1,18 @@
 <project>
 
-	<target name="frontend" depends="init">
+	<target name="frontend-codegen" depends="buildtools-init">
+		<mkdir dir="${frontend.codegen.dir}"/>
+
+		<exec executable="${buildtools.protoc.dir}/protoc" dir="${protobuf.dir}">
+			<arg value="--elm_out=${frontend.codegen.dir}"/>
+
+			<arg value="root.proto"/>
+		</exec>
+	</target>
+
+	<target name="frontend" depends="init, frontend-codegen">
 		<exec executable="elm" dir="${frontend.dir}" failonerror="true">
-			<arg line="make src/Main.elm --output ${frontend.out.dir}/main.js"/>
+			<arg line="make src/Main.elm --output ${frontend.out.dir}/main.js --debug"/>
 		</exec>
 		
 		<copy todir="${frontend.out.dir}" overwrite="true">
