@@ -2,9 +2,9 @@
 
 
 module Codegen.Proto exposing
-    ( CSMainType(..), SCMainType(..), CSMain, SCMain
-    , cSMainDecoder, sCMainDecoder
-    , toCSMainEncoder, toSCMainEncoder
+    ( PlayerClass(..), BossType(..), CSPlayerActionType(..), CSMainType(..), SCGameStateType(..), SCBossAbilityType(..), SCMainType(..), Vec2, Debuffs, Player, Boss, CSPlayerAction, CSMain, SCGameState, SCBossAbility, SCMain
+    , vec2Decoder, debuffsDecoder, playerDecoder, bossDecoder, cSPlayerActionDecoder, cSMainDecoder, sCGameStateDecoder, sCBossAbilityDecoder, sCMainDecoder
+    , toVec2Encoder, toDebuffsEncoder, toPlayerEncoder, toBossEncoder, toCSPlayerActionEncoder, toCSMainEncoder, toSCGameStateEncoder, toSCBossAbilityEncoder, toSCMainEncoder
     )
 
 {-| ProtoBuf module: `Codegen.Proto`
@@ -20,17 +20,17 @@ This module was generated automatically using
 
 # Model
 
-@docs CSMainType, SCMainType, CSMain, SCMain
+@docs PlayerClass, BossType, CSPlayerActionType, CSMainType, SCGameStateType, SCBossAbilityType, SCMainType, Vec2, Debuffs, Player, Boss, CSPlayerAction, CSMain, SCGameState, SCBossAbility, SCMain
 
 
 # Decoder
 
-@docs cSMainDecoder, sCMainDecoder
+@docs vec2Decoder, debuffsDecoder, playerDecoder, bossDecoder, cSPlayerActionDecoder, cSMainDecoder, sCGameStateDecoder, sCBossAbilityDecoder, sCMainDecoder
 
 
 # Encoder
 
-@docs toCSMainEncoder, toSCMainEncoder
+@docs toVec2Encoder, toDebuffsEncoder, toPlayerEncoder, toBossEncoder, toCSPlayerActionEncoder, toCSMainEncoder, toSCGameStateEncoder, toSCBossAbilityEncoder, toSCMainEncoder
 
 -}
 
@@ -42,25 +42,148 @@ import Protobuf.Encode as Encode
 -- MODEL
 
 
+{-| PlayerClass
+-}
+type PlayerClass
+    = Tank
+    | Healer
+    | RangedDps
+    | MeleeDps
+    | UnrecognizedPlayerClass_ Int
+
+
+{-| BossType
+-}
+type BossType
+    = Mograine
+    | Thane
+    | Blaumeux
+    | Zeliek
+    | UnrecognizedBossType_ Int
+
+
+{-| CSPlayerActionType
+-}
+type CSPlayerActionType
+    = Taunt
+    | Heal
+    | RangedAttack
+    | MeleeAttack
+    | UnrecognizedCSPlayerActionType_ Int
+
+
 {-| CSMainType
 -}
 type CSMainType
-    = CsTest
-    | CsTest2
+    = PlayerJoin
+    | PlayerMove
+    | PlayerDirection
+    | RequestGameStart
+    | RequestGamePause
     | UnrecognizedCSMainType_ Int
+
+
+{-| SCGameStateType
+-}
+type SCGameStateType
+    = Lobby
+    | Running
+    | Paused
+    | UnrecognizedSCGameStateType_ Int
+
+
+{-| SCBossAbilityType
+-}
+type SCBossAbilityType
+    = RighteousFire
+    | Meteor
+    | HolyWrath
+    | VoidZone
+    | UnrecognizedSCBossAbilityType_ Int
 
 
 {-| SCMainType
 -}
 type SCMainType
-    = ScTest2
+    = GameStepUpdate
     | UnrecognizedSCMainType_ Int
+
+
+{-| Vec2
+-}
+type alias Vec2 =
+    { positionX : Float
+    , positionY : Float
+    }
+
+
+{-| Debuffs
+-}
+type alias Debuffs =
+    { markMograine : Int
+    , markThane : Int
+    , markBlaumeux : Int
+    , markZeliek : Int
+    }
+
+
+{-| Player
+-}
+type alias Player =
+    { name : String
+    , class : PlayerClass
+    , position : Maybe Vec2
+    , direction : Float
+    , debuffs : Maybe Debuffs
+    , guid : Int
+    }
+
+
+{-| Boss
+-}
+type alias Boss =
+    { type_ : BossType
+    , name : String
+    , position : Maybe Vec2
+    , direction : Float
+    , currentHp : Int
+    , maxHp : Int
+    , isSpirit : Bool
+    , shieldWallActive : Bool
+    , guid : Int
+    }
+
+
+{-| CSPlayerAction
+-}
+type alias CSPlayerAction =
+    { type_ : CSPlayerActionType
+    , guidTarget : Int
+    }
 
 
 {-| CSMain
 -}
 type alias CSMain =
     { type_ : CSMainType
+    , playerJoin : Maybe Player
+    , playerMove : Maybe Vec2
+    , playerDirection : Float
+    }
+
+
+{-| SCGameState
+-}
+type alias SCGameState =
+    { type_ : SCGameStateType
+    }
+
+
+{-| SCBossAbility
+-}
+type alias SCBossAbility =
+    { type_ : SCBossAbilityType
+    , playerGuidAffected : List Int
     }
 
 
@@ -68,12 +191,83 @@ type alias CSMain =
 -}
 type alias SCMain =
     { type_ : SCMainType
-    , test : String
+    , bulkPlayerUpdate : List Player
+    , bulkBossUpdate : List Boss
+    , bossAbilityPerformed : List SCBossAbility
     }
 
 
 
 -- DECODER
+
+
+playerClassDecoder : Decode.Decoder PlayerClass
+playerClassDecoder =
+    Decode.int32
+        |> Decode.map
+            (\value ->
+                case value of
+                    0 ->
+                        Tank
+
+                    1 ->
+                        Healer
+
+                    2 ->
+                        RangedDps
+
+                    3 ->
+                        MeleeDps
+
+                    v ->
+                        UnrecognizedPlayerClass_ v
+            )
+
+
+bossTypeDecoder : Decode.Decoder BossType
+bossTypeDecoder =
+    Decode.int32
+        |> Decode.map
+            (\value ->
+                case value of
+                    0 ->
+                        Mograine
+
+                    1 ->
+                        Thane
+
+                    2 ->
+                        Blaumeux
+
+                    3 ->
+                        Zeliek
+
+                    v ->
+                        UnrecognizedBossType_ v
+            )
+
+
+cSPlayerActionTypeDecoder : Decode.Decoder CSPlayerActionType
+cSPlayerActionTypeDecoder =
+    Decode.int32
+        |> Decode.map
+            (\value ->
+                case value of
+                    0 ->
+                        Taunt
+
+                    1 ->
+                        Heal
+
+                    2 ->
+                        RangedAttack
+
+                    3 ->
+                        MeleeAttack
+
+                    v ->
+                        UnrecognizedCSPlayerActionType_ v
+            )
 
 
 cSMainTypeDecoder : Decode.Decoder CSMainType
@@ -83,13 +277,65 @@ cSMainTypeDecoder =
             (\value ->
                 case value of
                     0 ->
-                        CsTest
+                        PlayerJoin
 
                     1 ->
-                        CsTest2
+                        PlayerMove
+
+                    2 ->
+                        PlayerDirection
+
+                    3 ->
+                        RequestGameStart
+
+                    4 ->
+                        RequestGamePause
 
                     v ->
                         UnrecognizedCSMainType_ v
+            )
+
+
+sCGameStateTypeDecoder : Decode.Decoder SCGameStateType
+sCGameStateTypeDecoder =
+    Decode.int32
+        |> Decode.map
+            (\value ->
+                case value of
+                    0 ->
+                        Lobby
+
+                    1 ->
+                        Running
+
+                    2 ->
+                        Paused
+
+                    v ->
+                        UnrecognizedSCGameStateType_ v
+            )
+
+
+sCBossAbilityTypeDecoder : Decode.Decoder SCBossAbilityType
+sCBossAbilityTypeDecoder =
+    Decode.int32
+        |> Decode.map
+            (\value ->
+                case value of
+                    0 ->
+                        RighteousFire
+
+                    1 ->
+                        Meteor
+
+                    2 ->
+                        HolyWrath
+
+                    3 ->
+                        VoidZone
+
+                    v ->
+                        UnrecognizedSCBossAbilityType_ v
             )
 
 
@@ -100,25 +346,98 @@ sCMainTypeDecoder =
             (\value ->
                 case value of
                     0 ->
-                        ScTest2
+                        GameStepUpdate
 
                     v ->
                         UnrecognizedSCMainType_ v
             )
 
 
+vec2Decoder : Decode.Decoder Vec2
+vec2Decoder =
+    Decode.message (Vec2 0 0)
+        [ Decode.optional 1 Decode.float setPositionX
+        , Decode.optional 2 Decode.float setPositionY
+        ]
+
+
+debuffsDecoder : Decode.Decoder Debuffs
+debuffsDecoder =
+    Decode.message (Debuffs 0 0 0 0)
+        [ Decode.optional 1 Decode.int32 setMarkMograine
+        , Decode.optional 2 Decode.int32 setMarkThane
+        , Decode.optional 3 Decode.int32 setMarkBlaumeux
+        , Decode.optional 4 Decode.int32 setMarkZeliek
+        ]
+
+
+playerDecoder : Decode.Decoder Player
+playerDecoder =
+    Decode.message (Player "" Tank Nothing 0 Nothing 0)
+        [ Decode.optional 1 Decode.string setName
+        , Decode.optional 2 playerClassDecoder setClass
+        , Decode.optional 3 (Decode.map Just vec2Decoder) setPosition
+        , Decode.optional 4 Decode.float setDirection
+        , Decode.optional 5 (Decode.map Just debuffsDecoder) setDebuffs
+        , Decode.optional 10 Decode.int32 setGuid
+        ]
+
+
+bossDecoder : Decode.Decoder Boss
+bossDecoder =
+    Decode.message (Boss Mograine "" Nothing 0 0 0 False False 0)
+        [ Decode.optional 1 bossTypeDecoder setType_
+        , Decode.optional 2 Decode.string setName
+        , Decode.optional 3 (Decode.map Just vec2Decoder) setPosition
+        , Decode.optional 4 Decode.float setDirection
+        , Decode.optional 5 Decode.int32 setCurrentHp
+        , Decode.optional 6 Decode.int32 setMaxHp
+        , Decode.optional 7 Decode.bool setIsSpirit
+        , Decode.optional 8 Decode.bool setShieldWallActive
+        , Decode.optional 10 Decode.int32 setGuid
+        ]
+
+
+cSPlayerActionDecoder : Decode.Decoder CSPlayerAction
+cSPlayerActionDecoder =
+    Decode.message (CSPlayerAction Taunt 0)
+        [ Decode.optional 1 cSPlayerActionTypeDecoder setType_
+        , Decode.optional 2 Decode.int32 setGuidTarget
+        ]
+
+
 cSMainDecoder : Decode.Decoder CSMain
 cSMainDecoder =
-    Decode.message (CSMain CsTest)
+    Decode.message (CSMain PlayerJoin Nothing Nothing 0)
         [ Decode.optional 1 cSMainTypeDecoder setType_
+        , Decode.optional 2 (Decode.map Just playerDecoder) setPlayerJoin
+        , Decode.optional 3 (Decode.map Just vec2Decoder) setPlayerMove
+        , Decode.optional 4 Decode.float setPlayerDirection
+        ]
+
+
+sCGameStateDecoder : Decode.Decoder SCGameState
+sCGameStateDecoder =
+    Decode.message (SCGameState Lobby)
+        [ Decode.optional 1 sCGameStateTypeDecoder setType_
+        ]
+
+
+sCBossAbilityDecoder : Decode.Decoder SCBossAbility
+sCBossAbilityDecoder =
+    Decode.message (SCBossAbility RighteousFire [])
+        [ Decode.optional 1 sCBossAbilityTypeDecoder setType_
+        , Decode.repeated 2 Decode.int32 .playerGuidAffected setPlayerGuidAffected
         ]
 
 
 sCMainDecoder : Decode.Decoder SCMain
 sCMainDecoder =
-    Decode.message (SCMain ScTest2 "")
+    Decode.message (SCMain GameStepUpdate [] [] [])
         [ Decode.optional 1 sCMainTypeDecoder setType_
-        , Decode.optional 2 Decode.string setTest
+        , Decode.repeated 2 playerDecoder .bulkPlayerUpdate setBulkPlayerUpdate
+        , Decode.repeated 3 bossDecoder .bulkBossUpdate setBulkBossUpdate
+        , Decode.repeated 4 sCBossAbilityDecoder .bossAbilityPerformed setBossAbilityPerformed
         ]
 
 
@@ -126,17 +445,123 @@ sCMainDecoder =
 -- ENCODER
 
 
+toPlayerClassEncoder : PlayerClass -> Encode.Encoder
+toPlayerClassEncoder value =
+    Encode.int32 <|
+        case value of
+            Tank ->
+                0
+
+            Healer ->
+                1
+
+            RangedDps ->
+                2
+
+            MeleeDps ->
+                3
+
+            UnrecognizedPlayerClass_ v ->
+                v
+
+
+toBossTypeEncoder : BossType -> Encode.Encoder
+toBossTypeEncoder value =
+    Encode.int32 <|
+        case value of
+            Mograine ->
+                0
+
+            Thane ->
+                1
+
+            Blaumeux ->
+                2
+
+            Zeliek ->
+                3
+
+            UnrecognizedBossType_ v ->
+                v
+
+
+toCSPlayerActionTypeEncoder : CSPlayerActionType -> Encode.Encoder
+toCSPlayerActionTypeEncoder value =
+    Encode.int32 <|
+        case value of
+            Taunt ->
+                0
+
+            Heal ->
+                1
+
+            RangedAttack ->
+                2
+
+            MeleeAttack ->
+                3
+
+            UnrecognizedCSPlayerActionType_ v ->
+                v
+
+
 toCSMainTypeEncoder : CSMainType -> Encode.Encoder
 toCSMainTypeEncoder value =
     Encode.int32 <|
         case value of
-            CsTest ->
+            PlayerJoin ->
                 0
 
-            CsTest2 ->
+            PlayerMove ->
                 1
 
+            PlayerDirection ->
+                2
+
+            RequestGameStart ->
+                3
+
+            RequestGamePause ->
+                4
+
             UnrecognizedCSMainType_ v ->
+                v
+
+
+toSCGameStateTypeEncoder : SCGameStateType -> Encode.Encoder
+toSCGameStateTypeEncoder value =
+    Encode.int32 <|
+        case value of
+            Lobby ->
+                0
+
+            Running ->
+                1
+
+            Paused ->
+                2
+
+            UnrecognizedSCGameStateType_ v ->
+                v
+
+
+toSCBossAbilityTypeEncoder : SCBossAbilityType -> Encode.Encoder
+toSCBossAbilityTypeEncoder value =
+    Encode.int32 <|
+        case value of
+            RighteousFire ->
+                0
+
+            Meteor ->
+                1
+
+            HolyWrath ->
+                2
+
+            VoidZone ->
+                3
+
+            UnrecognizedSCBossAbilityType_ v ->
                 v
 
 
@@ -144,17 +569,88 @@ toSCMainTypeEncoder : SCMainType -> Encode.Encoder
 toSCMainTypeEncoder value =
     Encode.int32 <|
         case value of
-            ScTest2 ->
+            GameStepUpdate ->
                 0
 
             UnrecognizedSCMainType_ v ->
                 v
 
 
+toVec2Encoder : Vec2 -> Encode.Encoder
+toVec2Encoder model =
+    Encode.message
+        [ ( 1, Encode.float model.positionX )
+        , ( 2, Encode.float model.positionY )
+        ]
+
+
+toDebuffsEncoder : Debuffs -> Encode.Encoder
+toDebuffsEncoder model =
+    Encode.message
+        [ ( 1, Encode.int32 model.markMograine )
+        , ( 2, Encode.int32 model.markThane )
+        , ( 3, Encode.int32 model.markBlaumeux )
+        , ( 4, Encode.int32 model.markZeliek )
+        ]
+
+
+toPlayerEncoder : Player -> Encode.Encoder
+toPlayerEncoder model =
+    Encode.message
+        [ ( 1, Encode.string model.name )
+        , ( 2, toPlayerClassEncoder model.class )
+        , ( 3, Maybe.withDefault Encode.none <| Maybe.map toVec2Encoder model.position )
+        , ( 4, Encode.float model.direction )
+        , ( 5, Maybe.withDefault Encode.none <| Maybe.map toDebuffsEncoder model.debuffs )
+        , ( 10, Encode.int32 model.guid )
+        ]
+
+
+toBossEncoder : Boss -> Encode.Encoder
+toBossEncoder model =
+    Encode.message
+        [ ( 1, toBossTypeEncoder model.type_ )
+        , ( 2, Encode.string model.name )
+        , ( 3, Maybe.withDefault Encode.none <| Maybe.map toVec2Encoder model.position )
+        , ( 4, Encode.float model.direction )
+        , ( 5, Encode.int32 model.currentHp )
+        , ( 6, Encode.int32 model.maxHp )
+        , ( 7, Encode.bool model.isSpirit )
+        , ( 8, Encode.bool model.shieldWallActive )
+        , ( 10, Encode.int32 model.guid )
+        ]
+
+
+toCSPlayerActionEncoder : CSPlayerAction -> Encode.Encoder
+toCSPlayerActionEncoder model =
+    Encode.message
+        [ ( 1, toCSPlayerActionTypeEncoder model.type_ )
+        , ( 2, Encode.int32 model.guidTarget )
+        ]
+
+
 toCSMainEncoder : CSMain -> Encode.Encoder
 toCSMainEncoder model =
     Encode.message
         [ ( 1, toCSMainTypeEncoder model.type_ )
+        , ( 2, Maybe.withDefault Encode.none <| Maybe.map toPlayerEncoder model.playerJoin )
+        , ( 3, Maybe.withDefault Encode.none <| Maybe.map toVec2Encoder model.playerMove )
+        , ( 4, Encode.float model.playerDirection )
+        ]
+
+
+toSCGameStateEncoder : SCGameState -> Encode.Encoder
+toSCGameStateEncoder model =
+    Encode.message
+        [ ( 1, toSCGameStateTypeEncoder model.type_ )
+        ]
+
+
+toSCBossAbilityEncoder : SCBossAbility -> Encode.Encoder
+toSCBossAbilityEncoder model =
+    Encode.message
+        [ ( 1, toSCBossAbilityTypeEncoder model.type_ )
+        , ( 2, Encode.list Encode.int32 model.playerGuidAffected )
         ]
 
 
@@ -162,7 +658,9 @@ toSCMainEncoder : SCMain -> Encode.Encoder
 toSCMainEncoder model =
     Encode.message
         [ ( 1, toSCMainTypeEncoder model.type_ )
-        , ( 2, Encode.string model.test )
+        , ( 2, Encode.list toPlayerEncoder model.bulkPlayerUpdate )
+        , ( 3, Encode.list toBossEncoder model.bulkBossUpdate )
+        , ( 4, Encode.list toSCBossAbilityEncoder model.bossAbilityPerformed )
         ]
 
 
@@ -170,11 +668,126 @@ toSCMainEncoder model =
 -- SETTERS
 
 
+setPositionX : a -> { b | positionX : a } -> { b | positionX : a }
+setPositionX value model =
+    { model | positionX = value }
+
+
+setPositionY : a -> { b | positionY : a } -> { b | positionY : a }
+setPositionY value model =
+    { model | positionY = value }
+
+
+setMarkMograine : a -> { b | markMograine : a } -> { b | markMograine : a }
+setMarkMograine value model =
+    { model | markMograine = value }
+
+
+setMarkThane : a -> { b | markThane : a } -> { b | markThane : a }
+setMarkThane value model =
+    { model | markThane = value }
+
+
+setMarkBlaumeux : a -> { b | markBlaumeux : a } -> { b | markBlaumeux : a }
+setMarkBlaumeux value model =
+    { model | markBlaumeux = value }
+
+
+setMarkZeliek : a -> { b | markZeliek : a } -> { b | markZeliek : a }
+setMarkZeliek value model =
+    { model | markZeliek = value }
+
+
+setName : a -> { b | name : a } -> { b | name : a }
+setName value model =
+    { model | name = value }
+
+
+setClass : a -> { b | class : a } -> { b | class : a }
+setClass value model =
+    { model | class = value }
+
+
+setPosition : a -> { b | position : a } -> { b | position : a }
+setPosition value model =
+    { model | position = value }
+
+
+setDirection : a -> { b | direction : a } -> { b | direction : a }
+setDirection value model =
+    { model | direction = value }
+
+
+setDebuffs : a -> { b | debuffs : a } -> { b | debuffs : a }
+setDebuffs value model =
+    { model | debuffs = value }
+
+
+setGuid : a -> { b | guid : a } -> { b | guid : a }
+setGuid value model =
+    { model | guid = value }
+
+
 setType_ : a -> { b | type_ : a } -> { b | type_ : a }
 setType_ value model =
     { model | type_ = value }
 
 
-setTest : a -> { b | test : a } -> { b | test : a }
-setTest value model =
-    { model | test = value }
+setCurrentHp : a -> { b | currentHp : a } -> { b | currentHp : a }
+setCurrentHp value model =
+    { model | currentHp = value }
+
+
+setMaxHp : a -> { b | maxHp : a } -> { b | maxHp : a }
+setMaxHp value model =
+    { model | maxHp = value }
+
+
+setIsSpirit : a -> { b | isSpirit : a } -> { b | isSpirit : a }
+setIsSpirit value model =
+    { model | isSpirit = value }
+
+
+setShieldWallActive : a -> { b | shieldWallActive : a } -> { b | shieldWallActive : a }
+setShieldWallActive value model =
+    { model | shieldWallActive = value }
+
+
+setGuidTarget : a -> { b | guidTarget : a } -> { b | guidTarget : a }
+setGuidTarget value model =
+    { model | guidTarget = value }
+
+
+setPlayerJoin : a -> { b | playerJoin : a } -> { b | playerJoin : a }
+setPlayerJoin value model =
+    { model | playerJoin = value }
+
+
+setPlayerMove : a -> { b | playerMove : a } -> { b | playerMove : a }
+setPlayerMove value model =
+    { model | playerMove = value }
+
+
+setPlayerDirection : a -> { b | playerDirection : a } -> { b | playerDirection : a }
+setPlayerDirection value model =
+    { model | playerDirection = value }
+
+
+setPlayerGuidAffected : a -> { b | playerGuidAffected : a } -> { b | playerGuidAffected : a }
+setPlayerGuidAffected value model =
+    { model | playerGuidAffected = value }
+
+
+setBulkPlayerUpdate : a -> { b | bulkPlayerUpdate : a } -> { b | bulkPlayerUpdate : a }
+setBulkPlayerUpdate value model =
+    { model | bulkPlayerUpdate = value }
+
+
+setBulkBossUpdate : a -> { b | bulkBossUpdate : a } -> { b | bulkBossUpdate : a }
+setBulkBossUpdate value model =
+    { model | bulkBossUpdate = value }
+
+
+setBossAbilityPerformed : a -> { b | bossAbilityPerformed : a } -> { b | bossAbilityPerformed : a }
+setBossAbilityPerformed value model =
+    { model | bossAbilityPerformed = value }

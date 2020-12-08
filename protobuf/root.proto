@@ -3,22 +3,155 @@ syntax = "proto3";
 package codegen.proto;
 
 
-message CS_Main {
+//
+// Common
+//
+
+enum PlayerClass {
+    TANK = 0;
+    HEALER = 1;
+    RANGED_DPS = 2;
+    MELEE_DPS = 3;
+}
+
+message Vec2 {
+    float position_x = 1;
+    float position_y = 2;
+}
+
+message Debuffs {
+    int32 mark_mograine = 1;
+    int32 mark_thane = 2;
+    int32 mark_blaumeux = 3;
+    int32 mark_zeliek = 4;
+}
+
+message Player {
+    string name = 1;
+    PlayerClass class = 2;
+    Vec2 position = 3;
+    float direction = 4;
+    Debuffs debuffs = 5;
+
+    int32 guid = 10;
+}
+
+message Boss {
     enum Type {
-        CS_TEST = 0;
-        CS_TEST2 = 1;
+        MOGRAINE = 0;
+        THANE = 1;
+        BLAUMEUX = 2;
+        ZELIEK = 3;
     }
 
     Type type = 1;
-    
+    string name = 2;
+    Vec2 position = 3;
+    float direction = 4;
+    int32 current_hp = 5;
+    int32 max_hp = 6;
+    bool is_spirit = 7;
+    bool shield_wall_active = 8;
+
+    int32 guid = 10;
 }
 
 
+//
+// Client -> Server
+//
+
+// Client player requests actions
+message CS_PlayerAction {
+    enum Type {
+        // Tank
+        TAUNT = 0;
+
+        // Healer
+        HEAL = 1;
+
+        // Ranged
+        RANGED_ATTACK = 2;
+
+        // Melee
+        MELEE_ATTACK = 3;
+    }
+
+    Type type = 1;
+
+    int32 guid_target = 2;
+}
+
+// Root client message
+message CS_Main {
+    enum Type {
+        // Client requests to join
+        PLAYER_JOIN = 0;
+
+        // Client requests to move character
+        PLAYER_MOVE = 1;
+        PLAYER_DIRECTION = 2;
+
+        // Admin
+        REQUEST_GAME_START = 3;
+        REQUEST_GAME_PAUSE = 4;
+    }
+
+    Type type = 1;
+    Player player_join = 2;
+    Vec2 player_move = 3;
+    float player_direction = 4;     // Radians
+}
+
+
+//
+// Server -> Client
+//
+
+// Server sends overall game state to client
+message SC_GameState {
+    enum Type {
+        LOBBY = 0;
+        RUNNING = 1;
+        PAUSED = 2;
+    }
+
+    Type type = 1;
+}
+
+// Server sends boss abilities
+message SC_BossAbility {
+    enum Type {
+        // Shield wall is shared - we apply this to the Boss message
+
+        // Mograine
+        RIGHTEOUS_FIRE = 0;
+        
+        // Thane
+        METEOR = 1;
+
+        // Zeliek
+        HOLY_WRATH = 2;
+
+        // Blaumeux
+        VOID_ZONE = 3;
+    }
+
+    Type type = 1;
+
+    repeated int32 player_guid_affected = 2;
+}
+
+// Root server message
 message SC_Main {
     enum Type {
-        SC_TEST2 = 0;
+        GAME_STEP_UPDATE = 0;
     }
     
     Type type = 1;
-    string test = 2;
+    
+    repeated Player bulk_player_update = 2;
+    repeated Boss bulk_boss_update = 3;
+
+    repeated SC_BossAbility boss_ability_performed = 4;
 }

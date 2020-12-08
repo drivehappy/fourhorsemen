@@ -28,7 +28,7 @@ let runWebSocket (webSocket : WebSocket) (context : HttpContext) =
 
                 // Build protobuf
                 let root = new SC_Main()
-                root.Test <- "Test"
+                root.Type <- SC_Main.Types.Type.GameStepUpdate
 
                 let str = UTF8.toString data
                 let response =
