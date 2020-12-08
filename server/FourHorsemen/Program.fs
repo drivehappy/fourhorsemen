@@ -11,6 +11,8 @@ open System.Net
 open System.IO
 open Google.Protobuf
 
+open Codegen.Proto
+
 
 let runWebSocket (webSocket : WebSocket) (context : HttpContext) =
     socket {

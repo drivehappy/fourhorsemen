@@ -1,6 +1,6 @@
-package codegen.proto;
-
 syntax = "proto3";
+
+package codegen.proto;
 
 
 message CS_Main {

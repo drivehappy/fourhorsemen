@@ -1,9 +1,9 @@
 <project>
 
-	<target name="server-codegen" depends="buildtools-init">
+	<target name="server-codegen" depends="buildtools-protoc">
 		<mkdir dir="${server.codegen.dir}"/>
 
-		<exec executable="${buildtools.protoc.dir}/protoc" dir="${protobuf.dir}">
+		<exec executable="${buildtools.protoc.dir}/protoc" dir="${protobuf.dir}" failonerror="true">
 			<arg value="--csharp_out=${server.codegen.dir}"/>
 
 			<arg value="root.proto"/>

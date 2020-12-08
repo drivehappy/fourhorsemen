@@ -4,7 +4,7 @@
         <property name="buildtools.protoc.dir" location="${buildtools.out.dir}/bin"/>
     </target>
 
-    <target name="buildtools-protoc" depends="init">
+    <target name="buildtools-protoc" depends="buildtools-init">
         <unzip src="${buildtools.dir}/protoc-3.14.0-win64.zip" dest="${buildtools.out.dir}"/>
     </target>
 

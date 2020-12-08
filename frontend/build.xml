@@ -1,9 +1,9 @@
 <project>
 
-	<target name="frontend-codegen" depends="buildtools-init">
+	<target name="frontend-codegen" depends="buildtools-protoc">
 		<mkdir dir="${frontend.codegen.dir}"/>
 
-		<exec executable="${buildtools.protoc.dir}/protoc" dir="${protobuf.dir}">
+		<exec executable="${buildtools.protoc.dir}/protoc" dir="${protobuf.dir}" failonerror="true">
 			<arg value="--elm_out=${frontend.codegen.dir}"/>
 
 			<arg value="root.proto"/>
