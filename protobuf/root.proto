@@ -145,7 +145,8 @@ message SC_BossAbility {
 // Root server message
 message SC_Main {
     enum Type {
-        GAME_STEP_UPDATE = 0;
+        INITIAL_STATE = 0;
+        GAME_STEP_UPDATE = 1;
     }
     
     Type type = 1;
@@ -154,4 +155,6 @@ message SC_Main {
     repeated Boss bulk_boss_update = 3;
 
     repeated SC_BossAbility boss_ability_performed = 4;
+
+    string assigned_player_id = 5;
 }

@@ -105,7 +105,8 @@ type SCBossAbilityType
 {-| `SCMainType` enumeration
 -}
 type SCMainType
-    = GameStepUpdate
+    = InitialState
+    | GameStepUpdate
     | SCMainTypeUnrecognized_ Int
 
 
@@ -194,6 +195,7 @@ type alias SCMain =
     , bulkPlayerUpdate : List Player
     , bulkBossUpdate : List Boss
     , bossAbilityPerformed : List SCBossAbility
+    , assignedPlayerId : String
     }
 
 
@@ -346,6 +348,9 @@ sCMainTypeDecoder =
             (\value ->
                 case value of
                     0 ->
+                        InitialState
+
+                    1 ->
                         GameStepUpdate
 
                     v ->
@@ -451,11 +456,12 @@ sCBossAbilityDecoder =
 -}
 sCMainDecoder : Decode.Decoder SCMain
 sCMainDecoder =
-    Decode.message (SCMain GameStepUpdate [] [] [])
+    Decode.message (SCMain InitialState [] [] [] "")
         [ Decode.optional 1 sCMainTypeDecoder setType_
         , Decode.repeated 2 playerDecoder .bulkPlayerUpdate setBulkPlayerUpdate
         , Decode.repeated 3 bossDecoder .bulkBossUpdate setBulkBossUpdate
         , Decode.repeated 4 sCBossAbilityDecoder .bossAbilityPerformed setBossAbilityPerformed
+        , Decode.optional 5 Decode.string setAssignedPlayerId
         ]
 
 
@@ -587,8 +593,11 @@ toSCMainTypeEncoder : SCMainType -> Encode.Encoder
 toSCMainTypeEncoder value =
     Encode.int32 <|
         case value of
-            GameStepUpdate ->
+            InitialState ->
                 0
+
+            GameStepUpdate ->
+                1
 
             SCMainTypeUnrecognized_ v ->
                 v
@@ -697,6 +706,7 @@ toSCMainEncoder model =
         , ( 2, Encode.list toPlayerEncoder model.bulkPlayerUpdate )
         , ( 3, Encode.list toBossEncoder model.bulkBossUpdate )
         , ( 4, Encode.list toSCBossAbilityEncoder model.bossAbilityPerformed )
+        , ( 5, Encode.string model.assignedPlayerId )
         ]
 
 
@@ -827,3 +837,8 @@ setBulkBossUpdate value model =
 setBossAbilityPerformed : a -> { b | bossAbilityPerformed : a } -> { b | bossAbilityPerformed : a }
 setBossAbilityPerformed value model =
     { model | bossAbilityPerformed = value }
+
+
+setAssignedPlayerId : a -> { b | assignedPlayerId : a } -> { b | assignedPlayerId : a }
+setAssignedPlayerId value model =
+    { model | assignedPlayerId = value }

@@ -53,15 +53,16 @@ namespace Codegen.Proto {
             "VVNFRBACIqcBCg5TQ19Cb3NzQWJpbGl0eRIwCgR0eXBlGAEgASgOMiIuY29k",
             "ZWdlbi5wcm90by5TQ19Cb3NzQWJpbGl0eS5UeXBlEhwKFHBsYXllcl9ndWlk",
             "X2FmZmVjdGVkGAIgAygFIkUKBFR5cGUSEgoOUklHSFRFT1VTX0ZJUkUQABIK",
-            "CgZNRVRFT1IQARIOCgpIT0xZX1dSQVRIEAISDQoJVk9JRF9aT05FEAMi8wEK",
+            "CgZNRVRFT1IQARIOCgpIT0xZX1dSQVRIEAISDQoJVk9JRF9aT05FEAMiogIK",
             "B1NDX01haW4SKQoEdHlwZRgBIAEoDjIbLmNvZGVnZW4ucHJvdG8uU0NfTWFp",
             "bi5UeXBlEjEKEmJ1bGtfcGxheWVyX3VwZGF0ZRgCIAMoCzIVLmNvZGVnZW4u",
             "cHJvdG8uUGxheWVyEi0KEGJ1bGtfYm9zc191cGRhdGUYAyADKAsyEy5jb2Rl",
             "Z2VuLnByb3RvLkJvc3MSPQoWYm9zc19hYmlsaXR5X3BlcmZvcm1lZBgEIAMo",
-            "CzIdLmNvZGVnZW4ucHJvdG8uU0NfQm9zc0FiaWxpdHkiHAoEVHlwZRIUChBH",
-            "QU1FX1NURVBfVVBEQVRFEAAqQgoLUGxheWVyQ2xhc3MSCAoEVEFOSxAAEgoK",
-            "BkhFQUxFUhABEg4KClJBTkdFRF9EUFMQAhINCglNRUxFRV9EUFMQA2IGcHJv",
-            "dG8z"));
+            "CzIdLmNvZGVnZW4ucHJvdG8uU0NfQm9zc0FiaWxpdHkSGgoSYXNzaWduZWRf",
+            "cGxheWVyX2lkGAUgASgJIi8KBFR5cGUSEQoNSU5JVElBTF9TVEFURRAAEhQK",
+            "EEdBTUVfU1RFUF9VUERBVEUQASpCCgtQbGF5ZXJDbGFzcxIICgRUQU5LEAAS",
+            "CgoGSEVBTEVSEAESDgoKUkFOR0VEX0RQUxACEg0KCU1FTEVFX0RQUxADYgZw",
+            "cm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Codegen.Proto.PlayerClass), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -73,7 +74,7 @@ namespace Codegen.Proto {
             new pbr::GeneratedClrTypeInfo(typeof(global::Codegen.Proto.CS_Main), global::Codegen.Proto.CS_Main.Parser, new[]{ "Type", "PlayerJoin", "PlayerMove", "PlayerDirection" }, null, new[]{ typeof(global::Codegen.Proto.CS_Main.Types.Type) }, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Codegen.Proto.SC_GameState), global::Codegen.Proto.SC_GameState.Parser, new[]{ "Type" }, null, new[]{ typeof(global::Codegen.Proto.SC_GameState.Types.Type) }, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Codegen.Proto.SC_BossAbility), global::Codegen.Proto.SC_BossAbility.Parser, new[]{ "Type", "PlayerGuidAffected" }, null, new[]{ typeof(global::Codegen.Proto.SC_BossAbility.Types.Type) }, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Codegen.Proto.SC_Main), global::Codegen.Proto.SC_Main.Parser, new[]{ "Type", "BulkPlayerUpdate", "BulkBossUpdate", "BossAbilityPerformed" }, null, new[]{ typeof(global::Codegen.Proto.SC_Main.Types.Type) }, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Codegen.Proto.SC_Main), global::Codegen.Proto.SC_Main.Parser, new[]{ "Type", "BulkPlayerUpdate", "BulkBossUpdate", "BossAbilityPerformed", "AssignedPlayerId" }, null, new[]{ typeof(global::Codegen.Proto.SC_Main.Types.Type) }, null, null)
           }));
     }
     #endregion
@@ -2451,6 +2452,7 @@ namespace Codegen.Proto {
       bulkPlayerUpdate_ = other.bulkPlayerUpdate_.Clone();
       bulkBossUpdate_ = other.bulkBossUpdate_.Clone();
       bossAbilityPerformed_ = other.bossAbilityPerformed_.Clone();
+      assignedPlayerId_ = other.assignedPlayerId_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -2461,7 +2463,7 @@ namespace Codegen.Proto {
 
     /// <summary>Field number for the "type" field.</summary>
     public const int TypeFieldNumber = 1;
-    private global::Codegen.Proto.SC_Main.Types.Type type_ = global::Codegen.Proto.SC_Main.Types.Type.GameStepUpdate;
+    private global::Codegen.Proto.SC_Main.Types.Type type_ = global::Codegen.Proto.SC_Main.Types.Type.InitialState;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public global::Codegen.Proto.SC_Main.Types.Type Type {
       get { return type_; }
@@ -2500,6 +2502,17 @@ namespace Codegen.Proto {
       get { return bossAbilityPerformed_; }
     }
 
+    /// <summary>Field number for the "assigned_player_id" field.</summary>
+    public const int AssignedPlayerIdFieldNumber = 5;
+    private string assignedPlayerId_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string AssignedPlayerId {
+      get { return assignedPlayerId_; }
+      set {
+        assignedPlayerId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
       return Equals(other as SC_Main);
@@ -2517,16 +2530,18 @@ namespace Codegen.Proto {
       if(!bulkPlayerUpdate_.Equals(other.bulkPlayerUpdate_)) return false;
       if(!bulkBossUpdate_.Equals(other.bulkBossUpdate_)) return false;
       if(!bossAbilityPerformed_.Equals(other.bossAbilityPerformed_)) return false;
+      if (AssignedPlayerId != other.AssignedPlayerId) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
-      if (Type != global::Codegen.Proto.SC_Main.Types.Type.GameStepUpdate) hash ^= Type.GetHashCode();
+      if (Type != global::Codegen.Proto.SC_Main.Types.Type.InitialState) hash ^= Type.GetHashCode();
       hash ^= bulkPlayerUpdate_.GetHashCode();
       hash ^= bulkBossUpdate_.GetHashCode();
       hash ^= bossAbilityPerformed_.GetHashCode();
+      if (AssignedPlayerId.Length != 0) hash ^= AssignedPlayerId.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -2543,13 +2558,17 @@ namespace Codegen.Proto {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (Type != global::Codegen.Proto.SC_Main.Types.Type.GameStepUpdate) {
+      if (Type != global::Codegen.Proto.SC_Main.Types.Type.InitialState) {
         output.WriteRawTag(8);
         output.WriteEnum((int) Type);
       }
       bulkPlayerUpdate_.WriteTo(output, _repeated_bulkPlayerUpdate_codec);
       bulkBossUpdate_.WriteTo(output, _repeated_bulkBossUpdate_codec);
       bossAbilityPerformed_.WriteTo(output, _repeated_bossAbilityPerformed_codec);
+      if (AssignedPlayerId.Length != 0) {
+        output.WriteRawTag(42);
+        output.WriteString(AssignedPlayerId);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -2559,13 +2578,17 @@ namespace Codegen.Proto {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (Type != global::Codegen.Proto.SC_Main.Types.Type.GameStepUpdate) {
+      if (Type != global::Codegen.Proto.SC_Main.Types.Type.InitialState) {
         output.WriteRawTag(8);
         output.WriteEnum((int) Type);
       }
       bulkPlayerUpdate_.WriteTo(ref output, _repeated_bulkPlayerUpdate_codec);
       bulkBossUpdate_.WriteTo(ref output, _repeated_bulkBossUpdate_codec);
       bossAbilityPerformed_.WriteTo(ref output, _repeated_bossAbilityPerformed_codec);
+      if (AssignedPlayerId.Length != 0) {
+        output.WriteRawTag(42);
+        output.WriteString(AssignedPlayerId);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -2575,12 +2598,15 @@ namespace Codegen.Proto {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
-      if (Type != global::Codegen.Proto.SC_Main.Types.Type.GameStepUpdate) {
+      if (Type != global::Codegen.Proto.SC_Main.Types.Type.InitialState) {
         size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Type);
       }
       size += bulkPlayerUpdate_.CalculateSize(_repeated_bulkPlayerUpdate_codec);
       size += bulkBossUpdate_.CalculateSize(_repeated_bulkBossUpdate_codec);
       size += bossAbilityPerformed_.CalculateSize(_repeated_bossAbilityPerformed_codec);
+      if (AssignedPlayerId.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(AssignedPlayerId);
+      }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -2592,12 +2618,15 @@ namespace Codegen.Proto {
       if (other == null) {
         return;
       }
-      if (other.Type != global::Codegen.Proto.SC_Main.Types.Type.GameStepUpdate) {
+      if (other.Type != global::Codegen.Proto.SC_Main.Types.Type.InitialState) {
         Type = other.Type;
       }
       bulkPlayerUpdate_.Add(other.bulkPlayerUpdate_);
       bulkBossUpdate_.Add(other.bulkBossUpdate_);
       bossAbilityPerformed_.Add(other.bossAbilityPerformed_);
+      if (other.AssignedPlayerId.Length != 0) {
+        AssignedPlayerId = other.AssignedPlayerId;
+      }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -2626,6 +2655,10 @@ namespace Codegen.Proto {
           }
           case 34: {
             bossAbilityPerformed_.AddEntriesFrom(input, _repeated_bossAbilityPerformed_codec);
+            break;
+          }
+          case 42: {
+            AssignedPlayerId = input.ReadString();
             break;
           }
         }
@@ -2658,6 +2691,10 @@ namespace Codegen.Proto {
             bossAbilityPerformed_.AddEntriesFrom(ref input, _repeated_bossAbilityPerformed_codec);
             break;
           }
+          case 42: {
+            AssignedPlayerId = input.ReadString();
+            break;
+          }
         }
       }
     }
@@ -2668,7 +2705,8 @@ namespace Codegen.Proto {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static partial class Types {
       public enum Type {
-        [pbr::OriginalName("GAME_STEP_UPDATE")] GameStepUpdate = 0,
+        [pbr::OriginalName("INITIAL_STATE")] InitialState = 0,
+        [pbr::OriginalName("GAME_STEP_UPDATE")] GameStepUpdate = 1,
       }
 
     }

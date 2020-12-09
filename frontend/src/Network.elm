@@ -47,6 +47,12 @@ handleServerData pbSCMain =
             -- TODO: log?
             Cmd.none
 
+        InitialState ->
+            let
+                i = Debug.log "Received server initial state" pbSCMain.assignedPlayerId
+            in
+            Cmd.none
+
         GameStepUpdate ->
             Debug.log "Received server game step update" Cmd.none
 

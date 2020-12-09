@@ -48,15 +48,20 @@ function startWebsocketConnection(url) {
         })
 }
 
+// Taken from: https://stackoverflow.com/a/9458996
+function _arrayBufferToBase64( buffer ) {
+    var binary = '';
+    var bytes = new Uint8Array( buffer );
+    var len = bytes.byteLength;
+    for (var i = 0; i < len; i++) {
+        binary += String.fromCharCode( bytes[ i ] );
+    }
+    return window.btoa( binary );
+}
 
 function createReceiveEvent(socket) {
-    // ArrayBuffer to string helper
-    function ab2str(buf) {
-        return String.fromCharCode.apply(null, new Uint16Array(buf));
-    }
-
     socket.onmessage = function (msgEvent) {
-        let base64Data = btoa(ab2str(msgEvent.data));
+        let base64Data = _arrayBufferToBase64(msgEvent.data);
         app.ports.wsReceivedMsg.send(base64Data);
     }
     socket.onclose = function (msgEvent) {
