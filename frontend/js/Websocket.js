@@ -48,11 +48,16 @@ function startWebsocketConnection(url) {
         })
 }
 
+
 function createReceiveEvent(socket) {
+    // ArrayBuffer to string helper
+    function ab2str(buf) {
+        return String.fromCharCode.apply(null, new Uint16Array(buf));
+    }
+
     socket.onmessage = function (msgEvent) {
-        let base64Data = btoa(msgEvent.data);
+        let base64Data = btoa(ab2str(msgEvent.data));
         app.ports.wsReceivedMsg.send(base64Data);
-        //deserializeMessage(msgEvent)
     }
     socket.onclose = function (msgEvent) {
         app.ports.wsDisconnected.send("TODO");

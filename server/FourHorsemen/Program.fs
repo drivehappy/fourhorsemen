@@ -98,7 +98,30 @@ let runWebSocket (webSocket : WebSocket) (context : HttpContext) =
                     printfn "Received unknown request from client: %A" pbCSMain.Request
                 *)
 
-                printfn "Received binary data from client: %A" data
+                //printfn "Received binary data from client: %A" data
+
+                let csMain =
+                    try
+                        data
+                        |> CS_Main.Parser.ParseFrom
+                        |> Some
+                    with
+                    | e ->
+                        None
+
+                printfn "Received data: %A" csMain
+
+                // Test send back a game step
+                let root = new SC_Main()
+                root.Type <- SC_Main.Types.Type.GameStepUpdate
+
+                let response =
+                    root.ToByteArray()
+                    |> ByteSegment
+
+                printfn "Sending size: %i" (root.ToByteArray().Length)
+
+                do! webSocket.send Binary response true
 
             | (Close, _, _) ->
                 printfn "Client closed"

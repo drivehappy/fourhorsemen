@@ -11,11 +11,11 @@ module Codegen.Proto exposing
 
 This module was generated automatically using
 
-  - [`protoc-gen-elm`](https://www.npmjs.com/package/protoc-gen-elm) 1.0.0-beta-1
-  - [`elm-protocol-buffers`](https://package.elm-lang.org/packages/eriktim/elm-protocol-buffers/1.0.0) 1.0.0
+  - [`protoc-gen-elm`](https://www.npmjs.com/package/protoc-gen-elm) 1.0.0-beta-2
   - `protoc` 3.14.0
-  - the following specification file:
-      - `root.proto`
+  - the following specification file: `root.proto`
+
+To run it use [`elm-protocol-buffers`](https://package.elm-lang.org/packages/eriktim/elm-protocol-buffers/1.1.0) version 1.1.0 or higher.
 
 
 # Model
@@ -42,37 +42,37 @@ import Protobuf.Encode as Encode
 -- MODEL
 
 
-{-| PlayerClass
+{-| `PlayerClass` enumeration
 -}
 type PlayerClass
     = Tank
     | Healer
     | RangedDps
     | MeleeDps
-    | UnrecognizedPlayerClass_ Int
+    | PlayerClassUnrecognized_ Int
 
 
-{-| BossType
+{-| `BossType` enumeration
 -}
 type BossType
     = Mograine
     | Thane
     | Blaumeux
     | Zeliek
-    | UnrecognizedBossType_ Int
+    | BossTypeUnrecognized_ Int
 
 
-{-| CSPlayerActionType
+{-| `CSPlayerActionType` enumeration
 -}
 type CSPlayerActionType
     = Taunt
     | Heal
     | RangedAttack
     | MeleeAttack
-    | UnrecognizedCSPlayerActionType_ Int
+    | CSPlayerActionTypeUnrecognized_ Int
 
 
-{-| CSMainType
+{-| `CSMainType` enumeration
 -}
 type CSMainType
     = PlayerJoin
@@ -80,36 +80,36 @@ type CSMainType
     | PlayerDirection
     | RequestGameStart
     | RequestGamePause
-    | UnrecognizedCSMainType_ Int
+    | CSMainTypeUnrecognized_ Int
 
 
-{-| SCGameStateType
+{-| `SCGameStateType` enumeration
 -}
 type SCGameStateType
     = Lobby
     | Running
     | Paused
-    | UnrecognizedSCGameStateType_ Int
+    | SCGameStateTypeUnrecognized_ Int
 
 
-{-| SCBossAbilityType
+{-| `SCBossAbilityType` enumeration
 -}
 type SCBossAbilityType
     = RighteousFire
     | Meteor
     | HolyWrath
     | VoidZone
-    | UnrecognizedSCBossAbilityType_ Int
+    | SCBossAbilityTypeUnrecognized_ Int
 
 
-{-| SCMainType
+{-| `SCMainType` enumeration
 -}
 type SCMainType
     = GameStepUpdate
-    | UnrecognizedSCMainType_ Int
+    | SCMainTypeUnrecognized_ Int
 
 
-{-| Vec2
+{-| `Vec2` message
 -}
 type alias Vec2 =
     { positionX : Float
@@ -117,7 +117,7 @@ type alias Vec2 =
     }
 
 
-{-| Debuffs
+{-| `Debuffs` message
 -}
 type alias Debuffs =
     { markMograine : Int
@@ -127,7 +127,7 @@ type alias Debuffs =
     }
 
 
-{-| Player
+{-| `Player` message
 -}
 type alias Player =
     { name : String
@@ -139,7 +139,7 @@ type alias Player =
     }
 
 
-{-| Boss
+{-| `Boss` message
 -}
 type alias Boss =
     { type_ : BossType
@@ -154,7 +154,7 @@ type alias Boss =
     }
 
 
-{-| CSPlayerAction
+{-| `CSPlayerAction` message
 -}
 type alias CSPlayerAction =
     { type_ : CSPlayerActionType
@@ -162,7 +162,7 @@ type alias CSPlayerAction =
     }
 
 
-{-| CSMain
+{-| `CSMain` message
 -}
 type alias CSMain =
     { type_ : CSMainType
@@ -172,14 +172,14 @@ type alias CSMain =
     }
 
 
-{-| SCGameState
+{-| `SCGameState` message
 -}
 type alias SCGameState =
     { type_ : SCGameStateType
     }
 
 
-{-| SCBossAbility
+{-| `SCBossAbility` message
 -}
 type alias SCBossAbility =
     { type_ : SCBossAbilityType
@@ -187,7 +187,7 @@ type alias SCBossAbility =
     }
 
 
-{-| SCMain
+{-| `SCMain` message
 -}
 type alias SCMain =
     { type_ : SCMainType
@@ -220,7 +220,7 @@ playerClassDecoder =
                         MeleeDps
 
                     v ->
-                        UnrecognizedPlayerClass_ v
+                        PlayerClassUnrecognized_ v
             )
 
 
@@ -243,7 +243,7 @@ bossTypeDecoder =
                         Zeliek
 
                     v ->
-                        UnrecognizedBossType_ v
+                        BossTypeUnrecognized_ v
             )
 
 
@@ -266,7 +266,7 @@ cSPlayerActionTypeDecoder =
                         MeleeAttack
 
                     v ->
-                        UnrecognizedCSPlayerActionType_ v
+                        CSPlayerActionTypeUnrecognized_ v
             )
 
 
@@ -292,7 +292,7 @@ cSMainTypeDecoder =
                         RequestGamePause
 
                     v ->
-                        UnrecognizedCSMainType_ v
+                        CSMainTypeUnrecognized_ v
             )
 
 
@@ -312,7 +312,7 @@ sCGameStateTypeDecoder =
                         Paused
 
                     v ->
-                        UnrecognizedSCGameStateType_ v
+                        SCGameStateTypeUnrecognized_ v
             )
 
 
@@ -335,7 +335,7 @@ sCBossAbilityTypeDecoder =
                         VoidZone
 
                     v ->
-                        UnrecognizedSCBossAbilityType_ v
+                        SCBossAbilityTypeUnrecognized_ v
             )
 
 
@@ -349,10 +349,12 @@ sCMainTypeDecoder =
                         GameStepUpdate
 
                     v ->
-                        UnrecognizedSCMainType_ v
+                        SCMainTypeUnrecognized_ v
             )
 
 
+{-| `Vec2` decoder
+-}
 vec2Decoder : Decode.Decoder Vec2
 vec2Decoder =
     Decode.message (Vec2 0 0)
@@ -361,6 +363,8 @@ vec2Decoder =
         ]
 
 
+{-| `Debuffs` decoder
+-}
 debuffsDecoder : Decode.Decoder Debuffs
 debuffsDecoder =
     Decode.message (Debuffs 0 0 0 0)
@@ -371,6 +375,8 @@ debuffsDecoder =
         ]
 
 
+{-| `Player` decoder
+-}
 playerDecoder : Decode.Decoder Player
 playerDecoder =
     Decode.message (Player "" Tank Nothing 0 Nothing 0)
@@ -383,6 +389,8 @@ playerDecoder =
         ]
 
 
+{-| `Boss` decoder
+-}
 bossDecoder : Decode.Decoder Boss
 bossDecoder =
     Decode.message (Boss Mograine "" Nothing 0 0 0 False False 0)
@@ -398,6 +406,8 @@ bossDecoder =
         ]
 
 
+{-| `CSPlayerAction` decoder
+-}
 cSPlayerActionDecoder : Decode.Decoder CSPlayerAction
 cSPlayerActionDecoder =
     Decode.message (CSPlayerAction Taunt 0)
@@ -406,6 +416,8 @@ cSPlayerActionDecoder =
         ]
 
 
+{-| `CSMain` decoder
+-}
 cSMainDecoder : Decode.Decoder CSMain
 cSMainDecoder =
     Decode.message (CSMain PlayerJoin Nothing Nothing 0)
@@ -416,6 +428,8 @@ cSMainDecoder =
         ]
 
 
+{-| `SCGameState` decoder
+-}
 sCGameStateDecoder : Decode.Decoder SCGameState
 sCGameStateDecoder =
     Decode.message (SCGameState Lobby)
@@ -423,6 +437,8 @@ sCGameStateDecoder =
         ]
 
 
+{-| `SCBossAbility` decoder
+-}
 sCBossAbilityDecoder : Decode.Decoder SCBossAbility
 sCBossAbilityDecoder =
     Decode.message (SCBossAbility RighteousFire [])
@@ -431,6 +447,8 @@ sCBossAbilityDecoder =
         ]
 
 
+{-| `SCMain` decoder
+-}
 sCMainDecoder : Decode.Decoder SCMain
 sCMainDecoder =
     Decode.message (SCMain GameStepUpdate [] [] [])
@@ -461,7 +479,7 @@ toPlayerClassEncoder value =
             MeleeDps ->
                 3
 
-            UnrecognizedPlayerClass_ v ->
+            PlayerClassUnrecognized_ v ->
                 v
 
 
@@ -481,7 +499,7 @@ toBossTypeEncoder value =
             Zeliek ->
                 3
 
-            UnrecognizedBossType_ v ->
+            BossTypeUnrecognized_ v ->
                 v
 
 
@@ -501,7 +519,7 @@ toCSPlayerActionTypeEncoder value =
             MeleeAttack ->
                 3
 
-            UnrecognizedCSPlayerActionType_ v ->
+            CSPlayerActionTypeUnrecognized_ v ->
                 v
 
 
@@ -524,7 +542,7 @@ toCSMainTypeEncoder value =
             RequestGamePause ->
                 4
 
-            UnrecognizedCSMainType_ v ->
+            CSMainTypeUnrecognized_ v ->
                 v
 
 
@@ -541,7 +559,7 @@ toSCGameStateTypeEncoder value =
             Paused ->
                 2
 
-            UnrecognizedSCGameStateType_ v ->
+            SCGameStateTypeUnrecognized_ v ->
                 v
 
 
@@ -561,7 +579,7 @@ toSCBossAbilityTypeEncoder value =
             VoidZone ->
                 3
 
-            UnrecognizedSCBossAbilityType_ v ->
+            SCBossAbilityTypeUnrecognized_ v ->
                 v
 
 
@@ -572,10 +590,12 @@ toSCMainTypeEncoder value =
             GameStepUpdate ->
                 0
 
-            UnrecognizedSCMainType_ v ->
+            SCMainTypeUnrecognized_ v ->
                 v
 
 
+{-| `Vec2` encoder
+-}
 toVec2Encoder : Vec2 -> Encode.Encoder
 toVec2Encoder model =
     Encode.message
@@ -584,6 +604,8 @@ toVec2Encoder model =
         ]
 
 
+{-| `Debuffs` encoder
+-}
 toDebuffsEncoder : Debuffs -> Encode.Encoder
 toDebuffsEncoder model =
     Encode.message
@@ -594,24 +616,28 @@ toDebuffsEncoder model =
         ]
 
 
+{-| `Player` encoder
+-}
 toPlayerEncoder : Player -> Encode.Encoder
 toPlayerEncoder model =
     Encode.message
         [ ( 1, Encode.string model.name )
         , ( 2, toPlayerClassEncoder model.class )
-        , ( 3, Maybe.withDefault Encode.none <| Maybe.map toVec2Encoder model.position )
+        , ( 3, (Maybe.withDefault Encode.none << Maybe.map toVec2Encoder) model.position )
         , ( 4, Encode.float model.direction )
-        , ( 5, Maybe.withDefault Encode.none <| Maybe.map toDebuffsEncoder model.debuffs )
+        , ( 5, (Maybe.withDefault Encode.none << Maybe.map toDebuffsEncoder) model.debuffs )
         , ( 10, Encode.int32 model.guid )
         ]
 
 
+{-| `Boss` encoder
+-}
 toBossEncoder : Boss -> Encode.Encoder
 toBossEncoder model =
     Encode.message
         [ ( 1, toBossTypeEncoder model.type_ )
         , ( 2, Encode.string model.name )
-        , ( 3, Maybe.withDefault Encode.none <| Maybe.map toVec2Encoder model.position )
+        , ( 3, (Maybe.withDefault Encode.none << Maybe.map toVec2Encoder) model.position )
         , ( 4, Encode.float model.direction )
         , ( 5, Encode.int32 model.currentHp )
         , ( 6, Encode.int32 model.maxHp )
@@ -621,6 +647,8 @@ toBossEncoder model =
         ]
 
 
+{-| `CSPlayerAction` encoder
+-}
 toCSPlayerActionEncoder : CSPlayerAction -> Encode.Encoder
 toCSPlayerActionEncoder model =
     Encode.message
@@ -629,16 +657,20 @@ toCSPlayerActionEncoder model =
         ]
 
 
+{-| `CSMain` encoder
+-}
 toCSMainEncoder : CSMain -> Encode.Encoder
 toCSMainEncoder model =
     Encode.message
         [ ( 1, toCSMainTypeEncoder model.type_ )
-        , ( 2, Maybe.withDefault Encode.none <| Maybe.map toPlayerEncoder model.playerJoin )
-        , ( 3, Maybe.withDefault Encode.none <| Maybe.map toVec2Encoder model.playerMove )
+        , ( 2, (Maybe.withDefault Encode.none << Maybe.map toPlayerEncoder) model.playerJoin )
+        , ( 3, (Maybe.withDefault Encode.none << Maybe.map toVec2Encoder) model.playerMove )
         , ( 4, Encode.float model.playerDirection )
         ]
 
 
+{-| `SCGameState` encoder
+-}
 toSCGameStateEncoder : SCGameState -> Encode.Encoder
 toSCGameStateEncoder model =
     Encode.message
@@ -646,6 +678,8 @@ toSCGameStateEncoder model =
         ]
 
 
+{-| `SCBossAbility` encoder
+-}
 toSCBossAbilityEncoder : SCBossAbility -> Encode.Encoder
 toSCBossAbilityEncoder model =
     Encode.message
@@ -654,6 +688,8 @@ toSCBossAbilityEncoder model =
         ]
 
 
+{-| `SCMain` encoder
+-}
 toSCMainEncoder : SCMain -> Encode.Encoder
 toSCMainEncoder model =
     Encode.message

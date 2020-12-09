@@ -12,14 +12,16 @@ import GameView exposing (..)
 import Message exposing (..)
 import Model exposing (..)
 import WebsocketPort exposing (..)
+import Network exposing (..)
 
 import Bytes exposing (..)
 import Bytes.Decode as BD
+import Bytes.Encode as BE
 import Base64
 import Protobuf.Decode as PBDecode
 import Protobuf.Encode as PBEncode
 
-import Proto exposing (..)
+import Codegen.Proto as PB exposing (..)
 
 
 
@@ -48,8 +50,12 @@ update msg model =
             (model, wsConnect url)
 
         WebsocketConnected s ->
+            let
+                pbCSMain : PB.CSMain
+                pbCSMain = buildDefaultCSMain PlayerJoin
+            in
             ( { isConnected = True }
-            , wsSend "Hello Server"
+            , sendWebsocketData pbCSMain
             )
 
         WebsocketClosed s ->
@@ -59,26 +65,14 @@ update msg model =
 
         WebsocketDataReceived d ->
             let
-                -- Base64 decode string data
-                result : Maybe Bytes
-                result = Base64.toBytes d
-
                 newCmd =
-                    result
-                        -- |> Maybe.andThen (\bytes -> BD.decode (BD.string (Bytes.width bytes)) bytes)
-                        |> Maybe.map (\data ->
-                            -- TODO decode Protobuf here
-                            let
-                                pbSCMain =
-                                    PBDecode.decode Proto.sCMainDecoder data
-
-                                i = Debug.log "Elm Data Received" pbSCMain
-                            in
-                            Cmd.none
-                        )
-                        |> Maybe.withDefault Cmd.none
+                    d
+                    |> receiveWebsocketData
+                    |> Maybe.map handleServerData
+                    |> Maybe.withDefault
             in
-            (model, newCmd)
+            --(model, newCmd)
+            (model, Cmd.none)
 
         WebsocketError e ->
             let
