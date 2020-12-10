@@ -2,6 +2,7 @@
 
 open Entity
 open Player
+open System
 
 
 type MonsterType =
@@ -12,6 +13,7 @@ type MonsterType =
 
 type Monster = {
     name : string
+    networkClientId : string
     type_ : MonsterType
     direction : float32   // Radians
     position : Vec2
@@ -34,8 +36,9 @@ let markRange = 65.0f   // 65-70 yards?'
 let initMarkTimer = 75.0<milli second>
 
 
-let mograine = {
+let initMograine = {
     name = "Mograine"
+    networkClientId = Guid.NewGuid().ToString()
     type_ = Mograine
     direction = 0.0f
     position = { x = 0.0f; y = 0.0f }
@@ -51,8 +54,9 @@ let mograine = {
     threat = []
 }
 
-let thane = {
+let initThane = {
     name = "Thane"
+    networkClientId = Guid.NewGuid().ToString()
     type_ = Thane
     direction = 0.0f
     position = { x = 0.0f; y = 0.0f }
@@ -68,8 +72,9 @@ let thane = {
     threat = []
 }
 
-let zeliek = {
+let initZeliek = {
     name = "Zeliek"
+    networkClientId = Guid.NewGuid().ToString()
     type_ = Zeliek
     direction = 0.0f
     position = { x = 0.0f; y = 0.0f }
@@ -85,8 +90,9 @@ let zeliek = {
     threat = []
 }
 
-let blaumeux = {
+let initBlaumeux = {
     name = "Blaumeux"
+    networkClientId = Guid.NewGuid().ToString()
     type_ = Blaumeux
     direction = 0.0f
     position = { x = 0.0f; y = 0.0f }

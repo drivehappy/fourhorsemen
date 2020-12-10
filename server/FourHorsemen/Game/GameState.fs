@@ -1,6 +1,7 @@
 ﻿module GameState
 
 open World
+open Monster
 open Player
 open System.Diagnostics
 
@@ -14,9 +15,13 @@ let removePlayerFromWorldState (worldState : World) (player : Player.Player) : W
     { worldState with players = newPlayers }
 
 //
+type NetworkClientId = string
+
+//
 type PlayerAction =
-    | PlayerSetName of string
-    | PlayerMove
+    | PlayerSetName of (NetworkClientId * string)
+    | PlayerMove of NetworkClientId
+    | PlayerAttack of NetworkClientId
 
 
 //
@@ -26,6 +31,24 @@ type GameStateMsg =
     | RunPlayerAction of PlayerAction
     | RunGameStep of float              // dt
     | RegisterBroadcast of (World -> Async<unit>)
+
+
+//
+let runAI (monsters : Monster[]) : Monster[] =
+    monsters
+    |> Array.map (fun b ->
+        let healthPercent = (float32 b.curHealth) / (float32 b.maxHealth)
+        
+        // Check shield wall states
+        if healthPercent < 0.50f && not b.shieldWall50Used then
+            // TODO: Use ShieldWall 50%
+            ()
+        elif healthPercent < 0.20f && not b.shieldWall20Used then
+            // TODO: Use ShieldWall 20%
+            ()
+
+        b
+    )
 
 
 //
@@ -53,19 +76,25 @@ let gameState () =
                     return! loop newWorld broadcast
 
                 | RunPlayerAction action ->
+                    // TODO
+
                     return! loop worldState broadcast
 
                 | RunGameStep dt ->
                     printfn "Game step: %f" dt
 
-                    // Broadcast the world state to our clients
+                    // Run AI updates
+                    let newBosses = runAI worldState.bosses
+                    let newWorldState = { worldState with bosses = newBosses }
+
+                    // Finally, broadcast the world state to our clients
                     broadcast
                     |> Option.iter (fun b ->
-                        b worldState
+                        b newWorldState
                         |> Async.StartImmediate
                     )
 
-                    return! loop worldState broadcast
+                    return! loop newWorldState broadcast
 
                 | RegisterBroadcast f ->
                     return! loop worldState (Some f)

@@ -31,12 +31,12 @@ namespace Codegen.Proto {
             "YXllchIMCgRuYW1lGAEgASgJEikKBWNsYXNzGAIgASgOMhouY29kZWdlbi5w",
             "cm90by5QbGF5ZXJDbGFzcxIlCghwb3NpdGlvbhgDIAEoCzITLmNvZGVnZW4u",
             "cHJvdG8uVmVjMhIRCglkaXJlY3Rpb24YBCABKAISJwoHZGVidWZmcxgFIAEo",
-            "CzIWLmNvZGVnZW4ucHJvdG8uRGVidWZmcxIMCgRndWlkGAogASgFIpICCgRC",
+            "CzIWLmNvZGVnZW4ucHJvdG8uRGVidWZmcxIMCgRndWlkGAogASgJIpICCgRC",
             "b3NzEiYKBHR5cGUYASABKA4yGC5jb2RlZ2VuLnByb3RvLkJvc3MuVHlwZRIM",
             "CgRuYW1lGAIgASgJEiUKCHBvc2l0aW9uGAMgASgLMhMuY29kZWdlbi5wcm90",
             "by5WZWMyEhEKCWRpcmVjdGlvbhgEIAEoAhISCgpjdXJyZW50X2hwGAUgASgF",
             "Eg4KBm1heF9ocBgGIAEoBRIRCglpc19zcGlyaXQYByABKAgSGgoSc2hpZWxk",
-            "X3dhbGxfYWN0aXZlGAggASgIEgwKBGd1aWQYCiABKAUiOQoEVHlwZRIMCghN",
+            "X3dhbGxfYWN0aXZlGAggASgIEgwKBGd1aWQYCiABKAkiOQoEVHlwZRIMCghN",
             "T0dSQUlORRAAEgkKBVRIQU5FEAESDAoIQkxBVU1FVVgQAhIKCgZaRUxJRUsQ",
             "AyInChBDU19OZXdQbGF5ZXJKb2luEhMKC3BsYXllcl9uYW1lGAEgASgJIpsB",
             "Cg9DU19QbGF5ZXJBY3Rpb24SMQoEdHlwZRgBIAEoDjIjLmNvZGVnZW4ucHJv",
@@ -681,12 +681,12 @@ namespace Codegen.Proto {
 
     /// <summary>Field number for the "guid" field.</summary>
     public const int GuidFieldNumber = 10;
-    private int guid_;
+    private string guid_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int Guid {
+    public string Guid {
       get { return guid_; }
       set {
-        guid_ = value;
+        guid_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
       }
     }
 
@@ -720,7 +720,7 @@ namespace Codegen.Proto {
       if (position_ != null) hash ^= Position.GetHashCode();
       if (Direction != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Direction);
       if (debuffs_ != null) hash ^= Debuffs.GetHashCode();
-      if (Guid != 0) hash ^= Guid.GetHashCode();
+      if (Guid.Length != 0) hash ^= Guid.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -757,9 +757,9 @@ namespace Codegen.Proto {
         output.WriteRawTag(42);
         output.WriteMessage(Debuffs);
       }
-      if (Guid != 0) {
-        output.WriteRawTag(80);
-        output.WriteInt32(Guid);
+      if (Guid.Length != 0) {
+        output.WriteRawTag(82);
+        output.WriteString(Guid);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -790,9 +790,9 @@ namespace Codegen.Proto {
         output.WriteRawTag(42);
         output.WriteMessage(Debuffs);
       }
-      if (Guid != 0) {
-        output.WriteRawTag(80);
-        output.WriteInt32(Guid);
+      if (Guid.Length != 0) {
+        output.WriteRawTag(82);
+        output.WriteString(Guid);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -818,8 +818,8 @@ namespace Codegen.Proto {
       if (debuffs_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(Debuffs);
       }
-      if (Guid != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Guid);
+      if (Guid.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Guid);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -853,7 +853,7 @@ namespace Codegen.Proto {
         }
         Debuffs.MergeFrom(other.Debuffs);
       }
-      if (other.Guid != 0) {
+      if (other.Guid.Length != 0) {
         Guid = other.Guid;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
@@ -896,8 +896,8 @@ namespace Codegen.Proto {
             input.ReadMessage(Debuffs);
             break;
           }
-          case 80: {
-            Guid = input.ReadInt32();
+          case 82: {
+            Guid = input.ReadString();
             break;
           }
         }
@@ -940,8 +940,8 @@ namespace Codegen.Proto {
             input.ReadMessage(Debuffs);
             break;
           }
-          case 80: {
-            Guid = input.ReadInt32();
+          case 82: {
+            Guid = input.ReadString();
             break;
           }
         }
@@ -1087,12 +1087,12 @@ namespace Codegen.Proto {
 
     /// <summary>Field number for the "guid" field.</summary>
     public const int GuidFieldNumber = 10;
-    private int guid_;
+    private string guid_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int Guid {
+    public string Guid {
       get { return guid_; }
       set {
-        guid_ = value;
+        guid_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
       }
     }
 
@@ -1132,7 +1132,7 @@ namespace Codegen.Proto {
       if (MaxHp != 0) hash ^= MaxHp.GetHashCode();
       if (IsSpirit != false) hash ^= IsSpirit.GetHashCode();
       if (ShieldWallActive != false) hash ^= ShieldWallActive.GetHashCode();
-      if (Guid != 0) hash ^= Guid.GetHashCode();
+      if (Guid.Length != 0) hash ^= Guid.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -1181,9 +1181,9 @@ namespace Codegen.Proto {
         output.WriteRawTag(64);
         output.WriteBool(ShieldWallActive);
       }
-      if (Guid != 0) {
-        output.WriteRawTag(80);
-        output.WriteInt32(Guid);
+      if (Guid.Length != 0) {
+        output.WriteRawTag(82);
+        output.WriteString(Guid);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -1226,9 +1226,9 @@ namespace Codegen.Proto {
         output.WriteRawTag(64);
         output.WriteBool(ShieldWallActive);
       }
-      if (Guid != 0) {
-        output.WriteRawTag(80);
-        output.WriteInt32(Guid);
+      if (Guid.Length != 0) {
+        output.WriteRawTag(82);
+        output.WriteString(Guid);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -1263,8 +1263,8 @@ namespace Codegen.Proto {
       if (ShieldWallActive != false) {
         size += 1 + 1;
       }
-      if (Guid != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Guid);
+      if (Guid.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Guid);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -1304,7 +1304,7 @@ namespace Codegen.Proto {
       if (other.ShieldWallActive != false) {
         ShieldWallActive = other.ShieldWallActive;
       }
-      if (other.Guid != 0) {
+      if (other.Guid.Length != 0) {
         Guid = other.Guid;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
@@ -1356,8 +1356,8 @@ namespace Codegen.Proto {
             ShieldWallActive = input.ReadBool();
             break;
           }
-          case 80: {
-            Guid = input.ReadInt32();
+          case 82: {
+            Guid = input.ReadString();
             break;
           }
         }
@@ -1409,8 +1409,8 @@ namespace Codegen.Proto {
             ShieldWallActive = input.ReadBool();
             break;
           }
-          case 80: {
-            Guid = input.ReadInt32();
+          case 82: {
+            Guid = input.ReadString();
             break;
           }
         }

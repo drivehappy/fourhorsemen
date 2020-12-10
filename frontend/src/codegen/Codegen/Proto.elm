@@ -136,7 +136,7 @@ type alias Player =
     , position : Maybe Vec2
     , direction : Float
     , debuffs : Maybe Debuffs
-    , guid : Int
+    , guid : String
     }
 
 
@@ -151,7 +151,7 @@ type alias Boss =
     , maxHp : Int
     , isSpirit : Bool
     , shieldWallActive : Bool
-    , guid : Int
+    , guid : String
     }
 
 
@@ -391,13 +391,13 @@ debuffsDecoder =
 -}
 playerDecoder : Decode.Decoder Player
 playerDecoder =
-    Decode.message (Player "" Tank Nothing 0 Nothing 0)
+    Decode.message (Player "" Tank Nothing 0 Nothing "")
         [ Decode.optional 1 Decode.string setName
         , Decode.optional 2 playerClassDecoder setClass
         , Decode.optional 3 (Decode.map Just vec2Decoder) setPosition
         , Decode.optional 4 Decode.float setDirection
         , Decode.optional 5 (Decode.map Just debuffsDecoder) setDebuffs
-        , Decode.optional 10 Decode.int32 setGuid
+        , Decode.optional 10 Decode.string setGuid
         ]
 
 
@@ -405,7 +405,7 @@ playerDecoder =
 -}
 bossDecoder : Decode.Decoder Boss
 bossDecoder =
-    Decode.message (Boss Mograine "" Nothing 0 0 0 False False 0)
+    Decode.message (Boss Mograine "" Nothing 0 0 0 False False "")
         [ Decode.optional 1 bossTypeDecoder setType_
         , Decode.optional 2 Decode.string setName
         , Decode.optional 3 (Decode.map Just vec2Decoder) setPosition
@@ -414,7 +414,7 @@ bossDecoder =
         , Decode.optional 6 Decode.int32 setMaxHp
         , Decode.optional 7 Decode.bool setIsSpirit
         , Decode.optional 8 Decode.bool setShieldWallActive
-        , Decode.optional 10 Decode.int32 setGuid
+        , Decode.optional 10 Decode.string setGuid
         ]
 
 
@@ -651,7 +651,7 @@ toPlayerEncoder model =
         , ( 3, (Maybe.withDefault Encode.none << Maybe.map toVec2Encoder) model.position )
         , ( 4, Encode.float model.direction )
         , ( 5, (Maybe.withDefault Encode.none << Maybe.map toDebuffsEncoder) model.debuffs )
-        , ( 10, Encode.int32 model.guid )
+        , ( 10, Encode.string model.guid )
         ]
 
 
@@ -668,7 +668,7 @@ toBossEncoder model =
         , ( 6, Encode.int32 model.maxHp )
         , ( 7, Encode.bool model.isSpirit )
         , ( 8, Encode.bool model.shieldWallActive )
-        , ( 10, Encode.int32 model.guid )
+        , ( 10, Encode.string model.guid )
         ]
 
 

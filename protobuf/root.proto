@@ -33,7 +33,7 @@ message Player {
     float direction = 4;
     Debuffs debuffs = 5;
 
-    int32 guid = 10;
+    string guid = 10;
 }
 
 message Boss {
@@ -53,7 +53,7 @@ message Boss {
     bool is_spirit = 7;
     bool shield_wall_active = 8;
 
-    int32 guid = 10;
+    string guid = 10;
 }
 
 

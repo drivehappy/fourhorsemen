@@ -13,12 +13,12 @@ type World = {
 }
 
 let initWorld = {
-    bosses = [||]
+    bosses = [| initMograine; initThane; initZeliek; initBlaumeux |]
     players = []
 
     // Estimates
-    worldWidth = 200.0f
-    worldHeight = 200.0f
+    worldWidth = 800.0f
+    worldHeight = 800.0f
 }
 
 
