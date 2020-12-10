@@ -58,26 +58,6 @@ let runWebSocket (networkConns : MailboxProcessor<NetworkConnMsg>) (webSocket : 
                 | None ->
                     ()
 
-                (*
-                let sendData =
-                    csMain
-                    |> Option.bind (handleClientMessage clientId)
-                    |> Option.map (fun r ->
-                        let response =
-                            r.ToByteArray()
-                            |> ByteSegment
-
-                        response
-                    )
-
-                match sendData with
-                | Some d ->
-                    do! webSocket.send Binary d true
-
-                | None ->
-                    ()
-                *)
-
             | (Close, _, _) ->
                 printfn "Client closed"
                 networkConns.Post (RemoveConnection (webSocket, clientId))
@@ -93,10 +73,18 @@ let runWebSocket (networkConns : MailboxProcessor<NetworkConnMsg>) (webSocket : 
 [<EntryPoint>]
 let main argv = 
 
-    let networkWorldState = GameState.networkWorldState()
-    let networkConns = NetworkMessages.networkConnections networkWorldState
+    let gameState = GameState.gameState()
+    let networkConns = NetworkMessages.networkConnections gameState
 
-    //
+    // Bridge our network connection back to game state to support the game state broadcasting updates to the network
+    gameState.Post (GameState.RegisterBroadcast (buildSCWorldState >> NetworkMessages.BroadcastData >> networkConns.Post >> Async.result))
+
+    // Start the game loop
+    let loop = GameState.gameLoop gameState
+    loop
+    |> Async.Start
+
+    // Start the webserver/websocket server
     let app : WebPart =
         choose [
             GET >=> choose [

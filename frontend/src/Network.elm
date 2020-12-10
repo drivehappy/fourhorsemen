@@ -44,8 +44,7 @@ handleServerData : PB.SCMain -> Cmd Msg
 handleServerData pbSCMain =
     case pbSCMain.type_ of
         SCMainTypeUnrecognized_ _ ->
-            -- TODO: log?
-            Cmd.none
+            Debug.log "Unknown msg received" Cmd.none
 
         InitialState ->
             let

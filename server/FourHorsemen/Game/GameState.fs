@@ -1,86 +1,96 @@
 ﻿module GameState
 
-open Player
 open World
-open Codegen.Proto
-
-
-type GameMsg =
-    | AddPlayer of (string * Player.Player)
-    | RemovePlayer of string
-    | ReceivedClientData of ((SC_Main -> Async<unit>) * string * CS_Main)
-
-
-type ClientPlayerMapping = Map<string, Player.Player>
-
-
-// Main handler for incoming network messages from the client
-let handleClientMessage  (player : Player.Player) (pbCSMain : CS_Main) : SC_Main option =
-    match pbCSMain.Type with
-    | CS_Main.Types.Type.PlayerJoin ->
-        let pj = if (isNull pbCSMain.PlayerJoin) then None else Some pbCSMain.PlayerJoin
-
-        pj
-        |> Option.iter (fun playerJoin ->
-            let playerName = pbCSMain.PlayerJoin.PlayerName
-            ()
-        )
-
-        let root = new SC_Main()
-        root.Type <- SC_Main.Types.Type.InitialState
-        root.AssignedPlayerId <- player.networkClientId
-
-        Some root
-
-    | _ ->
-        // Unhandled
-        None
+open Player
+open System.Diagnostics
 
 
 //
-let networkWorldState () =
-    MailboxProcessor<GameMsg>.Start(fun inbox ->
-        let rec loop (clientPlayer : ClientPlayerMapping) (worldState : World) =
+let removePlayerFromWorldState (worldState : World) (player : Player.Player) : World =
+    let newPlayers =
+        worldState.players
+        |> List.filter (fun p -> p = player)
+
+    { worldState with players = newPlayers }
+
+//
+type PlayerAction =
+    | PlayerSetName of string
+    | PlayerMove
+
+
+//
+type GameStateMsg =
+    | AddPlayer of Player
+    | RemovePlayer of string            // Network client id
+    | RunPlayerAction of PlayerAction
+    | RunGameStep of float              // dt
+    | RegisterBroadcast of (World -> Async<unit>)
+
+
+//
+let gameState () =
+    MailboxProcessor<GameStateMsg>.Start(fun inbox ->
+        let rec loop (worldState : World) (broadcast : (World -> Async<unit>) option) =
             async {
                 let! msg = inbox.Receive()
                 match msg with
-                | AddPlayer (clientId, player) ->
-                    let newPlayers = player :: worldState.players
+                | AddPlayer p ->
+                    let newPlayers = p :: worldState.players
                     let newWorld = { worldState with players = newPlayers }
-                    let newClientPlayerMap = clientPlayer.Add(clientId, player)
-
-                    return! loop newClientPlayerMap newWorld
+                    return! loop newWorld broadcast
 
                 | RemovePlayer clientId ->
-                    let playerLookup = clientPlayer.TryFind(clientId)
-                    let newPlayers =
-                        match playerLookup with
-                        | Some pl ->
-                            worldState.players
-                            |> List.filter (fun p -> p = pl)
-                        | None ->
-                            worldState.players
-                    let newWorld = { worldState with players = newPlayers }
-                    let newClientPlayerMap = clientPlayer.Remove(clientId)
+                    let lookupPlayer =
+                        worldState.players
+                        |> List.tryFind (fun p -> p.networkClientId = clientId)
 
-                    return! loop newClientPlayerMap newWorld
+                    let newWorld =
+                        match lookupPlayer with
+                        | Some p -> removePlayerFromWorldState worldState p
+                        | None -> worldState
 
-                | ReceivedClientData (sendFunc, clientId, pbCSMain) ->
-                    do!
-                        clientId
-                        |> clientPlayer.TryFind
-                        |> Option.bind (fun p -> handleClientMessage p pbCSMain)
-                        |> Option.map (fun response -> sendFunc response)
-                        |> Option.defaultValue (Async.result ())
+                    return! loop newWorld broadcast
 
-                    return! loop clientPlayer worldState
-                    
+                | RunPlayerAction action ->
+                    return! loop worldState broadcast
+
+                | RunGameStep dt ->
+                    printfn "Game step: %f" dt
+
+                    // Broadcast the world state to our clients
+                    broadcast
+                    |> Option.iter (fun b ->
+                        b worldState
+                        |> Async.StartImmediate
+                    )
+
+                    return! loop worldState broadcast
+
+                | RegisterBroadcast f ->
+                    return! loop worldState (Some f)
             }
 
-        loop Map.empty initWorld
+        loop initWorld None
     )
 
 
+// TODO: Timer that Posts a message on an interval into gameState
+let gameLoop (gameState : MailboxProcessor<GameStateMsg>) =
+    async {
+        let sw = Stopwatch()
+        let mutable loop = true
+
+        while loop do
+            sw.Start()
+            do! Async.Sleep 100
+            
+            gameState.Post (RunGameStep ((float sw.ElapsedMilliseconds) / 1000.0))
+            sw.Reset()
+    }
+
+
+(*
 let gameTick (world : World) =
     // Run boss actions
     world.bosses
@@ -94,3 +104,4 @@ let gameTick (world : World) =
             // TODO: Use ShieldWall 20%
             ()
     )
+*)
