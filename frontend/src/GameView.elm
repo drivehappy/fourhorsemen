@@ -32,7 +32,8 @@ view =
     in
     Canvas.toHtml
         (roomWidth, roomHeight)
-        [ style "border" "10px solid rgba(0,0,0,0.6)" ]
+        [ style "border" "10px solid rgba(0,0,0,0.6)"
+        ]
         ( [ clearScreen
           ]
           ++ viewRenderPlatform

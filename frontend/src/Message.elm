@@ -10,3 +10,6 @@ type Msg
     | WebsocketClosed String
     | WebsocketError String
     | WebsocketDataReceived String
+
+    | CanvasClick (Int, Int)
+    | UpdatePlayerName String

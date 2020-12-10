@@ -12,6 +12,7 @@ import GameView exposing (..)
 import Message exposing (..)
 import Model exposing (..)
 import WebsocketPort exposing (..)
+import CanvasPort exposing (..)
 import Network exposing (..)
 
 import Bytes exposing (..)
@@ -36,8 +37,7 @@ main =
 
 init : () -> ( Model, Cmd Msg )
 init _ =
-    { isConnected = False
-    }
+    initModel
         |> withNoCmd
 
 
@@ -51,15 +51,22 @@ update msg model =
 
         WebsocketConnected s ->
             let
+                pbCSNewPlayerJoin : PB.CSNewPlayerJoin
+                pbCSNewPlayerJoin = { playerName = model.playerName }
+
+                initPlayerJoin : PB.CSMain
+                initPlayerJoin = buildDefaultCSMain PlayerJoin
+
                 pbCSMain : PB.CSMain
-                pbCSMain = buildDefaultCSMain PlayerJoin
+                pbCSMain =
+                    { initPlayerJoin | playerJoin = Just pbCSNewPlayerJoin }
             in
-            ( { isConnected = True }
+            ( { model | isConnected = True }
             , sendWebsocketData pbCSMain
             )
 
         WebsocketClosed s ->
-            ( { isConnected = False }
+            ( { model | isConnected = False }
             , Cmd.none
             )
 
@@ -79,6 +86,21 @@ update msg model =
                 i = Debug.log "Elm WS Received Error: " e
             in
             (model, Cmd.none)
+
+        CanvasClick (x, y) ->
+            let
+                i = Debug.log "Canvas clickX: " x
+                j = Debug.log "Canvas clickY: " y
+            in
+            (model, Cmd.none)
+
+        UpdatePlayerName newPlayerName ->
+            let
+                newModel =
+                    { model | playerName = newPlayerName }
+            in
+            (newModel, Cmd.none)
+
 
 
 defaultUrl : String
@@ -100,6 +122,15 @@ view model =
                 , input
                     [ value ""
                     --, onInput (UpdateUrl >> Websocket)
+                    , size 30
+                    ]
+                    []
+                , br [] []
+                , text "Player name:"
+                , br [] []
+                , input
+                    [ value model.playerName
+                    , onInput UpdatePlayerName
                     , size 30
                     ]
                     []
@@ -138,4 +169,5 @@ subscriptions m =
         , wsDisconnected WebsocketClosed
         , wsReceivedMsg WebsocketDataReceived
         , wsError WebsocketError
+        , canvasClicked CanvasClick
         ]

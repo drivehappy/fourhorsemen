@@ -25,11 +25,14 @@ let generateSalt () =
 
 
 //
-let runWebSocket (webSocket : WebSocket) (context : HttpContext) =
+let runWebSocket (networkConns : MailboxProcessor<NetworkConnMsg>) (webSocket : WebSocket) (context : HttpContext) =
     socket {
         let clientSalt = generateSalt ()
         let clientId = buildClientId (context.connection.ipAddr.ToString()) (context.connection.port.ToString()) clientSalt
         let mutable loop = true
+
+        // Add this new connection to our state of all of the connections we currently maintain
+        networkConns.Post (AddConnection (webSocket, clientId))
 
         // We wait for the client to send us a message after connecting
         while (loop) do
@@ -48,6 +51,14 @@ let runWebSocket (webSocket : WebSocket) (context : HttpContext) =
 
                 printfn "Received data: %A" csMain
 
+                match csMain with
+                | Some pbCSMain ->
+                    networkConns.Post (ReceivedData (webSocket, clientId, pbCSMain))
+
+                | None ->
+                    ()
+
+                (*
                 let sendData =
                     csMain
                     |> Option.bind (handleClientMessage clientId)
@@ -65,9 +76,11 @@ let runWebSocket (webSocket : WebSocket) (context : HttpContext) =
 
                 | None ->
                     ()
+                *)
 
             | (Close, _, _) ->
                 printfn "Client closed"
+                networkConns.Post (RemoveConnection (webSocket, clientId))
                 let emptyResponse = [||] |> ByteSegment
                 do! webSocket.send Close emptyResponse true
                 loop <- false
@@ -80,10 +93,14 @@ let runWebSocket (webSocket : WebSocket) (context : HttpContext) =
 [<EntryPoint>]
 let main argv = 
 
+    let networkWorldState = GameState.networkWorldState()
+    let networkConns = NetworkMessages.networkConnections networkWorldState
+
+    //
     let app : WebPart =
         choose [
             GET >=> choose [
-                path "/websocket" >=> handShake runWebSocket
+                path "/websocket" >=> handShake (runWebSocket networkConns)
                 path "/" >=> Files.file "static/index.html"
                 Files.browseHome
                 RequestErrors.NOT_FOUND "Page not found."

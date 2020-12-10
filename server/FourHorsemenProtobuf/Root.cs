@@ -38,31 +38,32 @@ namespace Codegen.Proto {
             "Eg4KBm1heF9ocBgGIAEoBRIRCglpc19zcGlyaXQYByABKAgSGgoSc2hpZWxk",
             "X3dhbGxfYWN0aXZlGAggASgIEgwKBGd1aWQYCiABKAUiOQoEVHlwZRIMCghN",
             "T0dSQUlORRAAEgkKBVRIQU5FEAESDAoIQkxBVU1FVVgQAhIKCgZaRUxJRUsQ",
-            "AyKbAQoPQ1NfUGxheWVyQWN0aW9uEjEKBHR5cGUYASABKA4yIy5jb2RlZ2Vu",
-            "LnByb3RvLkNTX1BsYXllckFjdGlvbi5UeXBlEhMKC2d1aWRfdGFyZ2V0GAIg",
-            "ASgFIkAKBFR5cGUSCQoFVEFVTlQQABIICgRIRUFMEAESEQoNUkFOR0VEX0FU",
-            "VEFDSxACEhAKDE1FTEVFX0FUVEFDSxADIpQCCgdDU19NYWluEikKBHR5cGUY",
-            "ASABKA4yGy5jb2RlZ2VuLnByb3RvLkNTX01haW4uVHlwZRIqCgtwbGF5ZXJf",
-            "am9pbhgCIAEoCzIVLmNvZGVnZW4ucHJvdG8uUGxheWVyEigKC3BsYXllcl9t",
-            "b3ZlGAMgASgLMhMuY29kZWdlbi5wcm90by5WZWMyEhgKEHBsYXllcl9kaXJl",
-            "Y3Rpb24YBCABKAIibgoEVHlwZRIPCgtQTEFZRVJfSk9JThAAEg8KC1BMQVlF",
-            "Ul9NT1ZFEAESFAoQUExBWUVSX0RJUkVDVElPThACEhYKElJFUVVFU1RfR0FN",
-            "RV9TVEFSVBADEhYKElJFUVVFU1RfR0FNRV9QQVVTRRAEImoKDFNDX0dhbWVT",
-            "dGF0ZRIuCgR0eXBlGAEgASgOMiAuY29kZWdlbi5wcm90by5TQ19HYW1lU3Rh",
-            "dGUuVHlwZSIqCgRUeXBlEgkKBUxPQkJZEAASCwoHUlVOTklORxABEgoKBlBB",
-            "VVNFRBACIqcBCg5TQ19Cb3NzQWJpbGl0eRIwCgR0eXBlGAEgASgOMiIuY29k",
-            "ZWdlbi5wcm90by5TQ19Cb3NzQWJpbGl0eS5UeXBlEhwKFHBsYXllcl9ndWlk",
-            "X2FmZmVjdGVkGAIgAygFIkUKBFR5cGUSEgoOUklHSFRFT1VTX0ZJUkUQABIK",
-            "CgZNRVRFT1IQARIOCgpIT0xZX1dSQVRIEAISDQoJVk9JRF9aT05FEAMiogIK",
-            "B1NDX01haW4SKQoEdHlwZRgBIAEoDjIbLmNvZGVnZW4ucHJvdG8uU0NfTWFp",
-            "bi5UeXBlEjEKEmJ1bGtfcGxheWVyX3VwZGF0ZRgCIAMoCzIVLmNvZGVnZW4u",
-            "cHJvdG8uUGxheWVyEi0KEGJ1bGtfYm9zc191cGRhdGUYAyADKAsyEy5jb2Rl",
-            "Z2VuLnByb3RvLkJvc3MSPQoWYm9zc19hYmlsaXR5X3BlcmZvcm1lZBgEIAMo",
-            "CzIdLmNvZGVnZW4ucHJvdG8uU0NfQm9zc0FiaWxpdHkSGgoSYXNzaWduZWRf",
-            "cGxheWVyX2lkGAUgASgJIi8KBFR5cGUSEQoNSU5JVElBTF9TVEFURRAAEhQK",
-            "EEdBTUVfU1RFUF9VUERBVEUQASpCCgtQbGF5ZXJDbGFzcxIICgRUQU5LEAAS",
-            "CgoGSEVBTEVSEAESDgoKUkFOR0VEX0RQUxACEg0KCU1FTEVFX0RQUxADYgZw",
-            "cm90bzM="));
+            "AyInChBDU19OZXdQbGF5ZXJKb2luEhMKC3BsYXllcl9uYW1lGAEgASgJIpsB",
+            "Cg9DU19QbGF5ZXJBY3Rpb24SMQoEdHlwZRgBIAEoDjIjLmNvZGVnZW4ucHJv",
+            "dG8uQ1NfUGxheWVyQWN0aW9uLlR5cGUSEwoLZ3VpZF90YXJnZXQYAiABKAUi",
+            "QAoEVHlwZRIJCgVUQVVOVBAAEggKBEhFQUwQARIRCg1SQU5HRURfQVRUQUNL",
+            "EAISEAoMTUVMRUVfQVRUQUNLEAMingIKB0NTX01haW4SKQoEdHlwZRgBIAEo",
+            "DjIbLmNvZGVnZW4ucHJvdG8uQ1NfTWFpbi5UeXBlEjQKC3BsYXllcl9qb2lu",
+            "GAIgASgLMh8uY29kZWdlbi5wcm90by5DU19OZXdQbGF5ZXJKb2luEigKC3Bs",
+            "YXllcl9tb3ZlGAMgASgLMhMuY29kZWdlbi5wcm90by5WZWMyEhgKEHBsYXll",
+            "cl9kaXJlY3Rpb24YBCABKAIibgoEVHlwZRIPCgtQTEFZRVJfSk9JThAAEg8K",
+            "C1BMQVlFUl9NT1ZFEAESFAoQUExBWUVSX0RJUkVDVElPThACEhYKElJFUVVF",
+            "U1RfR0FNRV9TVEFSVBADEhYKElJFUVVFU1RfR0FNRV9QQVVTRRAEImoKDFND",
+            "X0dhbWVTdGF0ZRIuCgR0eXBlGAEgASgOMiAuY29kZWdlbi5wcm90by5TQ19H",
+            "YW1lU3RhdGUuVHlwZSIqCgRUeXBlEgkKBUxPQkJZEAASCwoHUlVOTklORxAB",
+            "EgoKBlBBVVNFRBACIqcBCg5TQ19Cb3NzQWJpbGl0eRIwCgR0eXBlGAEgASgO",
+            "MiIuY29kZWdlbi5wcm90by5TQ19Cb3NzQWJpbGl0eS5UeXBlEhwKFHBsYXll",
+            "cl9ndWlkX2FmZmVjdGVkGAIgAygFIkUKBFR5cGUSEgoOUklHSFRFT1VTX0ZJ",
+            "UkUQABIKCgZNRVRFT1IQARIOCgpIT0xZX1dSQVRIEAISDQoJVk9JRF9aT05F",
+            "EAMiogIKB1NDX01haW4SKQoEdHlwZRgBIAEoDjIbLmNvZGVnZW4ucHJvdG8u",
+            "U0NfTWFpbi5UeXBlEjEKEmJ1bGtfcGxheWVyX3VwZGF0ZRgCIAMoCzIVLmNv",
+            "ZGVnZW4ucHJvdG8uUGxheWVyEi0KEGJ1bGtfYm9zc191cGRhdGUYAyADKAsy",
+            "Ey5jb2RlZ2VuLnByb3RvLkJvc3MSPQoWYm9zc19hYmlsaXR5X3BlcmZvcm1l",
+            "ZBgEIAMoCzIdLmNvZGVnZW4ucHJvdG8uU0NfQm9zc0FiaWxpdHkSGgoSYXNz",
+            "aWduZWRfcGxheWVyX2lkGAUgASgJIi8KBFR5cGUSEQoNSU5JVElBTF9TVEFU",
+            "RRAAEhQKEEdBTUVfU1RFUF9VUERBVEUQASpCCgtQbGF5ZXJDbGFzcxIICgRU",
+            "QU5LEAASCgoGSEVBTEVSEAESDgoKUkFOR0VEX0RQUxACEg0KCU1FTEVFX0RQ",
+            "UxADYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Codegen.Proto.PlayerClass), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -70,6 +71,7 @@ namespace Codegen.Proto {
             new pbr::GeneratedClrTypeInfo(typeof(global::Codegen.Proto.Debuffs), global::Codegen.Proto.Debuffs.Parser, new[]{ "MarkMograine", "MarkThane", "MarkBlaumeux", "MarkZeliek" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Codegen.Proto.Player), global::Codegen.Proto.Player.Parser, new[]{ "Name", "Class", "Position", "Direction", "Debuffs", "Guid" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Codegen.Proto.Boss), global::Codegen.Proto.Boss.Parser, new[]{ "Type", "Name", "Position", "Direction", "CurrentHp", "MaxHp", "IsSpirit", "ShieldWallActive", "Guid" }, null, new[]{ typeof(global::Codegen.Proto.Boss.Types.Type) }, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Codegen.Proto.CS_NewPlayerJoin), global::Codegen.Proto.CS_NewPlayerJoin.Parser, new[]{ "PlayerName" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Codegen.Proto.CS_PlayerAction), global::Codegen.Proto.CS_PlayerAction.Parser, new[]{ "Type", "GuidTarget" }, null, new[]{ typeof(global::Codegen.Proto.CS_PlayerAction.Types.Type) }, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Codegen.Proto.CS_Main), global::Codegen.Proto.CS_Main.Parser, new[]{ "Type", "PlayerJoin", "PlayerMove", "PlayerDirection" }, null, new[]{ typeof(global::Codegen.Proto.CS_Main.Types.Type) }, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Codegen.Proto.SC_GameState), global::Codegen.Proto.SC_GameState.Parser, new[]{ "Type" }, null, new[]{ typeof(global::Codegen.Proto.SC_GameState.Types.Type) }, null, null),
@@ -1432,6 +1434,178 @@ namespace Codegen.Proto {
 
   }
 
+  public sealed partial class CS_NewPlayerJoin : pb::IMessage<CS_NewPlayerJoin>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<CS_NewPlayerJoin> _parser = new pb::MessageParser<CS_NewPlayerJoin>(() => new CS_NewPlayerJoin());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<CS_NewPlayerJoin> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Codegen.Proto.RootReflection.Descriptor.MessageTypes[4]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public CS_NewPlayerJoin() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public CS_NewPlayerJoin(CS_NewPlayerJoin other) : this() {
+      playerName_ = other.playerName_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public CS_NewPlayerJoin Clone() {
+      return new CS_NewPlayerJoin(this);
+    }
+
+    /// <summary>Field number for the "player_name" field.</summary>
+    public const int PlayerNameFieldNumber = 1;
+    private string playerName_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string PlayerName {
+      get { return playerName_; }
+      set {
+        playerName_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as CS_NewPlayerJoin);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(CS_NewPlayerJoin other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (PlayerName != other.PlayerName) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (PlayerName.Length != 0) hash ^= PlayerName.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (PlayerName.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(PlayerName);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (PlayerName.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(PlayerName);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (PlayerName.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(PlayerName);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(CS_NewPlayerJoin other) {
+      if (other == null) {
+        return;
+      }
+      if (other.PlayerName.Length != 0) {
+        PlayerName = other.PlayerName;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10: {
+            PlayerName = input.ReadString();
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 10: {
+            PlayerName = input.ReadString();
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
   /// <summary>
   /// Client player requests actions
   /// </summary>
@@ -1447,7 +1621,7 @@ namespace Codegen.Proto {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Codegen.Proto.RootReflection.Descriptor.MessageTypes[4]; }
+      get { return global::Codegen.Proto.RootReflection.Descriptor.MessageTypes[5]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1684,7 +1858,7 @@ namespace Codegen.Proto {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Codegen.Proto.RootReflection.Descriptor.MessageTypes[5]; }
+      get { return global::Codegen.Proto.RootReflection.Descriptor.MessageTypes[6]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1726,9 +1900,9 @@ namespace Codegen.Proto {
 
     /// <summary>Field number for the "player_join" field.</summary>
     public const int PlayerJoinFieldNumber = 2;
-    private global::Codegen.Proto.Player playerJoin_;
+    private global::Codegen.Proto.CS_NewPlayerJoin playerJoin_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::Codegen.Proto.Player PlayerJoin {
+    public global::Codegen.Proto.CS_NewPlayerJoin PlayerJoin {
       get { return playerJoin_; }
       set {
         playerJoin_ = value;
@@ -1881,7 +2055,7 @@ namespace Codegen.Proto {
       }
       if (other.playerJoin_ != null) {
         if (playerJoin_ == null) {
-          PlayerJoin = new global::Codegen.Proto.Player();
+          PlayerJoin = new global::Codegen.Proto.CS_NewPlayerJoin();
         }
         PlayerJoin.MergeFrom(other.PlayerJoin);
       }
@@ -1914,7 +2088,7 @@ namespace Codegen.Proto {
           }
           case 18: {
             if (playerJoin_ == null) {
-              PlayerJoin = new global::Codegen.Proto.Player();
+              PlayerJoin = new global::Codegen.Proto.CS_NewPlayerJoin();
             }
             input.ReadMessage(PlayerJoin);
             break;
@@ -1950,7 +2124,7 @@ namespace Codegen.Proto {
           }
           case 18: {
             if (playerJoin_ == null) {
-              PlayerJoin = new global::Codegen.Proto.Player();
+              PlayerJoin = new global::Codegen.Proto.CS_NewPlayerJoin();
             }
             input.ReadMessage(PlayerJoin);
             break;
@@ -2012,7 +2186,7 @@ namespace Codegen.Proto {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Codegen.Proto.RootReflection.Descriptor.MessageTypes[6]; }
+      get { return global::Codegen.Proto.RootReflection.Descriptor.MessageTypes[7]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2200,7 +2374,7 @@ namespace Codegen.Proto {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Codegen.Proto.RootReflection.Descriptor.MessageTypes[7]; }
+      get { return global::Codegen.Proto.RootReflection.Descriptor.MessageTypes[8]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2431,7 +2605,7 @@ namespace Codegen.Proto {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Codegen.Proto.RootReflection.Descriptor.MessageTypes[8]; }
+      get { return global::Codegen.Proto.RootReflection.Descriptor.MessageTypes[9]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]

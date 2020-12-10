@@ -2,9 +2,9 @@
 
 
 module Codegen.Proto exposing
-    ( PlayerClass(..), BossType(..), CSPlayerActionType(..), CSMainType(..), SCGameStateType(..), SCBossAbilityType(..), SCMainType(..), Vec2, Debuffs, Player, Boss, CSPlayerAction, CSMain, SCGameState, SCBossAbility, SCMain
-    , vec2Decoder, debuffsDecoder, playerDecoder, bossDecoder, cSPlayerActionDecoder, cSMainDecoder, sCGameStateDecoder, sCBossAbilityDecoder, sCMainDecoder
-    , toVec2Encoder, toDebuffsEncoder, toPlayerEncoder, toBossEncoder, toCSPlayerActionEncoder, toCSMainEncoder, toSCGameStateEncoder, toSCBossAbilityEncoder, toSCMainEncoder
+    ( PlayerClass(..), BossType(..), CSPlayerActionType(..), CSMainType(..), SCGameStateType(..), SCBossAbilityType(..), SCMainType(..), Vec2, Debuffs, Player, Boss, CSNewPlayerJoin, CSPlayerAction, CSMain, SCGameState, SCBossAbility, SCMain
+    , vec2Decoder, debuffsDecoder, playerDecoder, bossDecoder, cSNewPlayerJoinDecoder, cSPlayerActionDecoder, cSMainDecoder, sCGameStateDecoder, sCBossAbilityDecoder, sCMainDecoder
+    , toVec2Encoder, toDebuffsEncoder, toPlayerEncoder, toBossEncoder, toCSNewPlayerJoinEncoder, toCSPlayerActionEncoder, toCSMainEncoder, toSCGameStateEncoder, toSCBossAbilityEncoder, toSCMainEncoder
     )
 
 {-| ProtoBuf module: `Codegen.Proto`
@@ -20,17 +20,17 @@ To run it use [`elm-protocol-buffers`](https://package.elm-lang.org/packages/eri
 
 # Model
 
-@docs PlayerClass, BossType, CSPlayerActionType, CSMainType, SCGameStateType, SCBossAbilityType, SCMainType, Vec2, Debuffs, Player, Boss, CSPlayerAction, CSMain, SCGameState, SCBossAbility, SCMain
+@docs PlayerClass, BossType, CSPlayerActionType, CSMainType, SCGameStateType, SCBossAbilityType, SCMainType, Vec2, Debuffs, Player, Boss, CSNewPlayerJoin, CSPlayerAction, CSMain, SCGameState, SCBossAbility, SCMain
 
 
 # Decoder
 
-@docs vec2Decoder, debuffsDecoder, playerDecoder, bossDecoder, cSPlayerActionDecoder, cSMainDecoder, sCGameStateDecoder, sCBossAbilityDecoder, sCMainDecoder
+@docs vec2Decoder, debuffsDecoder, playerDecoder, bossDecoder, cSNewPlayerJoinDecoder, cSPlayerActionDecoder, cSMainDecoder, sCGameStateDecoder, sCBossAbilityDecoder, sCMainDecoder
 
 
 # Encoder
 
-@docs toVec2Encoder, toDebuffsEncoder, toPlayerEncoder, toBossEncoder, toCSPlayerActionEncoder, toCSMainEncoder, toSCGameStateEncoder, toSCBossAbilityEncoder, toSCMainEncoder
+@docs toVec2Encoder, toDebuffsEncoder, toPlayerEncoder, toBossEncoder, toCSNewPlayerJoinEncoder, toCSPlayerActionEncoder, toCSMainEncoder, toSCGameStateEncoder, toSCBossAbilityEncoder, toSCMainEncoder
 
 -}
 
@@ -155,6 +155,13 @@ type alias Boss =
     }
 
 
+{-| `CSNewPlayerJoin` message
+-}
+type alias CSNewPlayerJoin =
+    { playerName : String
+    }
+
+
 {-| `CSPlayerAction` message
 -}
 type alias CSPlayerAction =
@@ -167,7 +174,7 @@ type alias CSPlayerAction =
 -}
 type alias CSMain =
     { type_ : CSMainType
-    , playerJoin : Maybe Player
+    , playerJoin : Maybe CSNewPlayerJoin
     , playerMove : Maybe Vec2
     , playerDirection : Float
     }
@@ -411,6 +418,15 @@ bossDecoder =
         ]
 
 
+{-| `CSNewPlayerJoin` decoder
+-}
+cSNewPlayerJoinDecoder : Decode.Decoder CSNewPlayerJoin
+cSNewPlayerJoinDecoder =
+    Decode.message (CSNewPlayerJoin "")
+        [ Decode.optional 1 Decode.string setPlayerName
+        ]
+
+
 {-| `CSPlayerAction` decoder
 -}
 cSPlayerActionDecoder : Decode.Decoder CSPlayerAction
@@ -427,7 +443,7 @@ cSMainDecoder : Decode.Decoder CSMain
 cSMainDecoder =
     Decode.message (CSMain PlayerJoin Nothing Nothing 0)
         [ Decode.optional 1 cSMainTypeDecoder setType_
-        , Decode.optional 2 (Decode.map Just playerDecoder) setPlayerJoin
+        , Decode.optional 2 (Decode.map Just cSNewPlayerJoinDecoder) setPlayerJoin
         , Decode.optional 3 (Decode.map Just vec2Decoder) setPlayerMove
         , Decode.optional 4 Decode.float setPlayerDirection
         ]
@@ -656,6 +672,15 @@ toBossEncoder model =
         ]
 
 
+{-| `CSNewPlayerJoin` encoder
+-}
+toCSNewPlayerJoinEncoder : CSNewPlayerJoin -> Encode.Encoder
+toCSNewPlayerJoinEncoder model =
+    Encode.message
+        [ ( 1, Encode.string model.playerName )
+        ]
+
+
 {-| `CSPlayerAction` encoder
 -}
 toCSPlayerActionEncoder : CSPlayerAction -> Encode.Encoder
@@ -672,7 +697,7 @@ toCSMainEncoder : CSMain -> Encode.Encoder
 toCSMainEncoder model =
     Encode.message
         [ ( 1, toCSMainTypeEncoder model.type_ )
-        , ( 2, (Maybe.withDefault Encode.none << Maybe.map toPlayerEncoder) model.playerJoin )
+        , ( 2, (Maybe.withDefault Encode.none << Maybe.map toCSNewPlayerJoinEncoder) model.playerJoin )
         , ( 3, (Maybe.withDefault Encode.none << Maybe.map toVec2Encoder) model.playerMove )
         , ( 4, Encode.float model.playerDirection )
         ]
@@ -797,6 +822,11 @@ setIsSpirit value model =
 setShieldWallActive : a -> { b | shieldWallActive : a } -> { b | shieldWallActive : a }
 setShieldWallActive value model =
     { model | shieldWallActive = value }
+
+
+setPlayerName : a -> { b | playerName : a } -> { b | playerName : a }
+setPlayerName value model =
+    { model | playerName = value }
 
 
 setGuidTarget : a -> { b | guidTarget : a } -> { b | guidTarget : a }
