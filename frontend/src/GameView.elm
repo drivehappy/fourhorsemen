@@ -24,8 +24,8 @@ denormalizeVec2 v = denormalizePoint v.x (v.y - 0.02)
 
 
 
-view : Html msg
-view =
+view : EncounterBosses -> Html msg
+view bosses =
     let
         clearScreen =
             shapes [ fill Color.white ] [ rect (0, 0) roomWidth roomHeight ]
@@ -37,7 +37,7 @@ view =
         ( [ clearScreen
           ]
           ++ viewRenderPlatform
-          ++ (viewRenderBosses initBossEncounters)
+          ++ (viewRenderBosses bosses)
         )
 
 

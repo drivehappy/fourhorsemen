@@ -13,7 +13,6 @@ type MonsterType =
 
 type Monster = {
     name : string
-    networkClientId : string
     type_ : MonsterType
     direction : float32   // Radians
     position : Vec2
@@ -38,10 +37,9 @@ let initMarkTimer = 75.0<milli second>
 
 let initMograine = {
     name = "Mograine"
-    networkClientId = Guid.NewGuid().ToString()
     type_ = Mograine
     direction = 0.0f
-    position = { x = 0.0f; y = 0.0f }
+    position = { x = 400.0f; y = 450.0f }
     maxHealth = 530000
     curHealth = 530000
 
@@ -56,10 +54,9 @@ let initMograine = {
 
 let initThane = {
     name = "Thane"
-    networkClientId = Guid.NewGuid().ToString()
     type_ = Thane
     direction = 0.0f
-    position = { x = 0.0f; y = 0.0f }
+    position = { x = 350.0f; y = 450.0f }
     maxHealth = 590000
     curHealth = 590000
 
@@ -74,10 +71,9 @@ let initThane = {
 
 let initZeliek = {
     name = "Zeliek"
-    networkClientId = Guid.NewGuid().ToString()
     type_ = Zeliek
     direction = 0.0f
-    position = { x = 0.0f; y = 0.0f }
+    position = { x = 450.0f; y = 450.0f }
     maxHealth = 230000
     curHealth = 230000
 
@@ -92,10 +88,9 @@ let initZeliek = {
 
 let initBlaumeux = {
     name = "Blaumeux"
-    networkClientId = Guid.NewGuid().ToString()
     type_ = Blaumeux
     direction = 0.0f
-    position = { x = 0.0f; y = 0.0f }
+    position = { x = 300.0f; y = 450.0f }
     maxHealth = 290000
     curHealth = 290000
 

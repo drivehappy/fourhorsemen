@@ -151,7 +151,6 @@ type alias Boss =
     , maxHp : Int
     , isSpirit : Bool
     , shieldWallActive : Bool
-    , guid : String
     }
 
 
@@ -405,7 +404,7 @@ playerDecoder =
 -}
 bossDecoder : Decode.Decoder Boss
 bossDecoder =
-    Decode.message (Boss Mograine "" Nothing 0 0 0 False False "")
+    Decode.message (Boss Mograine "" Nothing 0 0 0 False False)
         [ Decode.optional 1 bossTypeDecoder setType_
         , Decode.optional 2 Decode.string setName
         , Decode.optional 3 (Decode.map Just vec2Decoder) setPosition
@@ -414,7 +413,6 @@ bossDecoder =
         , Decode.optional 6 Decode.int32 setMaxHp
         , Decode.optional 7 Decode.bool setIsSpirit
         , Decode.optional 8 Decode.bool setShieldWallActive
-        , Decode.optional 10 Decode.string setGuid
         ]
 
 
@@ -668,7 +666,6 @@ toBossEncoder model =
         , ( 6, Encode.int32 model.maxHp )
         , ( 7, Encode.bool model.isSpirit )
         , ( 8, Encode.bool model.shieldWallActive )
-        , ( 10, Encode.string model.guid )
         ]
 
 

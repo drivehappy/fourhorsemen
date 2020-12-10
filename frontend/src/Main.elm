@@ -72,14 +72,15 @@ update msg model =
 
         WebsocketDataReceived d ->
             let
-                newCmd =
-                    d
-                    |> receiveWebsocketData
-                    |> Maybe.map handleServerData
-                    |> Maybe.withDefault
+                (newModel, newCmd) =
+                    case receiveWebsocketData d of
+                        Just d2 ->
+                            handleServerData model d2
+
+                        Nothing ->
+                            (model, Cmd.none)
             in
-            --(model, newCmd)
-            (model, Cmd.none)
+            (newModel, newCmd)
 
         WebsocketError e ->
             let
@@ -152,7 +153,7 @@ view model =
                 , style "justify-content" "center"
                 , style "align-items" "center"
                 ]
-                [ GameView.view
+                [ GameView.view model.bosses
                 ]
         ,   div
                 []

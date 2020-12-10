@@ -21,6 +21,7 @@ type alias EncounterBosses =
     }
 
 -- Until we get the server hooked up to send us this, hardcode it
+initBossEncounters : EncounterBosses
 initBossEncounters =
     { mograine =
         { position = { x = 0.5, y = 0.5 }

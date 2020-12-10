@@ -31,15 +31,24 @@ let handleClientMessage (clientId : NetworkClientId) (gameState : MailboxProcess
         ()
 
 
+// Convert our absolute position into a normalized position
+let normalizePos (world : World) (p : Entity.Vec2) : Entity.Vec2 =
+    { x = p.x / world.worldWidth; y = p.y / world.worldHeight }
+
+
 // Build a server -> client message from the provided world state,
 // this will just send everything.
 let buildSCWorldState (world : World) : ByteSegment =
     let pbSCMain = SC_Main()
     pbSCMain.Type <- SC_Main.Types.Type.GameStepUpdate
 
-    // Helper
-    let vec2ToPB (v : Entity.Vec2) =
+    // Helpers
+    let vec2ToPB (v : Entity.Vec2) : Proto.Vec2 =
         Proto.Vec2(PositionX = v.x, PositionY = v.y)
+
+    let normalizeVec2ToPB (v : Entity.Vec2) : Proto.Vec2 =
+        normalizePos world v
+        |> vec2ToPB
 
     // Build player message
     world.players
@@ -47,7 +56,7 @@ let buildSCWorldState (world : World) : ByteSegment =
         let convertPlayerToProto (p : Player.Player) : Proto.Player =
             let pb = Proto.Player()
             pb.Guid <- p.networkClientId
-            pb.Position <- vec2ToPB p.position
+            pb.Position <- normalizeVec2ToPB p.position
             pb.Direction <- p.direction
             pb
 
@@ -59,9 +68,15 @@ let buildSCWorldState (world : World) : ByteSegment =
     |> Array.iter (fun b ->
         let convertMonsterToProto (m : Monster) : Proto.Boss =
             let pb = Proto.Boss()
-            pb.Guid <- m.networkClientId
-            pb.Position <- vec2ToPB m.position
+            pb.Type <-
+                match m.type_ with
+                | Mograine -> Proto.Boss.Types.Type.Mograine
+                | Thane -> Proto.Boss.Types.Type.Thane
+                | Zeliek -> Proto.Boss.Types.Type.Zeliek
+                | Blaumeux -> Proto.Boss.Types.Type.Blaumeux
+            pb.Position <- normalizeVec2ToPB m.position
             pb.Direction <- m.direction
+            pb.Name <- m.name
             pb
 
         pbSCMain.BulkBossUpdate.Add(convertMonsterToProto b)

@@ -52,8 +52,6 @@ message Boss {
     int32 max_hp = 6;
     bool is_spirit = 7;
     bool shield_wall_active = 8;
-
-    string guid = 10;
 }
 
 
