@@ -26,6 +26,14 @@ let handleClientMessage (clientId : NetworkClientId) (gameState : MailboxProcess
             )
         ()
 
+    | CS_Main.Types.Type.RequestGameStart ->
+        // TODO: Check permissions
+        ()
+
+    | CS_Main.Types.Type.RequestGameReset ->
+        // TODO: Check permissions
+        ()
+
     | _ ->
         // Unhandled
         ()

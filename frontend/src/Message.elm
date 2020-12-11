@@ -18,9 +18,13 @@ type Msg
     | WebsocketError String
     | WebsocketDataReceived String
 
+    | RequestStartGame
+    | RequestResetGame
+
     | CanvasClick (Int, Int)
     | KeyDown KeyDirection
     | KeyUp KeyDirection
+    | FrameUpdate Float
 
     | UpdateServerCode String
     | UpdatePlayerName String

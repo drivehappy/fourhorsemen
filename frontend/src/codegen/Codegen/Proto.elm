@@ -80,6 +80,7 @@ type CSMainType
     | PlayerDirection
     | RequestGameStart
     | RequestGamePause
+    | RequestGameReset
     | CSMainTypeUnrecognized_ Int
 
 
@@ -298,6 +299,9 @@ cSMainTypeDecoder =
 
                     4 ->
                         RequestGamePause
+
+                    5 ->
+                        RequestGameReset
 
                     v ->
                         CSMainTypeUnrecognized_ v
@@ -561,6 +565,9 @@ toCSMainTypeEncoder value =
 
             RequestGamePause ->
                 4
+
+            RequestGameReset ->
+                5
 
             CSMainTypeUnrecognized_ v ->
                 v

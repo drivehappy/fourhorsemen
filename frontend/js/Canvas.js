@@ -14,7 +14,3 @@ canvas.addEventListener('mousedown', (e) => {
 
     app.ports.canvasClicked.send(pos);
 })
-
-canvas.addEventListener('keydown', (e) => {
-    console.log("Keydown: " + e);
-})

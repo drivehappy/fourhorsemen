@@ -97,6 +97,7 @@ message CS_Main {
         // Admin
         REQUEST_GAME_START = 3;
         REQUEST_GAME_PAUSE = 4;
+        REQUEST_GAME_RESET = 5;
     }
 
     Type type = 1;

@@ -45,23 +45,23 @@ init _ =
 
 -- Update
 
-moveSpeed = 0.01
+moveSpeed = 0.1
 
 
-updatePlayerPos : GameModel.Player -> KeyState -> GameModel.Player
-updatePlayerPos p k =
+updatePlayerPos : Float -> GameModel.Player -> KeyState -> GameModel.Player
+updatePlayerPos dt p k =
     let
         x =
             let
-                x1 = if k.left then -moveSpeed else 0
-                x2 = if k.right then moveSpeed else 0
+                x1 = if k.left then (-moveSpeed * dt) else 0
+                x2 = if k.right then (moveSpeed * dt) else 0
             in
             x1 + x2
 
         y =
             let
-                y1 = if k.up then -moveSpeed else 0
-                y2 = if k.down then moveSpeed else 0
+                y1 = if k.up then (-moveSpeed * dt) else 0
+                y2 = if k.down then (moveSpeed * dt) else 0
             in
             y1 + y2
 
@@ -119,6 +119,24 @@ update msg model =
             in
             (model, Cmd.none)
 
+        RequestStartGame ->
+            let
+                pbCSMain : PB.CSMain
+                pbCSMain = buildDefaultCSMain RequestGameStart
+            in
+            ( model
+            , sendWebsocketData pbCSMain
+            )
+
+        RequestResetGame ->
+            let
+                pbCSMain : PB.CSMain
+                pbCSMain = buildDefaultCSMain RequestGameReset
+            in
+            ( model
+            , sendWebsocketData pbCSMain
+            )
+
         KeyDown k ->
             let
                 newKeyState : KeyState
@@ -142,11 +160,8 @@ update msg model =
                         _ ->
                             model.keyState
 
-                newCurrPlayer =
-                    updatePlayerPos model.currentPlayer newKeyState
-
                 newModel =
-                    { model | keyState = newKeyState, currentPlayer = newCurrPlayer }
+                    { model | keyState = newKeyState }
             in
             (newModel, Cmd.none)
 
@@ -173,11 +188,20 @@ update msg model =
                         _ ->
                             model.keyState
 
+                newModel =
+                    { model | keyState = newKeyState }
+            in
+            (newModel, Cmd.none)
+
+        FrameUpdate frameInt ->
+            let
+                dt = (frameInt / 1000.0)
+
                 newCurrPlayer =
-                    updatePlayerPos model.currentPlayer newKeyState
+                    updatePlayerPos dt model.currentPlayer model.keyState
 
                 newModel =
-                    { model | keyState = newKeyState, currentPlayer = newCurrPlayer }
+                    { model | currentPlayer = newCurrPlayer }
             in
             (newModel, Cmd.none)
 
@@ -269,8 +293,8 @@ view model =
                 , style "justify-content" "center"
                 , style "align-items" "center"
                 ]
-                [ button [ ] [ text "Start Encounter" ]
-                , button [ ] [ text "Reset Encounter" ]
+                [ button [ onClick RequestStartGame ] [ text "Start Encounter" ]
+                , button [ onClick RequestResetGame ] [ text "Reset Encounter" ]
                 ]
         ,   div
                 [ style "display" "flex"
@@ -297,4 +321,5 @@ subscriptions m =
         , canvasClicked CanvasClick
         , Events.onKeyDown (Decode.map KeyDown keyDecoder)
         , Events.onKeyUp (Decode.map KeyUp keyDecoder)
+        , Events.onAnimationFrameDelta FrameUpdate
         ]
