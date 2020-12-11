@@ -16,6 +16,7 @@ import Model exposing (..)
 import WebsocketPort exposing (..)
 import CanvasPort exposing (..)
 import Network exposing (..)
+import Helpers exposing (..)
 
 import Bytes exposing (..)
 import Bytes.Decode as BD
@@ -48,6 +49,13 @@ init _ =
 moveSpeed = 0.1
 
 
+--
+vec2ToPB : GameModel.Vec2 -> PB.Vec2
+vec2ToPB v =
+    { positionX = v.x, positionY = v.y }
+
+
+--
 updatePlayerPos : Float -> GameModel.Player -> KeyState -> GameModel.Player
 updatePlayerPos dt p k =
     let
@@ -202,13 +210,49 @@ update msg model =
 
                 newModel =
                     { model | currentPlayer = newCurrPlayer }
+
+                -- Send the move command to the server
+                -- Note: This might be pretty spammy, once every frame, may need
+                --       to just track the direction and whether play is moving.
+                newCmd =
+                    let
+                        pbCSMain : PB.CSMain
+                        pbCSMain =
+                            let
+                                p = buildDefaultCSMain PlayerMove
+                            in
+                            { p | playerMove = Just (vec2ToPB newCurrPlayer.position) }
+                    in
+                    if newCurrPlayer.position /= model.currentPlayer.position then
+                        -- Only send this if our player position changed
+                        sendWebsocketData pbCSMain
+                    else
+                        Cmd.none
+
             in
-            (newModel, Cmd.none)
+            (newModel, newCmd)
 
         CanvasClick (x, y) ->
             let
-                i = Debug.log "Canvas clickX: " x
-                j = Debug.log "Canvas clickY: " y
+                -- TODO: Select boss
+                drawRadiusSizeSquared = 15 * 15
+
+                -- Check each boss
+                x1 = (toFloat x - denormalizeX model.bosses.mograine.position.x)
+                y1 = (toFloat y - denormalizeY model.bosses.mograine.position.y)
+
+
+                p = Debug.log "DebugSelect0 " drawRadiusSizeSquared
+                k = Debug.log "DebugSelect1 " (x, y)
+                a = Debug.log "DebugSelect3 " (denormalizeX model.bosses.mograine.position.x, denormalizeY model.bosses.mograine.position.y)
+                i = Debug.log "DebugSelect4 " (x1, y1)
+                w = Debug.log "DebugSelect5 " ((x1 * x1) + (y1 * y1))
+
+                b =
+                    if w <= drawRadiusSizeSquared then
+                        Debug.log "Selected mograine" ()
+                    else
+                        Debug.log "Did not select mograine " ()
             in
             (model, Cmd.none)
 

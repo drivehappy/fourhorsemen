@@ -2,6 +2,7 @@ module GameView exposing (..)
 
 import Canvas exposing (..)
 import Canvas.Settings exposing (..)
+import Canvas.Settings.Line exposing (..)
 import Canvas.Settings.Text exposing (..)
 import Color
 import Html exposing (..)
@@ -9,21 +10,11 @@ import Html.Attributes exposing (..)
 
 import GameModel exposing (..)
 import Model exposing (..)
+import Helpers exposing (..)
+
 
 
 -- View
-
-
-roomWidth = 800
-roomHeight = 800
-
--- Converts (0-1) dimension into (0-roomWidth (or roomHeight))
-denormalizeX x = roomWidth * x
-denormalizeY y = roomWidth * y
-denormalizePoint x y = (denormalizeX x, denormalizeY y)
-denormalizeVec2 v = denormalizePoint v.x (v.y - 0.02)
-
-
 
 view : Model -> Html msg
 view m =
@@ -71,17 +62,33 @@ viewRenderPlatform =
 renderTextAboveCharacter : Vec2 -> String -> Renderable
 renderTextAboveCharacter charPos text =
     Canvas.text [ font { size = 12, family = "sans-serif" }, Canvas.Settings.Text.align Center ]
-        (denormalizeVec2 { x = charPos.x, y = charPos.y - 0.02 } )
+        (denormalizeVec2 { x = charPos.x, y = charPos.y - 0.01 } )
         text
 
+
+viewCircleRadius = 15
 
 viewRenderBosses : EncounterBosses -> List Renderable
 viewRenderBosses bosses =
     let
+        renderPosition : Boss -> Point
+        renderPosition b =
+            let
+                (newX, newY) = denormalizeVec2 b.position
+            in
+            (newX, newY + viewCircleRadius)
+
+
         renderBossIndicator : Boss -> Color.Color -> Renderable
         renderBossIndicator b c =
-            shapes [ fill c ]
-                [ circle (denormalizeVec2 b.position) 15
+            shapes
+                [ fill c
+                , stroke Color.black
+                , lineWidth 3.0
+                , lineJoin BevelJoin
+                , lineDash [ 4, 2 ]
+                ]
+                [ circle (renderPosition b) viewCircleRadius
                 ]
 
         renderBossNameplate : Boss -> Renderable

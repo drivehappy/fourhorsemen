@@ -70,10 +70,12 @@ function createReceiveEvent(socket) {
 }
 
 function sendWebsocketData(data) {
-    gConnectedWebSocket
+    if (gConnectedWebSocket) {
+        gConnectedWebSocket
         .then(function (socket) {
             socket.send(data)
         }, function (error) {
             console.error('Could not send data on websocket: ', error)
         })
+    }
 }

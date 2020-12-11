@@ -26,12 +26,18 @@ let handleClientMessage (clientId : NetworkClientId) (gameState : MailboxProcess
             )
         ()
 
+    | CS_Main.Types.Type.PlayerMove ->
+        printfn "Received player move: %A" pbCSMain.PlayerMove
+        ()
+
     | CS_Main.Types.Type.RequestGameStart ->
         // TODO: Check permissions
+        printfn "Request game start"
         ()
 
     | CS_Main.Types.Type.RequestGameReset ->
         // TODO: Check permissions
+        printfn "Request game reset"
         ()
 
     | _ ->
