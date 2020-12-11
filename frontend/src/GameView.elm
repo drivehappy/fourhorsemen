@@ -8,6 +8,7 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 
 import GameModel exposing (..)
+import Model exposing (..)
 
 
 -- View
@@ -24,8 +25,8 @@ denormalizeVec2 v = denormalizePoint v.x (v.y - 0.02)
 
 
 
-view : EncounterBosses -> Html msg
-view bosses =
+view : Model -> Html msg
+view m =
     let
         clearScreen =
             shapes [ fill Color.white ] [ rect (0, 0) roomWidth roomHeight ]
@@ -37,7 +38,8 @@ view bosses =
         ( [ clearScreen
           ]
           ++ viewRenderPlatform
-          ++ (viewRenderBosses bosses)
+          ++ (viewRenderBosses m.bosses)
+          ++ (viewCurrentPlayer m.currentPlayer)
         )
 
 
@@ -96,6 +98,24 @@ viewRenderBosses bosses =
     , renderBossNameplate bosses.thane
     , renderBossNameplate bosses.zeliek
     , renderBossNameplate bosses.blaumeux
+    ]
+
+
+viewCurrentPlayer : Player -> List Renderable
+viewCurrentPlayer p =
+    let
+        renderPlayerIndicator : Player -> Color.Color -> Renderable
+        renderPlayerIndicator player c =
+            shapes [ fill c ]
+                [ circle (denormalizeVec2 player.position) 15
+                ]
+
+        renderPlayerNameplate : Player -> Renderable
+        renderPlayerNameplate player =
+            renderTextAboveCharacter player.position player.name
+    in
+    [ renderPlayerIndicator p (Color.rgba 0.5 0.5 0.5 1)
+    , renderPlayerNameplate p
     ]
 
 

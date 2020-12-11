@@ -1,11 +1,13 @@
 module Main exposing (main)
 
 import Browser
+import Browser.Events as Events
 import Cmd.Extra exposing (withNoCmd)
 import Dict exposing (Dict)
 import Html exposing (Html, a, button, div, h1, input, p, span, text, table, tr, th, h2, h3, br)
 import Html.Attributes exposing (checked, disabled, href, size, style, type_, value)
 import Html.Events exposing (onClick, onInput)
+import Json.Decode as Decode
 
 import GameModel exposing (..)
 import GameView exposing (..)
@@ -42,6 +44,35 @@ init _ =
 
 
 -- Update
+
+moveSpeed = 0.01
+
+
+updatePlayerPos : GameModel.Player -> KeyState -> GameModel.Player
+updatePlayerPos p k =
+    let
+        x =
+            let
+                x1 = if k.left then -moveSpeed else 0
+                x2 = if k.right then moveSpeed else 0
+            in
+            x1 + x2
+
+        y =
+            let
+                y1 = if k.up then -moveSpeed else 0
+                y2 = if k.down then moveSpeed else 0
+            in
+            y1 + y2
+
+        newCurrPlayerPos : GameModel.Vec2
+        newCurrPlayerPos = { x = p.position.x + x, y = p.position.y + y }
+
+        newCurrPlayer =
+            { p | position = newCurrPlayerPos }
+    in
+    newCurrPlayer
+
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
@@ -88,12 +119,81 @@ update msg model =
             in
             (model, Cmd.none)
 
+        KeyDown k ->
+            let
+                newKeyState : KeyState
+                newKeyState =
+                    let
+                        currKeyState = model.keyState
+                    in 
+                    case k of
+                        Up ->
+                            { currKeyState | up = True }
+
+                        Down ->
+                            { currKeyState | down = True }
+
+                        Left ->
+                            { currKeyState | left = True }
+
+                        Right ->
+                            { currKeyState | right = True }
+
+                        _ ->
+                            model.keyState
+
+                newCurrPlayer =
+                    updatePlayerPos model.currentPlayer newKeyState
+
+                newModel =
+                    { model | keyState = newKeyState, currentPlayer = newCurrPlayer }
+            in
+            (newModel, Cmd.none)
+
+        KeyUp k ->
+            let
+                newKeyState : KeyState
+                newKeyState =
+                    let
+                        currKeyState = model.keyState
+                    in 
+                    case k of
+                        Up ->
+                            { currKeyState | up = False }
+
+                        Down ->
+                            { currKeyState | down = False }
+
+                        Left ->
+                            { currKeyState | left = False }
+
+                        Right ->
+                            { currKeyState | right = False }
+
+                        _ ->
+                            model.keyState
+
+                newCurrPlayer =
+                    updatePlayerPos model.currentPlayer newKeyState
+
+                newModel =
+                    { model | keyState = newKeyState, currentPlayer = newCurrPlayer }
+            in
+            (newModel, Cmd.none)
+
         CanvasClick (x, y) ->
             let
                 i = Debug.log "Canvas clickX: " x
                 j = Debug.log "Canvas clickY: " y
             in
             (model, Cmd.none)
+
+        UpdateServerCode newServerCode ->
+            let
+                newModel =
+                    { model | serverCode = newServerCode }
+            in
+            (newModel, Cmd.none)
 
         UpdatePlayerName newPlayerName ->
             let
@@ -111,6 +211,30 @@ defaultUrl =
 
 -- VIEW
 
+keyDecoder : Decode.Decoder KeyDirection
+keyDecoder =
+    let
+        toDirection : String -> KeyDirection
+        toDirection s =
+            case s of
+                "w" ->
+                    Up
+
+                "d" ->
+                    Right
+
+                "s" ->
+                    Down
+
+                "a" ->
+                    Left
+
+                k ->
+                    Unknown k
+    in
+    Decode.map toDirection (Decode.field "key" Decode.string)
+
+
 view : Model -> Html Msg
 view model =
     div []
@@ -121,8 +245,8 @@ view model =
                 , text "Instance code required:"
                 , br [] []
                 , input
-                    [ value ""
-                    --, onInput (UpdateUrl >> Websocket)
+                    [ value model.serverCode
+                    , onInput UpdateServerCode
                     , size 30
                     ]
                     []
@@ -153,7 +277,7 @@ view model =
                 , style "justify-content" "center"
                 , style "align-items" "center"
                 ]
-                [ GameView.view model.bosses
+                [ GameView.view model
                 ]
         ,   div
                 []
@@ -171,4 +295,6 @@ subscriptions m =
         , wsReceivedMsg WebsocketDataReceived
         , wsError WebsocketError
         , canvasClicked CanvasClick
+        , Events.onKeyDown (Decode.map KeyDown keyDecoder)
+        , Events.onKeyUp (Decode.map KeyUp keyDecoder)
         ]

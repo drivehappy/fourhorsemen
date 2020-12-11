@@ -42,24 +42,37 @@ receiveWebsocketData data =
 
 
 --
+pbVec2ToModel : PB.Vec2 -> GameModel.Vec2
+pbVec2ToModel p = { x = p.positionX, y = p.positionY }
+
+pbPositionToModel : Maybe PB.Vec2 -> GameModel.Vec2
+pbPositionToModel v =
+    v
+        |> Maybe.map pbVec2ToModel
+        |> Maybe.withDefault ({ x = 0, y = 0 })
+
+--
 buildBossFromPB : PB.Boss -> GameModel.Boss
 buildBossFromPB pb =
     let
-        pbVec2ToModel : PB.Vec2 -> GameModel.Vec2
-        pbVec2ToModel p = { x = p.positionX, y = p.positionY }
-
-        newPosition : GameModel.Vec2
-        newPosition =
-            pb.position
-                |> Maybe.map pbVec2ToModel
-                |> Maybe.withDefault ({ x = 0, y = 0 })
-
-        newName =
-            pb.name
+        newPosition = pbPositionToModel pb.position
     in
     { position = newPosition
     , direction = pb.direction
-    , name = newName
+    , name = pb.name
+    }
+
+
+--
+buildPlayerFromPB : PB.Player -> GameModel.Player
+buildPlayerFromPB pb =
+    let
+        newPosition = pbPositionToModel pb.position
+    in
+    { position = newPosition
+    , direction = pb.direction
+    , name = pb.name
+    , guid = pb.guid
     }
 
 
@@ -83,7 +96,6 @@ handleServerData m pbSCMain =
                 -- the one provided by the server
                 newBossStates : EncounterBosses
                 newBossStates =
-                    Debug.log "Received server game step update" 
                     { mograine =
                         pbSCMain.bulkBossUpdate
                             |> ListE.find (\b -> b.type_ == PB.Mograine)
@@ -105,9 +117,15 @@ handleServerData m pbSCMain =
                             |> Maybe.map buildBossFromPB
                             |> Maybe.withDefault m.bosses.blaumeux
                     }
+
+                newPlayers : List GameModel.Player
+                newPlayers =
+                    Debug.log "Player list"
+                    pbSCMain.bulkPlayerUpdate
+                        |> List.map buildPlayerFromPB
                     
                 newModel =
-                    { m | bosses = newBossStates }
+                    { m | bosses = newBossStates, players = newPlayers }
 
             in
             (newModel, Cmd.none)
