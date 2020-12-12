@@ -45,17 +45,24 @@ receiveWebsocketData data =
 pbVec2ToModel : PB.Vec2 -> GameModel.Vec2
 pbVec2ToModel p = { x = p.positionX, y = p.positionY }
 
-pbPositionToModel : Maybe PB.Vec2 -> GameModel.Vec2
-pbPositionToModel v =
+
+pbPositionToVec2 : Maybe PB.Vec2 -> GameModel.Vec2
+pbPositionToVec2 v =
     v
         |> Maybe.map pbVec2ToModel
         |> Maybe.withDefault ({ x = 0, y = 0 })
+
+
+vec2ToPB : GameModel.Vec2 -> PB.Vec2
+vec2ToPB v =
+    { positionX = v.x, positionY = v.y }
+
 
 --
 buildBossFromPB : PB.Boss -> GameModel.Boss
 buildBossFromPB pb =
     let
-        newPosition = pbPositionToModel pb.position
+        newPosition = pbPositionToVec2 pb.position
     in
     { position = newPosition
     , direction = pb.direction
@@ -67,7 +74,7 @@ buildBossFromPB pb =
 buildPlayerFromPB : PB.Player -> GameModel.Player
 buildPlayerFromPB pb =
     let
-        newPosition = pbPositionToModel pb.position
+        newPosition = pbPositionToVec2 pb.position
     in
     { position = newPosition
     , direction = pb.direction

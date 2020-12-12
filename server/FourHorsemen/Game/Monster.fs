@@ -15,6 +15,7 @@ type Monster = {
     name : string
     type_ : MonsterType
     direction : float32   // Radians
+    speed : float       //
     position : Vec2
     maxHealth : int
     curHealth : int
@@ -27,8 +28,8 @@ type Monster = {
     isSpirit : bool
 
     // Target and threat list
-    target : Player option
-    threat : (Player * int) list
+    target : Ref<Player> option
+    threat : (Ref<Player> * int) list
 }
 
 let markRange = 65.0f   // 65-70 yards?'
@@ -39,7 +40,8 @@ let initMograine = {
     name = "Mograine"
     type_ = Mograine
     direction = 0.0f
-    position = { x = 400.0f; y = 450.0f }
+    speed = 15.0
+    position = { x = 60.0f; y = 67.5f }
     maxHealth = 530000
     curHealth = 530000
 
@@ -56,7 +58,8 @@ let initThane = {
     name = "Thane"
     type_ = Thane
     direction = 0.0f
-    position = { x = 350.0f; y = 450.0f }
+    speed = 15.0
+    position = { x = 52.5f; y = 67.5f }
     maxHealth = 590000
     curHealth = 590000
 
@@ -73,7 +76,8 @@ let initZeliek = {
     name = "Zeliek"
     type_ = Zeliek
     direction = 0.0f
-    position = { x = 450.0f; y = 450.0f }
+    speed = 15.0
+    position = { x = 67.5f; y = 67.5f }
     maxHealth = 230000
     curHealth = 230000
 
@@ -90,7 +94,8 @@ let initBlaumeux = {
     name = "Blaumeux"
     type_ = Blaumeux
     direction = 0.0f
-    position = { x = 300.0f; y = 450.0f }
+    speed = 15.0
+    position = { x = 45.0f; y = 67.5f }
     maxHealth = 290000
     curHealth = 290000
 

@@ -11,6 +11,14 @@ open Monster
 open World
 open Google.Protobuf
 open GameState
+open Entity
+open Helpers
+
+
+//
+let normalizeVec2ToPB (d : Dimensions) (v : Entity.Vec2) : Proto.Vec2 =
+    normalizePos d v
+    |> vec2ToPB
 
 
 // Main handler for incoming network messages from the client
@@ -27,7 +35,8 @@ let handleClientMessage (clientId : NetworkClientId) (gameState : MailboxProcess
         ()
 
     | CS_Main.Types.Type.PlayerMove ->
-        printfn "Received player move: %A" pbCSMain.PlayerMove
+        gameState.Post (RunPlayerAction (PlayerMove (clientId, pbCSMain.PlayerMove)))
+        //printfn "Received player move: %A" pbCSMain.PlayerMove
         ()
 
     | CS_Main.Types.Type.RequestGameStart ->
@@ -45,24 +54,11 @@ let handleClientMessage (clientId : NetworkClientId) (gameState : MailboxProcess
         ()
 
 
-// Convert our absolute position into a normalized position
-let normalizePos (world : World) (p : Entity.Vec2) : Entity.Vec2 =
-    { x = p.x / world.worldWidth; y = p.y / world.worldHeight }
-
-
 // Build a server -> client message from the provided world state,
 // this will just send everything.
 let buildSCWorldState (world : World) : ByteSegment =
     let pbSCMain = SC_Main()
     pbSCMain.Type <- SC_Main.Types.Type.GameStepUpdate
-
-    // Helpers
-    let vec2ToPB (v : Entity.Vec2) : Proto.Vec2 =
-        Proto.Vec2(PositionX = v.x, PositionY = v.y)
-
-    let normalizeVec2ToPB (v : Entity.Vec2) : Proto.Vec2 =
-        normalizePos world v
-        |> vec2ToPB
 
     // Build player message
     world.players
@@ -70,11 +66,11 @@ let buildSCWorldState (world : World) : ByteSegment =
         let convertPlayerToProto (p : Player.Player) : Proto.Player =
             let pb = Proto.Player()
             pb.Guid <- p.networkClientId
-            pb.Position <- normalizeVec2ToPB p.position
+            pb.Position <- normalizeVec2ToPB world.dimensions p.position
             pb.Direction <- p.direction
             pb
 
-        pbSCMain.BulkPlayerUpdate.Add(convertPlayerToProto p)
+        pbSCMain.BulkPlayerUpdate.Add(convertPlayerToProto !p)
     )
 
     // Build boss message
@@ -88,7 +84,7 @@ let buildSCWorldState (world : World) : ByteSegment =
                 | Thane -> Proto.Boss.Types.Type.Thane
                 | Zeliek -> Proto.Boss.Types.Type.Zeliek
                 | Blaumeux -> Proto.Boss.Types.Type.Blaumeux
-            pb.Position <- normalizeVec2ToPB m.position
+            pb.Position <- normalizeVec2ToPB world.dimensions m.position
             pb.Direction <- m.direction
             pb.Name <- m.name
             pb

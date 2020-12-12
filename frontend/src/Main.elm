@@ -46,13 +46,8 @@ init _ =
 
 -- Update
 
+
 moveSpeed = 0.1
-
-
---
-vec2ToPB : GameModel.Vec2 -> PB.Vec2
-vec2ToPB v =
-    { positionX = v.x, positionY = v.y }
 
 
 --

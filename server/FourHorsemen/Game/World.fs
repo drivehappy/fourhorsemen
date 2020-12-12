@@ -2,14 +2,14 @@
 
 open Monster
 open Player
+open Entity
 
 
 type World = {
     bosses : Monster[]
-    players : Player list
+    players : Ref<Player> list
 
-    worldWidth : float32
-    worldHeight : float32
+    dimensions : Dimensions
 }
 
 let initWorld = {
@@ -17,8 +17,7 @@ let initWorld = {
     players = []
 
     // Estimates
-    worldWidth = 800.0f
-    worldHeight = 800.0f
+    dimensions = { width = 120.0f; height = 120.0f }
 }
 
 

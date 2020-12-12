@@ -9,6 +9,11 @@ type Vec2 = {
     y : float32
 }
 
+type Dimensions = {
+    width : float32
+    height : float32
+}
+
 
 // Mark helpers
 type MarkTimerAndStacks = float<milli second> * int

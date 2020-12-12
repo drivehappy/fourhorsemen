@@ -7,6 +7,7 @@
 
   <ItemGroup>
     <Compile Include="Game\Entity.fs" />
+    <Compile Include="Game\Helpers.fs" />
     <Compile Include="Game\Player.fs" />
     <Compile Include="Game\Monster.fs" />
     <Compile Include="Game\Instance.fs" />
