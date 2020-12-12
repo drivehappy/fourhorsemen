@@ -22,16 +22,24 @@ let normalizeVec2ToPB (d : Dimensions) (v : Entity.Vec2) : Proto.Vec2 =
 
 
 // Main handler for incoming network messages from the client
-let handleClientMessage (clientId : NetworkClientId) (gameState : MailboxProcessor<GameStateMsg>) (pbCSMain : CS_Main) =
+let handleClientMessage (sendFunc : SC_Main -> Async<unit>) (clientId : NetworkClientId) (gameState : MailboxProcessor<GameStateMsg>) (pbCSMain : CS_Main) =
     match pbCSMain.Type with
     | CS_Main.Types.Type.PlayerJoin ->
         let pj = if (isNull pbCSMain.PlayerJoin) then None else Some pbCSMain.PlayerJoin
+        pj
+        |> Option.iter (fun playerJoin ->
+            gameState.Post (RunPlayerAction (PlayerSetName (clientId, playerJoin.PlayerName)))
+        )
 
-        let newPlayerState =
-            pj
-            |> Option.iter (fun playerJoin ->
-                gameState.Post (RunPlayerAction (PlayerSetName (clientId, playerJoin.PlayerName)))
-            )
+        // Send back the assigned client ID to the client
+        let pbSCMain = new SC_Main()
+        pbSCMain.Type <- SC_Main.Types.Type.AssignPlayerId
+        pbSCMain.AssignedPlayerId <- clientId
+
+        pbSCMain
+        |> sendFunc
+        |> Async.Start
+
         ()
 
     | CS_Main.Types.Type.PlayerMove ->
@@ -68,6 +76,7 @@ let buildSCWorldState (world : World) : ByteSegment =
             pb.Guid <- p.networkClientId
             pb.Position <- normalizeVec2ToPB world.dimensions p.position
             pb.Direction <- p.direction
+            pb.Name <- p.name
             pb
 
         pbSCMain.BulkPlayerUpdate.Add(convertPlayerToProto !p)
@@ -146,7 +155,7 @@ let networkConnections (gameState : MailboxProcessor<GameStateMsg>) =
 
 
                     //networkWorldState.Post(ReceivedClientData (sendFunc, clientId, pbCSMain))
-                    handleClientMessage clientId gameState pbCSMain
+                    handleClientMessage sendFunc clientId gameState pbCSMain
 
                     return! loop conns
 

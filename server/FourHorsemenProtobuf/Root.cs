@@ -55,15 +55,15 @@ namespace Codegen.Proto {
             "BHR5cGUYASABKA4yIi5jb2RlZ2VuLnByb3RvLlNDX0Jvc3NBYmlsaXR5LlR5",
             "cGUSHAoUcGxheWVyX2d1aWRfYWZmZWN0ZWQYAiADKAUiRQoEVHlwZRISCg5S",
             "SUdIVEVPVVNfRklSRRAAEgoKBk1FVEVPUhABEg4KCkhPTFlfV1JBVEgQAhIN",
-            "CglWT0lEX1pPTkUQAyKiAgoHU0NfTWFpbhIpCgR0eXBlGAEgASgOMhsuY29k",
+            "CglWT0lEX1pPTkUQAyK4AgoHU0NfTWFpbhIpCgR0eXBlGAEgASgOMhsuY29k",
             "ZWdlbi5wcm90by5TQ19NYWluLlR5cGUSMQoSYnVsa19wbGF5ZXJfdXBkYXRl",
             "GAIgAygLMhUuY29kZWdlbi5wcm90by5QbGF5ZXISLQoQYnVsa19ib3NzX3Vw",
             "ZGF0ZRgDIAMoCzITLmNvZGVnZW4ucHJvdG8uQm9zcxI9ChZib3NzX2FiaWxp",
             "dHlfcGVyZm9ybWVkGAQgAygLMh0uY29kZWdlbi5wcm90by5TQ19Cb3NzQWJp",
-            "bGl0eRIaChJhc3NpZ25lZF9wbGF5ZXJfaWQYBSABKAkiLwoEVHlwZRIRCg1J",
-            "TklUSUFMX1NUQVRFEAASFAoQR0FNRV9TVEVQX1VQREFURRABKkIKC1BsYXll",
-            "ckNsYXNzEggKBFRBTksQABIKCgZIRUFMRVIQARIOCgpSQU5HRURfRFBTEAIS",
-            "DQoJTUVMRUVfRFBTEANiBnByb3RvMw=="));
+            "bGl0eRIaChJhc3NpZ25lZF9wbGF5ZXJfaWQYBSABKAkiRQoEVHlwZRIRCg1J",
+            "TklUSUFMX1NUQVRFEAASFAoQQVNTSUdOX1BMQVlFUl9JRBABEhQKEEdBTUVf",
+            "U1RFUF9VUERBVEUQAipCCgtQbGF5ZXJDbGFzcxIICgRUQU5LEAASCgoGSEVB",
+            "TEVSEAESDgoKUkFOR0VEX0RQUxACEg0KCU1FTEVFX0RQUxADYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Codegen.Proto.PlayerClass), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -2845,7 +2845,8 @@ namespace Codegen.Proto {
     public static partial class Types {
       public enum Type {
         [pbr::OriginalName("INITIAL_STATE")] InitialState = 0,
-        [pbr::OriginalName("GAME_STEP_UPDATE")] GameStepUpdate = 1,
+        [pbr::OriginalName("ASSIGN_PLAYER_ID")] AssignPlayerId = 1,
+        [pbr::OriginalName("GAME_STEP_UPDATE")] GameStepUpdate = 2,
       }
 
     }

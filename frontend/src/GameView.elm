@@ -30,6 +30,13 @@ view m =
                 ]
                 [ rect (0, 0) (roomWidth * viewZoomRatio) (roomHeight * viewZoomRatio)
                 ]
+
+        -- Gather the list of players, with the exception of our current player
+        playersExceptCurrent =
+            m.players
+                |> List.filter (\p -> p.guid /= m.currentPlayer.guid)
+
+        i = Debug.log "CurrentPlayerGuid " m.currentPlayer.guid
     in
     Canvas.toHtml
         (roomWidth * viewZoomRatio, roomHeight * viewZoomRatio)
@@ -39,7 +46,8 @@ view m =
           ]
           ++ viewRenderPlatform
           ++ (viewRenderBosses m.bosses)
-          ++ (viewCurrentPlayer m.currentPlayer)
+          ++ (viewRenderPlayers playersExceptCurrent)
+          ++ (viewRenderCurrentPlayer m.currentPlayer)
         )
 
 
@@ -72,10 +80,11 @@ viewRenderPlatform =
 
 
 
-renderTextAboveCharacter : Vec2 -> String -> Renderable
-renderTextAboveCharacter charPos text =
+renderTextAboveCharacter : Color.Color -> Vec2 -> String -> Renderable
+renderTextAboveCharacter c charPos text =
     Canvas.text
         [ font { size = 12, family = "sans-serif" }
+        , fill c
         , Canvas.Settings.Text.align Center
         ]
         (denormalizeVec2 { x = charPos.x, y = charPos.y - 0.01 } )
@@ -113,7 +122,7 @@ viewRenderBosses bosses =
 
         renderBossNameplate : Boss -> Renderable
         renderBossNameplate b =
-            renderTextAboveCharacter b.position b.name
+            renderTextAboveCharacter Color.red b.position b.name
 
 
         -- For debugging, maybe more, render the aggro radius
@@ -146,23 +155,42 @@ viewRenderBosses bosses =
     ]
 
 
-viewCurrentPlayer : Player -> List Renderable
-viewCurrentPlayer p =
-    let
-        renderPlayerIndicator : Player -> Color.Color -> Renderable
-        renderPlayerIndicator player c =
-            shapes
-                [ fill c
-                ]
-                [ circle (renderCirclePosition player.position) viewCircleRadius
-                ]
+--
+renderPlayerIndicator : Player -> Color.Color -> Renderable
+renderPlayerIndicator player c =
+    shapes
+        [ fill c
+        ]
+        [ circle (renderCirclePosition player.position) viewCircleRadius
+        ]
 
-        renderPlayerNameplate : Player -> Renderable
-        renderPlayerNameplate player =
-            renderTextAboveCharacter player.position player.name
+
+renderPlayerNameplate : Player -> Color.Color -> Renderable
+renderPlayerNameplate player c =
+    renderTextAboveCharacter c player.position player.name
+
+
+-- Render the provided players
+viewRenderPlayers : List Player -> List Renderable
+viewRenderPlayers players =
+    let
+        renderedPlayers =
+            players
+                |> List.map (\p ->
+                    [ renderPlayerIndicator p (Color.rgba 0.8 0.8 0.8 1)
+                    , renderPlayerNameplate p Color.green
+                    ]
+                )
+                |> List.concat
     in
-    [ renderPlayerIndicator p (Color.rgba 0.5 0.5 0.5 1)
-    , renderPlayerNameplate p
+    renderedPlayers
+
+
+--
+viewRenderCurrentPlayer : Player -> List Renderable
+viewRenderCurrentPlayer p =
+    [ renderPlayerIndicator p (Color.rgba 0.2 0.2 0.2 1)
+    , renderPlayerNameplate p Color.green
     ]
 
 

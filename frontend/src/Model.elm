@@ -20,7 +20,7 @@ initModel : Model
 initModel =
     { isConnected = False
     , serverCode = ""
-    , playerName = ""
+    , playerName = "Unknown"
     , bosses = initBossEncounters
     , players = []
     , currentPlayer = initPlayer

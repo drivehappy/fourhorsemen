@@ -169,14 +169,20 @@ let gameState () =
 
                 | RunPlayerAction action ->
                     match action with
+                    | PlayerSetName (clientId, name) ->
+                        // Find associated player with client and update name
+                        worldState.players
+                        |> List.tryFind (fun p -> p.Value.networkClientId = clientId)
+                        |> Option.iter (fun p ->
+                            p := { !p with name = name }
+                        )
+
                     | PlayerMove (clientId, position) ->
                         // Find associated player with client and update position
                         worldState.players
                         |> List.tryFind (fun p -> p.Value.networkClientId = clientId)
                         |> Option.iter (fun p ->
                             p := { !p with position = denormPBtoVec2 worldState.dimensions position }
-                            //let newPlayerState = 
-                            //updatePlayerInList worldState.players p newPlayerState
                         )
 
 

@@ -149,7 +149,8 @@ message SC_BossAbility {
 message SC_Main {
     enum Type {
         INITIAL_STATE = 0;
-        GAME_STEP_UPDATE = 1;
+        ASSIGN_PLAYER_ID = 1;
+        GAME_STEP_UPDATE = 2;
     }
     
     Type type = 1;

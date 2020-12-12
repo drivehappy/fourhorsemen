@@ -107,6 +107,7 @@ type SCBossAbilityType
 -}
 type SCMainType
     = InitialState
+    | AssignPlayerId
     | GameStepUpdate
     | SCMainTypeUnrecognized_ Int
 
@@ -361,6 +362,9 @@ sCMainTypeDecoder =
                         InitialState
 
                     1 ->
+                        AssignPlayerId
+
+                    2 ->
                         GameStepUpdate
 
                     v ->
@@ -617,8 +621,11 @@ toSCMainTypeEncoder value =
             InitialState ->
                 0
 
-            GameStepUpdate ->
+            AssignPlayerId ->
                 1
+
+            GameStepUpdate ->
+                2
 
             SCMainTypeUnrecognized_ v ->
                 v

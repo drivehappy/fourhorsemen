@@ -96,6 +96,18 @@ handleServerData m pbSCMain =
             in
             (m, Cmd.none)
 
+        AssignPlayerId ->
+            let
+                i = Debug.log "PlayerID " pbSCMain.assignedPlayerId
+
+                currPlayer = m.currentPlayer
+                newCurrentPlayer =
+                    { currPlayer | guid = pbSCMain.assignedPlayerId }
+                newModel =
+                    { m | currentPlayer = newCurrentPlayer }
+            in
+            (newModel, Cmd.none)
+
         GameStepUpdate ->
             let
                 
@@ -130,7 +142,7 @@ handleServerData m pbSCMain =
                     Debug.log "Player list"
                     pbSCMain.bulkPlayerUpdate
                         |> List.map buildPlayerFromPB
-                    
+
                 newModel =
                     { m | bosses = newBossStates, players = newPlayers }
 
