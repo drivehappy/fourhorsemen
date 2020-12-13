@@ -60,7 +60,7 @@ updatePlayerPos dt p k =
                 x2 = if k.right then (moveSpeed * dt) else 0
             in
             x1 + x2
-
+            
         y =
             let
                 y1 = if k.up then (-moveSpeed * dt) else 0
@@ -68,8 +68,24 @@ updatePlayerPos dt p k =
             in
             y1 + y2
 
+        finalX =
+            let
+                newX = p.position.x + x
+            in
+            if newX > 1 then 1
+            else if newX < 0 then 0
+            else newX
+
+        finalY =
+            let
+                newY = p.position.y + y
+            in
+            if newY > 1 then 1
+            else if newY < 0 then 0
+            else newY
+
         newCurrPlayerPos : GameModel.Vec2
-        newCurrPlayerPos = { x = p.position.x + x, y = p.position.y + y }
+        newCurrPlayerPos = { x = finalX, y = finalY }
 
         newCurrPlayer =
             { p | position = newCurrPlayerPos }
