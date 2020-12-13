@@ -109,7 +109,11 @@ handleServerData m pbSCMain =
             let
                 i = Debug.log "PlayerID " pbSCMain.assignedPlayerId
 
-                currPlayer = m.currentPlayer
+                -- Assume we build our player at this point too
+                j = Debug.log "UpdaterPlayerName" ()
+
+                currPlayer = Just initPlayer
+
                 newCurrentPlayer =
                     currPlayer
                         |> Maybe.map (\cp -> { cp | guid = pbSCMain.assignedPlayerId })
@@ -121,7 +125,6 @@ handleServerData m pbSCMain =
 
         GameStepUpdate ->
             let
-                
                 -- For now we just make this super simple and replace our entire boss state with
                 -- the one provided by the server
                 newBossStates : EncounterBosses
@@ -150,7 +153,6 @@ handleServerData m pbSCMain =
 
                 newPlayers : List GameModel.Player
                 newPlayers =
-                    --Debug.log "Player list"
                     pbSCMain.bulkPlayerUpdate
                         |> List.map buildPlayerFromPB
 

@@ -179,7 +179,12 @@ let networkConnections (gameState : MailboxProcessor<GameStateMsg>) =
                             |> ByteSegment
 
                         ws.send Binary d true
-                        |> Async.map (fun f -> ())  // TODO: This currently ignores any errors
+                        |> Async.map (fun f ->
+                            match f with
+                            | Choice1Of2 () -> ()
+                            | Choice2Of2 e ->
+                                printfn "Error: %A" e
+                        )
 
 
                     //networkWorldState.Post(ReceivedClientData (sendFunc, clientId, pbCSMain))
