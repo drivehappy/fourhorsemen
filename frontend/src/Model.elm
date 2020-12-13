@@ -11,7 +11,7 @@ type alias Model =
     , playerName : String
     , bosses : EncounterBosses
     , players : List Player
-    , currentPlayer : Player
+    , currentPlayer : Maybe Player
     , keyState : KeyState
     }
 
@@ -23,6 +23,6 @@ initModel =
     , playerName = "Unknown"
     , bosses = initBossEncounters
     , players = []
-    , currentPlayer = initPlayer
+    , currentPlayer = Nothing
     , keyState = initKeyState
     }

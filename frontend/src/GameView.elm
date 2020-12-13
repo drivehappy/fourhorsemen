@@ -32,11 +32,11 @@ view m =
         -- Gather the list of players, with the exception of our current player
         playersExceptCurrent =
             m.players
-                |> List.filter (\p -> p.guid /= m.currentPlayer.guid)
-
-        i =
-            --Debug.log "CurrentPlayerGuid "
-            m.currentPlayer.guid
+                |> List.filter (\p ->
+                    case m.currentPlayer of
+                        Just cp -> p.guid /= cp.guid
+                        Nothing -> False
+                )
     in
     Canvas.toHtml
         (roomWidth * viewZoomRatio, roomHeight * viewZoomRatio)
@@ -48,7 +48,10 @@ view m =
         ++ viewRenderPlatform
         ++ (viewRenderBosses m.bosses)
         ++ (viewRenderPlayers playersExceptCurrent)
-        ++ (viewRenderCurrentPlayer m.currentPlayer)
+        ++ (m.currentPlayer
+                |> Maybe.map viewRenderCurrentPlayer
+                |> Maybe.withDefault []
+           )
         )
 
 

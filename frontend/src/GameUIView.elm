@@ -70,7 +70,7 @@ viewRenderPlayerList m =
         renderPlayers : List Player -> Int -> List Renderable
         renderPlayers players startY =
             let
-                l = ListE.initialize startY (\i -> i + 10)
+                l = ListE.initialize (players |> List.length) (\i -> startY + (i * 15))
 
                 pl : List (Player, Int)
                 pl = ListE.zip players l
@@ -78,10 +78,14 @@ viewRenderPlayerList m =
             in
             pl
                 |> List.map (\(p, i) ->
-                    playerText "Name Here" (15, (toFloat i))
+                    playerText p.name (15, (toFloat i))
                 )
     in
-    [ headerText "Tanks" (6, 20)
-    ]
-    ++ renderPlayers m.players 25
-    
+    [ headerText "Tanks" (6, 20) ]
+    ++ renderPlayers tanks 40
+    ++ [ headerText "Healers" (6, 100) ]
+    ++ renderPlayers healers 120
+    ++ [ headerText "Melee DPS" (6, 180) ]
+    ++ renderPlayers melee 200
+    ++ [ headerText "Ranged DPS" (6, 260) ]
+    ++ renderPlayers ranged 280

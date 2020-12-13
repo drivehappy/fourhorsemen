@@ -111,7 +111,9 @@ handleServerData m pbSCMain =
 
                 currPlayer = m.currentPlayer
                 newCurrentPlayer =
-                    { currPlayer | guid = pbSCMain.assignedPlayerId }
+                    currPlayer
+                        |> Maybe.map (\cp -> { cp | guid = pbSCMain.assignedPlayerId })
+                    
                 newModel =
                     { m | currentPlayer = newCurrentPlayer }
             in

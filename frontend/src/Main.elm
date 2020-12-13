@@ -229,8 +229,10 @@ update msg model =
             let
                 dt = (frameInt / 1000.0)
 
+                newCurrPlayer : Maybe GameModel.Player
                 newCurrPlayer =
-                    updatePlayerPos dt model.currentPlayer model.keyState
+                    model.currentPlayer
+                        |> Maybe.map (\cp -> updatePlayerPos dt cp model.keyState)
 
                 newModel =
                     { model | currentPlayer = newCurrPlayer }
@@ -239,19 +241,33 @@ update msg model =
                 -- Note: This might be pretty spammy, once every frame, may need
                 --       to just track the direction and whether play is moving.
                 newCmd =
-                    let
-                        pbCSMain : PB.CSMain
-                        pbCSMain =
+                    case newCurrPlayer of
+                        Just ncp ->
                             let
-                                p = buildDefaultCSMain PlayerMove
+                                pbCSMain : PB.CSMain
+                                pbCSMain =
+                                    let
+                                        p = buildDefaultCSMain PlayerMove
+                                    in
+                                    { p | playerMove = Just (vec2ToPB ncp.position) }
+
+                                oldPos =
+                                    model.currentPlayer
+                                        |> Maybe.map (\p -> p.position)
+
+                                newPos =
+                                    newCurrPlayer
+                                        |> Maybe.map (\p -> p.position)
+
                             in
-                            { p | playerMove = Just (vec2ToPB newCurrPlayer.position) }
-                    in
-                    if newCurrPlayer.position /= model.currentPlayer.position then
-                        -- Only send this if our player position changed
-                        sendWebsocketData pbCSMain
-                    else
-                        Cmd.none
+                            if newPos /= oldPos then
+                                -- Only send this if our player position changed
+                                sendWebsocketData pbCSMain
+                            else
+                                Cmd.none
+
+                        _ ->
+                            Cmd.none
 
             in
             (newModel, newCmd)
