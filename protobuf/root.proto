@@ -19,11 +19,16 @@ message Vec2 {
     float position_y = 2;
 }
 
+message Debuff {
+    int32 stack_count = 1;
+    int32 remaining_ms = 2;
+}
+
 message Debuffs {
-    int32 mark_mograine = 1;
-    int32 mark_thane = 2;
-    int32 mark_blaumeux = 3;
-    int32 mark_zeliek = 4;
+    Debuff mark_mograine = 1;
+    Debuff mark_thane = 2;
+    Debuff mark_blaumeux = 3;
+    Debuff mark_zeliek = 4;
 }
 
 message Player {

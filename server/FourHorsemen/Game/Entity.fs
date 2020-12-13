@@ -18,8 +18,9 @@ type Dimensions = {
 // Mark helpers
 type MarkTimerAndStacks = float<milli second> * int
 
-type MonsterMark =
-    | MograineMark of MarkTimerAndStacks
-    | ThaneMark of MarkTimerAndStacks
-    | BlaumeuxMark of MarkTimerAndStacks
-    | ZeliekMark of MarkTimerAndStacks
+type MonsterMarks = {
+    mograineMark : MarkTimerAndStacks option
+    thaneMark : MarkTimerAndStacks option
+    blaumeuxMark : MarkTimerAndStacks option
+    zeliekMark : MarkTimerAndStacks option
+}

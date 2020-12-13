@@ -2,9 +2,9 @@
 
 
 module Codegen.Proto exposing
-    ( PlayerClass(..), BossType(..), CSPlayerActionType(..), CSMainType(..), SCGameStateType(..), SCBossAbilityType(..), SCMainType(..), Vec2, Debuffs, Player, Boss, CSNewPlayerJoin, CSPlayerAction, CSMain, SCGameState, SCBossAbility, SCMain
-    , vec2Decoder, debuffsDecoder, playerDecoder, bossDecoder, cSNewPlayerJoinDecoder, cSPlayerActionDecoder, cSMainDecoder, sCGameStateDecoder, sCBossAbilityDecoder, sCMainDecoder
-    , toVec2Encoder, toDebuffsEncoder, toPlayerEncoder, toBossEncoder, toCSNewPlayerJoinEncoder, toCSPlayerActionEncoder, toCSMainEncoder, toSCGameStateEncoder, toSCBossAbilityEncoder, toSCMainEncoder
+    ( PlayerClass(..), BossType(..), CSPlayerActionType(..), CSMainType(..), SCGameStateType(..), SCBossAbilityType(..), SCMainType(..), Vec2, Debuff, Debuffs, Player, Boss, CSNewPlayerJoin, CSPlayerAction, CSMain, SCGameState, SCBossAbility, SCMain
+    , vec2Decoder, debuffDecoder, debuffsDecoder, playerDecoder, bossDecoder, cSNewPlayerJoinDecoder, cSPlayerActionDecoder, cSMainDecoder, sCGameStateDecoder, sCBossAbilityDecoder, sCMainDecoder
+    , toVec2Encoder, toDebuffEncoder, toDebuffsEncoder, toPlayerEncoder, toBossEncoder, toCSNewPlayerJoinEncoder, toCSPlayerActionEncoder, toCSMainEncoder, toSCGameStateEncoder, toSCBossAbilityEncoder, toSCMainEncoder
     )
 
 {-| ProtoBuf module: `Codegen.Proto`
@@ -20,17 +20,17 @@ To run it use [`elm-protocol-buffers`](https://package.elm-lang.org/packages/eri
 
 # Model
 
-@docs PlayerClass, BossType, CSPlayerActionType, CSMainType, SCGameStateType, SCBossAbilityType, SCMainType, Vec2, Debuffs, Player, Boss, CSNewPlayerJoin, CSPlayerAction, CSMain, SCGameState, SCBossAbility, SCMain
+@docs PlayerClass, BossType, CSPlayerActionType, CSMainType, SCGameStateType, SCBossAbilityType, SCMainType, Vec2, Debuff, Debuffs, Player, Boss, CSNewPlayerJoin, CSPlayerAction, CSMain, SCGameState, SCBossAbility, SCMain
 
 
 # Decoder
 
-@docs vec2Decoder, debuffsDecoder, playerDecoder, bossDecoder, cSNewPlayerJoinDecoder, cSPlayerActionDecoder, cSMainDecoder, sCGameStateDecoder, sCBossAbilityDecoder, sCMainDecoder
+@docs vec2Decoder, debuffDecoder, debuffsDecoder, playerDecoder, bossDecoder, cSNewPlayerJoinDecoder, cSPlayerActionDecoder, cSMainDecoder, sCGameStateDecoder, sCBossAbilityDecoder, sCMainDecoder
 
 
 # Encoder
 
-@docs toVec2Encoder, toDebuffsEncoder, toPlayerEncoder, toBossEncoder, toCSNewPlayerJoinEncoder, toCSPlayerActionEncoder, toCSMainEncoder, toSCGameStateEncoder, toSCBossAbilityEncoder, toSCMainEncoder
+@docs toVec2Encoder, toDebuffEncoder, toDebuffsEncoder, toPlayerEncoder, toBossEncoder, toCSNewPlayerJoinEncoder, toCSPlayerActionEncoder, toCSMainEncoder, toSCGameStateEncoder, toSCBossAbilityEncoder, toSCMainEncoder
 
 -}
 
@@ -120,13 +120,21 @@ type alias Vec2 =
     }
 
 
+{-| `Debuff` message
+-}
+type alias Debuff =
+    { stackCount : Int
+    , remainingMs : Int
+    }
+
+
 {-| `Debuffs` message
 -}
 type alias Debuffs =
-    { markMograine : Int
-    , markThane : Int
-    , markBlaumeux : Int
-    , markZeliek : Int
+    { markMograine : Maybe Debuff
+    , markThane : Maybe Debuff
+    , markBlaumeux : Maybe Debuff
+    , markZeliek : Maybe Debuff
     }
 
 
@@ -382,15 +390,25 @@ vec2Decoder =
         ]
 
 
+{-| `Debuff` decoder
+-}
+debuffDecoder : Decode.Decoder Debuff
+debuffDecoder =
+    Decode.message (Debuff 0 0)
+        [ Decode.optional 1 Decode.int32 setStackCount
+        , Decode.optional 2 Decode.int32 setRemainingMs
+        ]
+
+
 {-| `Debuffs` decoder
 -}
 debuffsDecoder : Decode.Decoder Debuffs
 debuffsDecoder =
-    Decode.message (Debuffs 0 0 0 0)
-        [ Decode.optional 1 Decode.int32 setMarkMograine
-        , Decode.optional 2 Decode.int32 setMarkThane
-        , Decode.optional 3 Decode.int32 setMarkBlaumeux
-        , Decode.optional 4 Decode.int32 setMarkZeliek
+    Decode.message (Debuffs Nothing Nothing Nothing Nothing)
+        [ Decode.optional 1 (Decode.map Just debuffDecoder) setMarkMograine
+        , Decode.optional 2 (Decode.map Just debuffDecoder) setMarkThane
+        , Decode.optional 3 (Decode.map Just debuffDecoder) setMarkBlaumeux
+        , Decode.optional 4 (Decode.map Just debuffDecoder) setMarkZeliek
         ]
 
 
@@ -641,15 +659,25 @@ toVec2Encoder model =
         ]
 
 
+{-| `Debuff` encoder
+-}
+toDebuffEncoder : Debuff -> Encode.Encoder
+toDebuffEncoder model =
+    Encode.message
+        [ ( 1, Encode.int32 model.stackCount )
+        , ( 2, Encode.int32 model.remainingMs )
+        ]
+
+
 {-| `Debuffs` encoder
 -}
 toDebuffsEncoder : Debuffs -> Encode.Encoder
 toDebuffsEncoder model =
     Encode.message
-        [ ( 1, Encode.int32 model.markMograine )
-        , ( 2, Encode.int32 model.markThane )
-        , ( 3, Encode.int32 model.markBlaumeux )
-        , ( 4, Encode.int32 model.markZeliek )
+        [ ( 1, (Maybe.withDefault Encode.none << Maybe.map toDebuffEncoder) model.markMograine )
+        , ( 2, (Maybe.withDefault Encode.none << Maybe.map toDebuffEncoder) model.markThane )
+        , ( 3, (Maybe.withDefault Encode.none << Maybe.map toDebuffEncoder) model.markBlaumeux )
+        , ( 4, (Maybe.withDefault Encode.none << Maybe.map toDebuffEncoder) model.markZeliek )
         ]
 
 
@@ -758,6 +786,16 @@ setPositionX value model =
 setPositionY : a -> { b | positionY : a } -> { b | positionY : a }
 setPositionY value model =
     { model | positionY = value }
+
+
+setStackCount : a -> { b | stackCount : a } -> { b | stackCount : a }
+setStackCount value model =
+    { model | stackCount = value }
+
+
+setRemainingMs : a -> { b | remainingMs : a } -> { b | remainingMs : a }
+setRemainingMs value model =
+    { model | remainingMs = value }
 
 
 setMarkMograine : a -> { b | markMograine : a } -> { b | markMograine : a }

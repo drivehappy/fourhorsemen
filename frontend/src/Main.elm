@@ -160,6 +160,12 @@ update msg model =
                         Right ->
                             { currKeyState | right = True }
 
+                        UseAbility1 ->
+                            { currKeyState | useAbility1 = True }
+                        
+                        UseAbility2 ->
+                            { currKeyState | useAbility2 = True }
+
                         _ ->
                             model.keyState
 
@@ -187,6 +193,12 @@ update msg model =
 
                         Right ->
                             { currKeyState | right = False }
+
+                        UseAbility1 ->
+                            { currKeyState | useAbility1 = False }
+                        
+                        UseAbility2 ->
+                            { currKeyState | useAbility2 = False }
 
                         _ ->
                             model.keyState
@@ -291,6 +303,12 @@ keyDecoder =
 
                 "a" ->
                     Left
+
+                "1" ->
+                    UseAbility1
+
+                "2" ->
+                    UseAbility2
 
                 k ->
                     Unknown k

@@ -25,49 +25,54 @@ namespace Codegen.Proto {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "Cgpyb290LnByb3RvEg1jb2RlZ2VuLnByb3RvIi4KBFZlYzISEgoKcG9zaXRp",
-            "b25feBgBIAEoAhISCgpwb3NpdGlvbl95GAIgASgCImAKB0RlYnVmZnMSFQoN",
-            "bWFya19tb2dyYWluZRgBIAEoBRISCgptYXJrX3RoYW5lGAIgASgFEhUKDW1h",
-            "cmtfYmxhdW1ldXgYAyABKAUSEwoLbWFya196ZWxpZWsYBCABKAUisgEKBlBs",
-            "YXllchIMCgRuYW1lGAEgASgJEikKBWNsYXNzGAIgASgOMhouY29kZWdlbi5w",
-            "cm90by5QbGF5ZXJDbGFzcxIlCghwb3NpdGlvbhgDIAEoCzITLmNvZGVnZW4u",
-            "cHJvdG8uVmVjMhIRCglkaXJlY3Rpb24YBCABKAISJwoHZGVidWZmcxgFIAEo",
-            "CzIWLmNvZGVnZW4ucHJvdG8uRGVidWZmcxIMCgRndWlkGAogASgJIoQCCgRC",
-            "b3NzEiYKBHR5cGUYASABKA4yGC5jb2RlZ2VuLnByb3RvLkJvc3MuVHlwZRIM",
-            "CgRuYW1lGAIgASgJEiUKCHBvc2l0aW9uGAMgASgLMhMuY29kZWdlbi5wcm90",
-            "by5WZWMyEhEKCWRpcmVjdGlvbhgEIAEoAhISCgpjdXJyZW50X2hwGAUgASgF",
-            "Eg4KBm1heF9ocBgGIAEoBRIRCglpc19zcGlyaXQYByABKAgSGgoSc2hpZWxk",
-            "X3dhbGxfYWN0aXZlGAggASgIIjkKBFR5cGUSDAoITU9HUkFJTkUQABIJCgVU",
-            "SEFORRABEgwKCEJMQVVNRVVYEAISCgoGWkVMSUVLEAMiJwoQQ1NfTmV3UGxh",
-            "eWVySm9pbhITCgtwbGF5ZXJfbmFtZRgBIAEoCSKbAQoPQ1NfUGxheWVyQWN0",
-            "aW9uEjEKBHR5cGUYASABKA4yIy5jb2RlZ2VuLnByb3RvLkNTX1BsYXllckFj",
-            "dGlvbi5UeXBlEhMKC2d1aWRfdGFyZ2V0GAIgASgFIkAKBFR5cGUSCQoFVEFV",
-            "TlQQABIICgRIRUFMEAESEQoNUkFOR0VEX0FUVEFDSxACEhAKDE1FTEVFX0FU",
-            "VEFDSxADIrcCCgdDU19NYWluEikKBHR5cGUYASABKA4yGy5jb2RlZ2VuLnBy",
-            "b3RvLkNTX01haW4uVHlwZRI0CgtwbGF5ZXJfam9pbhgCIAEoCzIfLmNvZGVn",
-            "ZW4ucHJvdG8uQ1NfTmV3UGxheWVySm9pbhIoCgtwbGF5ZXJfbW92ZRgDIAEo",
-            "CzITLmNvZGVnZW4ucHJvdG8uVmVjMhIYChBwbGF5ZXJfZGlyZWN0aW9uGAQg",
-            "ASgCIoYBCgRUeXBlEg8KC1BMQVlFUl9KT0lOEAASDwoLUExBWUVSX01PVkUQ",
-            "ARIUChBQTEFZRVJfRElSRUNUSU9OEAISFgoSUkVRVUVTVF9HQU1FX1NUQVJU",
-            "EAMSFgoSUkVRVUVTVF9HQU1FX1BBVVNFEAQSFgoSUkVRVUVTVF9HQU1FX1JF",
-            "U0VUEAUiagoMU0NfR2FtZVN0YXRlEi4KBHR5cGUYASABKA4yIC5jb2RlZ2Vu",
-            "LnByb3RvLlNDX0dhbWVTdGF0ZS5UeXBlIioKBFR5cGUSCQoFTE9CQlkQABIL",
-            "CgdSVU5OSU5HEAESCgoGUEFVU0VEEAIipwEKDlNDX0Jvc3NBYmlsaXR5EjAK",
-            "BHR5cGUYASABKA4yIi5jb2RlZ2VuLnByb3RvLlNDX0Jvc3NBYmlsaXR5LlR5",
-            "cGUSHAoUcGxheWVyX2d1aWRfYWZmZWN0ZWQYAiADKAUiRQoEVHlwZRISCg5S",
-            "SUdIVEVPVVNfRklSRRAAEgoKBk1FVEVPUhABEg4KCkhPTFlfV1JBVEgQAhIN",
-            "CglWT0lEX1pPTkUQAyK4AgoHU0NfTWFpbhIpCgR0eXBlGAEgASgOMhsuY29k",
-            "ZWdlbi5wcm90by5TQ19NYWluLlR5cGUSMQoSYnVsa19wbGF5ZXJfdXBkYXRl",
-            "GAIgAygLMhUuY29kZWdlbi5wcm90by5QbGF5ZXISLQoQYnVsa19ib3NzX3Vw",
-            "ZGF0ZRgDIAMoCzITLmNvZGVnZW4ucHJvdG8uQm9zcxI9ChZib3NzX2FiaWxp",
-            "dHlfcGVyZm9ybWVkGAQgAygLMh0uY29kZWdlbi5wcm90by5TQ19Cb3NzQWJp",
-            "bGl0eRIaChJhc3NpZ25lZF9wbGF5ZXJfaWQYBSABKAkiRQoEVHlwZRIRCg1J",
-            "TklUSUFMX1NUQVRFEAASFAoQQVNTSUdOX1BMQVlFUl9JRBABEhQKEEdBTUVf",
-            "U1RFUF9VUERBVEUQAipCCgtQbGF5ZXJDbGFzcxIICgRUQU5LEAASCgoGSEVB",
-            "TEVSEAESDgoKUkFOR0VEX0RQUxACEg0KCU1FTEVFX0RQUxADYgZwcm90bzM="));
+            "b25feBgBIAEoAhISCgpwb3NpdGlvbl95GAIgASgCIjMKBkRlYnVmZhITCgtz",
+            "dGFja19jb3VudBgBIAEoBRIUCgxyZW1haW5pbmdfbXMYAiABKAUivAEKB0Rl",
+            "YnVmZnMSLAoNbWFya19tb2dyYWluZRgBIAEoCzIVLmNvZGVnZW4ucHJvdG8u",
+            "RGVidWZmEikKCm1hcmtfdGhhbmUYAiABKAsyFS5jb2RlZ2VuLnByb3RvLkRl",
+            "YnVmZhIsCg1tYXJrX2JsYXVtZXV4GAMgASgLMhUuY29kZWdlbi5wcm90by5E",
+            "ZWJ1ZmYSKgoLbWFya196ZWxpZWsYBCABKAsyFS5jb2RlZ2VuLnByb3RvLkRl",
+            "YnVmZiKyAQoGUGxheWVyEgwKBG5hbWUYASABKAkSKQoFY2xhc3MYAiABKA4y",
+            "Gi5jb2RlZ2VuLnByb3RvLlBsYXllckNsYXNzEiUKCHBvc2l0aW9uGAMgASgL",
+            "MhMuY29kZWdlbi5wcm90by5WZWMyEhEKCWRpcmVjdGlvbhgEIAEoAhInCgdk",
+            "ZWJ1ZmZzGAUgASgLMhYuY29kZWdlbi5wcm90by5EZWJ1ZmZzEgwKBGd1aWQY",
+            "CiABKAkihAIKBEJvc3MSJgoEdHlwZRgBIAEoDjIYLmNvZGVnZW4ucHJvdG8u",
+            "Qm9zcy5UeXBlEgwKBG5hbWUYAiABKAkSJQoIcG9zaXRpb24YAyABKAsyEy5j",
+            "b2RlZ2VuLnByb3RvLlZlYzISEQoJZGlyZWN0aW9uGAQgASgCEhIKCmN1cnJl",
+            "bnRfaHAYBSABKAUSDgoGbWF4X2hwGAYgASgFEhEKCWlzX3NwaXJpdBgHIAEo",
+            "CBIaChJzaGllbGRfd2FsbF9hY3RpdmUYCCABKAgiOQoEVHlwZRIMCghNT0dS",
+            "QUlORRAAEgkKBVRIQU5FEAESDAoIQkxBVU1FVVgQAhIKCgZaRUxJRUsQAyIn",
+            "ChBDU19OZXdQbGF5ZXJKb2luEhMKC3BsYXllcl9uYW1lGAEgASgJIpsBCg9D",
+            "U19QbGF5ZXJBY3Rpb24SMQoEdHlwZRgBIAEoDjIjLmNvZGVnZW4ucHJvdG8u",
+            "Q1NfUGxheWVyQWN0aW9uLlR5cGUSEwoLZ3VpZF90YXJnZXQYAiABKAUiQAoE",
+            "VHlwZRIJCgVUQVVOVBAAEggKBEhFQUwQARIRCg1SQU5HRURfQVRUQUNLEAIS",
+            "EAoMTUVMRUVfQVRUQUNLEAMitwIKB0NTX01haW4SKQoEdHlwZRgBIAEoDjIb",
+            "LmNvZGVnZW4ucHJvdG8uQ1NfTWFpbi5UeXBlEjQKC3BsYXllcl9qb2luGAIg",
+            "ASgLMh8uY29kZWdlbi5wcm90by5DU19OZXdQbGF5ZXJKb2luEigKC3BsYXll",
+            "cl9tb3ZlGAMgASgLMhMuY29kZWdlbi5wcm90by5WZWMyEhgKEHBsYXllcl9k",
+            "aXJlY3Rpb24YBCABKAIihgEKBFR5cGUSDwoLUExBWUVSX0pPSU4QABIPCgtQ",
+            "TEFZRVJfTU9WRRABEhQKEFBMQVlFUl9ESVJFQ1RJT04QAhIWChJSRVFVRVNU",
+            "X0dBTUVfU1RBUlQQAxIWChJSRVFVRVNUX0dBTUVfUEFVU0UQBBIWChJSRVFV",
+            "RVNUX0dBTUVfUkVTRVQQBSJqCgxTQ19HYW1lU3RhdGUSLgoEdHlwZRgBIAEo",
+            "DjIgLmNvZGVnZW4ucHJvdG8uU0NfR2FtZVN0YXRlLlR5cGUiKgoEVHlwZRIJ",
+            "CgVMT0JCWRAAEgsKB1JVTk5JTkcQARIKCgZQQVVTRUQQAiKnAQoOU0NfQm9z",
+            "c0FiaWxpdHkSMAoEdHlwZRgBIAEoDjIiLmNvZGVnZW4ucHJvdG8uU0NfQm9z",
+            "c0FiaWxpdHkuVHlwZRIcChRwbGF5ZXJfZ3VpZF9hZmZlY3RlZBgCIAMoBSJF",
+            "CgRUeXBlEhIKDlJJR0hURU9VU19GSVJFEAASCgoGTUVURU9SEAESDgoKSE9M",
+            "WV9XUkFUSBACEg0KCVZPSURfWk9ORRADIrgCCgdTQ19NYWluEikKBHR5cGUY",
+            "ASABKA4yGy5jb2RlZ2VuLnByb3RvLlNDX01haW4uVHlwZRIxChJidWxrX3Bs",
+            "YXllcl91cGRhdGUYAiADKAsyFS5jb2RlZ2VuLnByb3RvLlBsYXllchItChBi",
+            "dWxrX2Jvc3NfdXBkYXRlGAMgAygLMhMuY29kZWdlbi5wcm90by5Cb3NzEj0K",
+            "FmJvc3NfYWJpbGl0eV9wZXJmb3JtZWQYBCADKAsyHS5jb2RlZ2VuLnByb3Rv",
+            "LlNDX0Jvc3NBYmlsaXR5EhoKEmFzc2lnbmVkX3BsYXllcl9pZBgFIAEoCSJF",
+            "CgRUeXBlEhEKDUlOSVRJQUxfU1RBVEUQABIUChBBU1NJR05fUExBWUVSX0lE",
+            "EAESFAoQR0FNRV9TVEVQX1VQREFURRACKkIKC1BsYXllckNsYXNzEggKBFRB",
+            "TksQABIKCgZIRUFMRVIQARIOCgpSQU5HRURfRFBTEAISDQoJTUVMRUVfRFBT",
+            "EANiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Codegen.Proto.PlayerClass), }, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Codegen.Proto.Vec2), global::Codegen.Proto.Vec2.Parser, new[]{ "PositionX", "PositionY" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Codegen.Proto.Debuff), global::Codegen.Proto.Debuff.Parser, new[]{ "StackCount", "RemainingMs" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Codegen.Proto.Debuffs), global::Codegen.Proto.Debuffs.Parser, new[]{ "MarkMograine", "MarkThane", "MarkBlaumeux", "MarkZeliek" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Codegen.Proto.Player), global::Codegen.Proto.Player.Parser, new[]{ "Name", "Class", "Position", "Direction", "Debuffs", "Guid" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Codegen.Proto.Boss), global::Codegen.Proto.Boss.Parser, new[]{ "Type", "Name", "Position", "Direction", "CurrentHp", "MaxHp", "IsSpirit", "ShieldWallActive" }, null, new[]{ typeof(global::Codegen.Proto.Boss.Types.Type) }, null, null),
@@ -301,6 +306,214 @@ namespace Codegen.Proto {
 
   }
 
+  public sealed partial class Debuff : pb::IMessage<Debuff>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<Debuff> _parser = new pb::MessageParser<Debuff>(() => new Debuff());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<Debuff> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Codegen.Proto.RootReflection.Descriptor.MessageTypes[1]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public Debuff() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public Debuff(Debuff other) : this() {
+      stackCount_ = other.stackCount_;
+      remainingMs_ = other.remainingMs_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public Debuff Clone() {
+      return new Debuff(this);
+    }
+
+    /// <summary>Field number for the "stack_count" field.</summary>
+    public const int StackCountFieldNumber = 1;
+    private int stackCount_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int StackCount {
+      get { return stackCount_; }
+      set {
+        stackCount_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "remaining_ms" field.</summary>
+    public const int RemainingMsFieldNumber = 2;
+    private int remainingMs_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int RemainingMs {
+      get { return remainingMs_; }
+      set {
+        remainingMs_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as Debuff);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(Debuff other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (StackCount != other.StackCount) return false;
+      if (RemainingMs != other.RemainingMs) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (StackCount != 0) hash ^= StackCount.GetHashCode();
+      if (RemainingMs != 0) hash ^= RemainingMs.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (StackCount != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(StackCount);
+      }
+      if (RemainingMs != 0) {
+        output.WriteRawTag(16);
+        output.WriteInt32(RemainingMs);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (StackCount != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(StackCount);
+      }
+      if (RemainingMs != 0) {
+        output.WriteRawTag(16);
+        output.WriteInt32(RemainingMs);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (StackCount != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(StackCount);
+      }
+      if (RemainingMs != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(RemainingMs);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(Debuff other) {
+      if (other == null) {
+        return;
+      }
+      if (other.StackCount != 0) {
+        StackCount = other.StackCount;
+      }
+      if (other.RemainingMs != 0) {
+        RemainingMs = other.RemainingMs;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 8: {
+            StackCount = input.ReadInt32();
+            break;
+          }
+          case 16: {
+            RemainingMs = input.ReadInt32();
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 8: {
+            StackCount = input.ReadInt32();
+            break;
+          }
+          case 16: {
+            RemainingMs = input.ReadInt32();
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
   public sealed partial class Debuffs : pb::IMessage<Debuffs>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -313,7 +526,7 @@ namespace Codegen.Proto {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Codegen.Proto.RootReflection.Descriptor.MessageTypes[1]; }
+      get { return global::Codegen.Proto.RootReflection.Descriptor.MessageTypes[2]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -330,10 +543,10 @@ namespace Codegen.Proto {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public Debuffs(Debuffs other) : this() {
-      markMograine_ = other.markMograine_;
-      markThane_ = other.markThane_;
-      markBlaumeux_ = other.markBlaumeux_;
-      markZeliek_ = other.markZeliek_;
+      markMograine_ = other.markMograine_ != null ? other.markMograine_.Clone() : null;
+      markThane_ = other.markThane_ != null ? other.markThane_.Clone() : null;
+      markBlaumeux_ = other.markBlaumeux_ != null ? other.markBlaumeux_.Clone() : null;
+      markZeliek_ = other.markZeliek_ != null ? other.markZeliek_.Clone() : null;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -344,9 +557,9 @@ namespace Codegen.Proto {
 
     /// <summary>Field number for the "mark_mograine" field.</summary>
     public const int MarkMograineFieldNumber = 1;
-    private int markMograine_;
+    private global::Codegen.Proto.Debuff markMograine_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int MarkMograine {
+    public global::Codegen.Proto.Debuff MarkMograine {
       get { return markMograine_; }
       set {
         markMograine_ = value;
@@ -355,9 +568,9 @@ namespace Codegen.Proto {
 
     /// <summary>Field number for the "mark_thane" field.</summary>
     public const int MarkThaneFieldNumber = 2;
-    private int markThane_;
+    private global::Codegen.Proto.Debuff markThane_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int MarkThane {
+    public global::Codegen.Proto.Debuff MarkThane {
       get { return markThane_; }
       set {
         markThane_ = value;
@@ -366,9 +579,9 @@ namespace Codegen.Proto {
 
     /// <summary>Field number for the "mark_blaumeux" field.</summary>
     public const int MarkBlaumeuxFieldNumber = 3;
-    private int markBlaumeux_;
+    private global::Codegen.Proto.Debuff markBlaumeux_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int MarkBlaumeux {
+    public global::Codegen.Proto.Debuff MarkBlaumeux {
       get { return markBlaumeux_; }
       set {
         markBlaumeux_ = value;
@@ -377,9 +590,9 @@ namespace Codegen.Proto {
 
     /// <summary>Field number for the "mark_zeliek" field.</summary>
     public const int MarkZeliekFieldNumber = 4;
-    private int markZeliek_;
+    private global::Codegen.Proto.Debuff markZeliek_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int MarkZeliek {
+    public global::Codegen.Proto.Debuff MarkZeliek {
       get { return markZeliek_; }
       set {
         markZeliek_ = value;
@@ -399,20 +612,20 @@ namespace Codegen.Proto {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (MarkMograine != other.MarkMograine) return false;
-      if (MarkThane != other.MarkThane) return false;
-      if (MarkBlaumeux != other.MarkBlaumeux) return false;
-      if (MarkZeliek != other.MarkZeliek) return false;
+      if (!object.Equals(MarkMograine, other.MarkMograine)) return false;
+      if (!object.Equals(MarkThane, other.MarkThane)) return false;
+      if (!object.Equals(MarkBlaumeux, other.MarkBlaumeux)) return false;
+      if (!object.Equals(MarkZeliek, other.MarkZeliek)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
-      if (MarkMograine != 0) hash ^= MarkMograine.GetHashCode();
-      if (MarkThane != 0) hash ^= MarkThane.GetHashCode();
-      if (MarkBlaumeux != 0) hash ^= MarkBlaumeux.GetHashCode();
-      if (MarkZeliek != 0) hash ^= MarkZeliek.GetHashCode();
+      if (markMograine_ != null) hash ^= MarkMograine.GetHashCode();
+      if (markThane_ != null) hash ^= MarkThane.GetHashCode();
+      if (markBlaumeux_ != null) hash ^= MarkBlaumeux.GetHashCode();
+      if (markZeliek_ != null) hash ^= MarkZeliek.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -429,21 +642,21 @@ namespace Codegen.Proto {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (MarkMograine != 0) {
-        output.WriteRawTag(8);
-        output.WriteInt32(MarkMograine);
+      if (markMograine_ != null) {
+        output.WriteRawTag(10);
+        output.WriteMessage(MarkMograine);
       }
-      if (MarkThane != 0) {
-        output.WriteRawTag(16);
-        output.WriteInt32(MarkThane);
+      if (markThane_ != null) {
+        output.WriteRawTag(18);
+        output.WriteMessage(MarkThane);
       }
-      if (MarkBlaumeux != 0) {
-        output.WriteRawTag(24);
-        output.WriteInt32(MarkBlaumeux);
+      if (markBlaumeux_ != null) {
+        output.WriteRawTag(26);
+        output.WriteMessage(MarkBlaumeux);
       }
-      if (MarkZeliek != 0) {
-        output.WriteRawTag(32);
-        output.WriteInt32(MarkZeliek);
+      if (markZeliek_ != null) {
+        output.WriteRawTag(34);
+        output.WriteMessage(MarkZeliek);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -454,21 +667,21 @@ namespace Codegen.Proto {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (MarkMograine != 0) {
-        output.WriteRawTag(8);
-        output.WriteInt32(MarkMograine);
+      if (markMograine_ != null) {
+        output.WriteRawTag(10);
+        output.WriteMessage(MarkMograine);
       }
-      if (MarkThane != 0) {
-        output.WriteRawTag(16);
-        output.WriteInt32(MarkThane);
+      if (markThane_ != null) {
+        output.WriteRawTag(18);
+        output.WriteMessage(MarkThane);
       }
-      if (MarkBlaumeux != 0) {
-        output.WriteRawTag(24);
-        output.WriteInt32(MarkBlaumeux);
+      if (markBlaumeux_ != null) {
+        output.WriteRawTag(26);
+        output.WriteMessage(MarkBlaumeux);
       }
-      if (MarkZeliek != 0) {
-        output.WriteRawTag(32);
-        output.WriteInt32(MarkZeliek);
+      if (markZeliek_ != null) {
+        output.WriteRawTag(34);
+        output.WriteMessage(MarkZeliek);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -479,17 +692,17 @@ namespace Codegen.Proto {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
-      if (MarkMograine != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(MarkMograine);
+      if (markMograine_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(MarkMograine);
       }
-      if (MarkThane != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(MarkThane);
+      if (markThane_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(MarkThane);
       }
-      if (MarkBlaumeux != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(MarkBlaumeux);
+      if (markBlaumeux_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(MarkBlaumeux);
       }
-      if (MarkZeliek != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(MarkZeliek);
+      if (markZeliek_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(MarkZeliek);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -502,17 +715,29 @@ namespace Codegen.Proto {
       if (other == null) {
         return;
       }
-      if (other.MarkMograine != 0) {
-        MarkMograine = other.MarkMograine;
+      if (other.markMograine_ != null) {
+        if (markMograine_ == null) {
+          MarkMograine = new global::Codegen.Proto.Debuff();
+        }
+        MarkMograine.MergeFrom(other.MarkMograine);
       }
-      if (other.MarkThane != 0) {
-        MarkThane = other.MarkThane;
+      if (other.markThane_ != null) {
+        if (markThane_ == null) {
+          MarkThane = new global::Codegen.Proto.Debuff();
+        }
+        MarkThane.MergeFrom(other.MarkThane);
       }
-      if (other.MarkBlaumeux != 0) {
-        MarkBlaumeux = other.MarkBlaumeux;
+      if (other.markBlaumeux_ != null) {
+        if (markBlaumeux_ == null) {
+          MarkBlaumeux = new global::Codegen.Proto.Debuff();
+        }
+        MarkBlaumeux.MergeFrom(other.MarkBlaumeux);
       }
-      if (other.MarkZeliek != 0) {
-        MarkZeliek = other.MarkZeliek;
+      if (other.markZeliek_ != null) {
+        if (markZeliek_ == null) {
+          MarkZeliek = new global::Codegen.Proto.Debuff();
+        }
+        MarkZeliek.MergeFrom(other.MarkZeliek);
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -528,20 +753,32 @@ namespace Codegen.Proto {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
-          case 8: {
-            MarkMograine = input.ReadInt32();
+          case 10: {
+            if (markMograine_ == null) {
+              MarkMograine = new global::Codegen.Proto.Debuff();
+            }
+            input.ReadMessage(MarkMograine);
             break;
           }
-          case 16: {
-            MarkThane = input.ReadInt32();
+          case 18: {
+            if (markThane_ == null) {
+              MarkThane = new global::Codegen.Proto.Debuff();
+            }
+            input.ReadMessage(MarkThane);
             break;
           }
-          case 24: {
-            MarkBlaumeux = input.ReadInt32();
+          case 26: {
+            if (markBlaumeux_ == null) {
+              MarkBlaumeux = new global::Codegen.Proto.Debuff();
+            }
+            input.ReadMessage(MarkBlaumeux);
             break;
           }
-          case 32: {
-            MarkZeliek = input.ReadInt32();
+          case 34: {
+            if (markZeliek_ == null) {
+              MarkZeliek = new global::Codegen.Proto.Debuff();
+            }
+            input.ReadMessage(MarkZeliek);
             break;
           }
         }
@@ -558,20 +795,32 @@ namespace Codegen.Proto {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
-          case 8: {
-            MarkMograine = input.ReadInt32();
+          case 10: {
+            if (markMograine_ == null) {
+              MarkMograine = new global::Codegen.Proto.Debuff();
+            }
+            input.ReadMessage(MarkMograine);
             break;
           }
-          case 16: {
-            MarkThane = input.ReadInt32();
+          case 18: {
+            if (markThane_ == null) {
+              MarkThane = new global::Codegen.Proto.Debuff();
+            }
+            input.ReadMessage(MarkThane);
             break;
           }
-          case 24: {
-            MarkBlaumeux = input.ReadInt32();
+          case 26: {
+            if (markBlaumeux_ == null) {
+              MarkBlaumeux = new global::Codegen.Proto.Debuff();
+            }
+            input.ReadMessage(MarkBlaumeux);
             break;
           }
-          case 32: {
-            MarkZeliek = input.ReadInt32();
+          case 34: {
+            if (markZeliek_ == null) {
+              MarkZeliek = new global::Codegen.Proto.Debuff();
+            }
+            input.ReadMessage(MarkZeliek);
             break;
           }
         }
@@ -593,7 +842,7 @@ namespace Codegen.Proto {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Codegen.Proto.RootReflection.Descriptor.MessageTypes[2]; }
+      get { return global::Codegen.Proto.RootReflection.Descriptor.MessageTypes[3]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -963,7 +1212,7 @@ namespace Codegen.Proto {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Codegen.Proto.RootReflection.Descriptor.MessageTypes[3]; }
+      get { return global::Codegen.Proto.RootReflection.Descriptor.MessageTypes[4]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1410,7 +1659,7 @@ namespace Codegen.Proto {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Codegen.Proto.RootReflection.Descriptor.MessageTypes[4]; }
+      get { return global::Codegen.Proto.RootReflection.Descriptor.MessageTypes[5]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1585,7 +1834,7 @@ namespace Codegen.Proto {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Codegen.Proto.RootReflection.Descriptor.MessageTypes[5]; }
+      get { return global::Codegen.Proto.RootReflection.Descriptor.MessageTypes[6]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1822,7 +2071,7 @@ namespace Codegen.Proto {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Codegen.Proto.RootReflection.Descriptor.MessageTypes[6]; }
+      get { return global::Codegen.Proto.RootReflection.Descriptor.MessageTypes[7]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2151,7 +2400,7 @@ namespace Codegen.Proto {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Codegen.Proto.RootReflection.Descriptor.MessageTypes[7]; }
+      get { return global::Codegen.Proto.RootReflection.Descriptor.MessageTypes[8]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2339,7 +2588,7 @@ namespace Codegen.Proto {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Codegen.Proto.RootReflection.Descriptor.MessageTypes[8]; }
+      get { return global::Codegen.Proto.RootReflection.Descriptor.MessageTypes[9]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2570,7 +2819,7 @@ namespace Codegen.Proto {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Codegen.Proto.RootReflection.Descriptor.MessageTypes[9]; }
+      get { return global::Codegen.Proto.RootReflection.Descriptor.MessageTypes[10]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]

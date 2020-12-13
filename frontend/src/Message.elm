@@ -8,6 +8,8 @@ type KeyDirection
     | Right
     | Up
     | Down
+    | UseAbility1
+    | UseAbility2
     | Unknown String
 
 

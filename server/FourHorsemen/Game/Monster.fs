@@ -32,10 +32,6 @@ type Monster = {
     threat : (Ref<Player> * int) list
 }
 
-let markRange = 65.0f   // 65-70 yards?'
-let initMarkTimer = 75.0<milli second>
-
-
 let initMograine = {
     name = "Mograine"
     type_ = Mograine

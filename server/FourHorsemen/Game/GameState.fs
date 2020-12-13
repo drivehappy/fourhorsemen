@@ -3,6 +3,7 @@
 open World
 open Monster
 open Player
+open Entity
 open System.Diagnostics
 open Helpers
 open System
@@ -50,9 +51,9 @@ let distanceSq (p1 : Entity.Vec2) (p2 : Entity.Vec2) =
     (x * x) + (y * y)
 
 
-// Finds the 1 closest neighbor to point p, with consideration of a max range.
+// Finds the closest neighbors to point p, with consideration of a max range.
 // If no neighbors within the max range, then we return None
-let findClosestNeighborMaxRange (p : Entity.Vec2) (neighbors : Ref<Player> list) (maxRange : float32) : Ref<Player> option =
+let findClosestNeighborMaxRange (p : Entity.Vec2) (neighbors : Ref<Player> list) (maxRange : float32) : Ref<Player> list =
     let maxRangeSq = maxRange * maxRange
 
     // Probably more optimal way to go about this, naive approach for now.
@@ -62,16 +63,42 @@ let findClosestNeighborMaxRange (p : Entity.Vec2) (neighbors : Ref<Player> list)
     |> List.filter (fun (_, distanceSq) -> (distanceSq <= maxRangeSq))
     |> List.sortBy snd
     |> List.map fst
-    |> List.tryHead
 
 
 //
 let runAI (worldState : World) (monsters : Monster[]) (dt : float) : Monster[] =
     let rangeAggro = 65.0f
+    let markRange = 65.0f   // 65-70 yards?'
+    let initMarkTimer = 75000.0<milli second>
 
-    // ShieldWall
+    // Run boss debuff
+    monsters
+    |> Array.iter (fun b ->
+        let playersAddNewMarks = findClosestNeighborMaxRange b.position worldState.players markRange
+
+        playersAddNewMarks
+        |> List.iter (fun p ->
+            let updateStackCount (m : MarkTimerAndStacks option) =
+                (m
+                 |> Option.map snd
+                 |> Option.defaultValue 0) + 1
+
+            let newDebuffs = 
+                match b.type_ with
+                | Mograine -> { p.Value.debuffs with mograineMark = Some (initMarkTimer, updateStackCount p.Value.debuffs.mograineMark) }
+                | Thane -> { p.Value.debuffs with thaneMark = Some (initMarkTimer, updateStackCount p.Value.debuffs.thaneMark) }
+                | Zeliek -> { p.Value.debuffs with zeliekMark = Some (initMarkTimer, updateStackCount p.Value.debuffs.zeliekMark) }
+                | Blaumeux -> { p.Value.debuffs with blaumeuxMark = Some (initMarkTimer, updateStackCount p.Value.debuffs.blaumeuxMark) }
+
+            p.Value <- { !p with debuffs = newDebuffs }
+        )
+    )
+
+
+    //
     monsters
     |> Array.map (fun b ->
+        // ShieldWall
         let healthPercent = (float32 b.curHealth) / (float32 b.maxHealth)
         
         // Check shield wall states
@@ -96,6 +123,7 @@ let runAI (worldState : World) (monsters : Monster[]) (dt : float) : Monster[] =
                 // We don't have any player on threat table, check for closest.
                 // If we find one, apply it to the threat table with 0 threat.
                 findClosestNeighborMaxRange b.position worldState.players rangeAggro
+                |> List.tryHead
                 |> Option.map (fun p -> { b with threat = [ (p, 0) ]})
                 |> Option.defaultValue b
 

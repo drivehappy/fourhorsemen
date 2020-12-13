@@ -9,16 +9,15 @@ type Class =
     | MeleeDPS
     | RangedDPS
 
-type Player = {
-    // TODO: Tie this to a websocket connection
 
+type Player = {
     name : string
     networkClientId : string
     class_ : Class
     direction : float32   // Radians
     position : Vec2
 
-    debuffs : MonsterMark list
+    debuffs : MonsterMarks
 }
 
 let initPlayer = {
@@ -27,7 +26,12 @@ let initPlayer = {
     class_ = Healer
     direction = 0.0f
     position = { x = 0.0f; y = 0.0f }
-    debuffs = []
+    debuffs = {
+        mograineMark = None
+        thaneMark = None
+        blaumeuxMark = None
+        zeliekMark = None
+    }
 }
 
 let attackRange (c : Class) =

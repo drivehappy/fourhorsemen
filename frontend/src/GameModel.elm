@@ -33,6 +33,8 @@ type alias KeyState =
     , right : Bool
     , up : Bool
     , down : Bool
+    , useAbility1 : Bool
+    , useAbility2 : Bool
     }
 
 
@@ -43,6 +45,8 @@ initKeyState =
     , right = False
     , up = False
     , down = False
+    , useAbility1 = False
+    , useAbility2 = False
     }
 
 

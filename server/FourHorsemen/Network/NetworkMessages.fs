@@ -77,6 +77,30 @@ let buildSCWorldState (world : World) : ByteSegment =
             pb.Position <- normalizeVec2ToPB world.dimensions p.position
             pb.Direction <- p.direction
             pb.Name <- p.name
+
+            let debuffs = Debuffs()
+            p.debuffs.mograineMark
+            |> Option.iter (fun m ->
+                debuffs.MarkMograine.RemainingMs <- int ((fst m) / 1.0<milli second>)
+                debuffs.MarkMograine.StackCount <- (snd m)
+            )
+            p.debuffs.thaneMark
+            |> Option.iter (fun m ->
+                debuffs.MarkThane.RemainingMs <- int ((fst m) / 1.0<milli second>)
+                debuffs.MarkThane.StackCount <- (snd m)
+            )
+            p.debuffs.zeliekMark
+            |> Option.iter (fun m ->
+                debuffs.MarkZeliek.RemainingMs <- int ((fst m) / 1.0<milli second>)
+                debuffs.MarkZeliek.StackCount <- (snd m)
+            )
+            p.debuffs.blaumeuxMark
+            |> Option.iter (fun m ->
+                debuffs.MarkBlaumeux.RemainingMs <- int ((fst m) / 1.0<milli second>)
+                debuffs.MarkBlaumeux.StackCount <- (snd m)
+            )
+            pb.Debuffs <- debuffs
+
             pb
 
         pbSCMain.BulkPlayerUpdate.Add(convertPlayerToProto !p)
