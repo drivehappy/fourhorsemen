@@ -6,6 +6,12 @@ type alias Vec2 =
     , y : Float
     }
 
+type PlayerType
+    = Tank
+    | Healer
+    | MeleeDPS
+    | RangedDPS
+
 
 type alias Boss =
     { position : Vec2
@@ -23,6 +29,7 @@ type alias EncounterBosses =
 type alias Player =
     { position : Vec2
     , direction : Float   -- Radians
+    , type_ : PlayerType
     , name : String
     , guid : String
     }
@@ -55,6 +62,7 @@ initPlayer : Player
 initPlayer =
     { position = { x = 0.5, y = 0.9 }
     , direction = 0
+    , type_ = Tank
     , name = "PlayerName"
     , guid = "TODO_GUID"
     }

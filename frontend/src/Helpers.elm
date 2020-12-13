@@ -1,5 +1,10 @@
 module Helpers exposing (..)
 
+import Html exposing (Html, text)
+
+import Canvas.Settings exposing (..)
+import Canvas.Settings.Advanced exposing (..)
+
 
 viewZoomRatio = 6
 
@@ -17,3 +22,13 @@ denormalizeVec2 v = denormalizePoint v.x (v.y - 0.02)
 normalizeX x = x / (roomWidth * viewZoomRatio)
 normalizeY y = y / (roomWidth * viewZoomRatio)
 normalizeRadius r = r / (roomWidth * viewZoomRatio)   -- Assume for now the room is square
+
+
+--
+htmlNone : Html msg
+htmlNone = text ""
+
+
+--
+zoomSetting : Setting
+zoomSetting = transform [ Scale viewZoomRatio viewZoomRatio ]

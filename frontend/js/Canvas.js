@@ -8,7 +8,7 @@ function getCursorPosition(canvas, event) {
     return [Math.round(x), Math.round(y)];
 }
 
-const canvas = document.querySelector('canvas');
+const canvas = document.getElementById('canvas-game');
 canvas.addEventListener('mousedown', (e) => {
     const pos = getCursorPosition(canvas, e);
 

@@ -81,21 +81,25 @@ let buildSCWorldState (world : World) : ByteSegment =
             let debuffs = Debuffs()
             p.debuffs.mograineMark
             |> Option.iter (fun m ->
+                debuffs.MarkMograine <- Debuff()
                 debuffs.MarkMograine.RemainingMs <- int ((fst m) / 1.0<milli second>)
                 debuffs.MarkMograine.StackCount <- (snd m)
             )
             p.debuffs.thaneMark
             |> Option.iter (fun m ->
+                debuffs.MarkThane <- Debuff()
                 debuffs.MarkThane.RemainingMs <- int ((fst m) / 1.0<milli second>)
                 debuffs.MarkThane.StackCount <- (snd m)
             )
             p.debuffs.zeliekMark
             |> Option.iter (fun m ->
+                debuffs.MarkZeliek <- Debuff()
                 debuffs.MarkZeliek.RemainingMs <- int ((fst m) / 1.0<milli second>)
                 debuffs.MarkZeliek.StackCount <- (snd m)
             )
             p.debuffs.blaumeuxMark
             |> Option.iter (fun m ->
+                debuffs.MarkBlaumeux <- Debuff()
                 debuffs.MarkBlaumeux.RemainingMs <- int ((fst m) / 1.0<milli second>)
                 debuffs.MarkBlaumeux.StackCount <- (snd m)
             )

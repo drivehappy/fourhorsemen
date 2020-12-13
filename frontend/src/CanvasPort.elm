@@ -1,5 +1,11 @@
 port module CanvasPort exposing (..)
 
+--
+-- Elm -> JS
+--
+
+port canvasCreated : String -> Cmd msg
+
 
 --
 -- JS -> Elm

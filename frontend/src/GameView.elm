@@ -16,8 +16,6 @@ import Helpers exposing (..)
 
 
 -- View
-zoomSetting : Setting
-zoomSetting = transform [ Scale viewZoomRatio viewZoomRatio ]
 
 
 view : Model -> Html msg
@@ -36,18 +34,21 @@ view m =
             m.players
                 |> List.filter (\p -> p.guid /= m.currentPlayer.guid)
 
-        i = Debug.log "CurrentPlayerGuid " m.currentPlayer.guid
+        i =
+            --Debug.log "CurrentPlayerGuid "
+            m.currentPlayer.guid
     in
     Canvas.toHtml
         (roomWidth * viewZoomRatio, roomHeight * viewZoomRatio)
-        [ style "border" "10px solid rgba(0,0,0,0.6)"
+        [ style "border" "5px solid rgba(0,0,0,0.6)"
+        , id "canvas-game"
         ]
         ( [ clearScreen
-          ]
-          ++ viewRenderPlatform
-          ++ (viewRenderBosses m.bosses)
-          ++ (viewRenderPlayers playersExceptCurrent)
-          ++ (viewRenderCurrentPlayer m.currentPlayer)
+        ]
+        ++ viewRenderPlatform
+        ++ (viewRenderBosses m.bosses)
+        ++ (viewRenderPlayers playersExceptCurrent)
+        ++ (viewRenderCurrentPlayer m.currentPlayer)
         )
 
 
@@ -192,17 +193,3 @@ viewRenderCurrentPlayer p =
     [ renderPlayerIndicator p (Color.rgba 0.2 0.2 0.2 1)
     , renderPlayerNameplate p Color.green
     ]
-
-
-viewRaidTable =
-    table [ style "border" "1px" ]
-        [ tr []
-            [ th [] [ Html.text "Tanks" ]
-            , th [] [ Html.text "Healers" ]
-            , th [] [ Html.text "Melee DPS" ]
-            , th [] [ Html.text "Ranged DPS" ]
-            ]
-        , tr []
-            [ Html.text "Deceit"
-            ]
-        ]

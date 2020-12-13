@@ -75,9 +75,18 @@ buildPlayerFromPB : PB.Player -> GameModel.Player
 buildPlayerFromPB pb =
     let
         newPosition = pbPositionToVec2 pb.position
+
+        newType =
+            case pb.class of
+                PB.Tank -> GameModel.Tank
+                PB.Healer -> GameModel.Healer
+                PB.RangedDps -> GameModel.RangedDPS
+                PB.MeleeDps -> GameModel.MeleeDPS
+                _ -> GameModel.Tank
     in
     { position = newPosition
     , direction = pb.direction
+    , type_ = newType
     , name = pb.name
     , guid = pb.guid
     }
@@ -139,7 +148,7 @@ handleServerData m pbSCMain =
 
                 newPlayers : List GameModel.Player
                 newPlayers =
-                    Debug.log "Player list"
+                    --Debug.log "Player list"
                     pbSCMain.bulkPlayerUpdate
                         |> List.map buildPlayerFromPB
 

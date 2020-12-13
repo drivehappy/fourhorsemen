@@ -5,12 +5,13 @@ import Browser.Events as Events
 import Cmd.Extra exposing (withNoCmd)
 import Dict exposing (Dict)
 import Html exposing (Html, a, button, div, h1, input, p, span, text, table, tr, th, h2, h3, br)
-import Html.Attributes exposing (checked, disabled, href, size, style, type_, value)
+import Html.Attributes exposing (attribute, class, checked, disabled, hidden, href, size, style, type_, value)
 import Html.Events exposing (onClick, onInput)
 import Json.Decode as Decode
 
 import GameModel exposing (..)
 import GameView exposing (..)
+import GameUIView exposing (..)
 import Message exposing (..)
 import Model exposing (..)
 import WebsocketPort exposing (..)
@@ -332,11 +333,55 @@ keyDecoder =
     Decode.map toDirection (Decode.field "key" Decode.string)
 
 
-view : Model -> Html Msg
-view model =
-    div []
+--
+viewGame : Model -> Bool -> List (Html Msg)
+viewGame model visible =
+    [ div
+        [ style "display" "flex"
+        , style "justify-content" "center"
+        , style "align-items" "center"
+        , style "visibility" (if visible then "" else "hidden")
+        ]
+        [ button [ onClick RequestStartGame ] [ text "Start Encounter" ]
+        , button [ onClick RequestResetGame ] [ text "Reset Encounter" ]
+        ]
+    , div
+        [ class "container"
+        , style "display" "flex"
+        , style "justify-content" "center"
+        , style "align-items" "center"
+        , style "visibility" (if visible then "" else "hidden")
+        ]
         [
             div
+                [ style "display" "flex"
+                , style "justify-content" "left"
+                , style "align-items" "center"
+                ]
+                [ GameUIView.viewLHS model
+                ]
+        ,   div
+                [ style "display" "flex"
+                , style "justify-content" "center"
+                , style "align-items" "center"
+                ]
+                [ GameView.view model
+                ]
+        ]
+    ]
+
+
+--
+view : Model -> Html Msg
+view model =
+    let
+        playAreaView : List (Html Msg)
+        playAreaView =
+            viewGame model model.isConnected
+    in
+    div []
+        (
+            [ div
                 []
                 [ h2 [] [ text "Boss Fight Sim" ]
                 , text "Instance code required:"
@@ -361,27 +406,9 @@ view model =
                 , br [] []
                 , text ("Server connection: " ++ (if model.isConnected then "True" else "False"))
                 ]
-        ,   div
-                [ style "display" "flex"
-                , style "justify-content" "center"
-                , style "align-items" "center"
-                ]
-                [ button [ onClick RequestStartGame ] [ text "Start Encounter" ]
-                , button [ onClick RequestResetGame ] [ text "Reset Encounter" ]
-                ]
-        ,   div
-                [ style "display" "flex"
-                , style "justify-content" "center"
-                , style "align-items" "center"
-                ]
-                [ GameView.view model
-                ]
-        ,   div
-                []
-                [ h3 [] [ Html.text "Characters" ]
-                , viewRaidTable
-                ]
-        ]
+            ]
+            ++ playAreaView
+        )
 
 
 subscriptions : Model -> Sub Msg
