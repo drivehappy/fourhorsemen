@@ -72,12 +72,14 @@ let buildSCWorldState (world : World) : ByteSegment =
     // Build player message
     world.players
     |> List.iter (fun p ->
-        let convertPlayerToProto (p : Player.Player) : Proto.Player =
+        let buildSCPlayer (p : Player.Player) : Proto.Player =
             let pb = Proto.Player()
             pb.Guid <- p.networkClientId
             pb.Position <- normalizeVec2ToPB world.dimensions p.position
             pb.Direction <- p.direction
             pb.Name <- p.name
+            pb.CurrentHealth <- p.currentHealth
+            pb.MaxHealth <- p.maxHealth
 
             let debuffs = Debuffs()
             p.debuffs.mograineMark
@@ -108,7 +110,7 @@ let buildSCWorldState (world : World) : ByteSegment =
 
             pb
 
-        pbSCMain.BulkPlayerUpdate.Add(convertPlayerToProto !p)
+        pbSCMain.BulkPlayerUpdate.Add(buildSCPlayer !p)
     )
 
     // Build boss message

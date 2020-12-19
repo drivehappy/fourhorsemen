@@ -94,14 +94,33 @@ let runAI (worldState : World) (monsters : Monster[]) (dt : float<s>) : Monster[
                          |> Option.map snd
                          |> Option.defaultValue 0) + 1
 
-                    let newDebuffs = 
-                        match b.type_ with
-                        | Mograine -> { p.Value.debuffs with mograineMark = Some (markDebuffDuration, updateStackCount p.Value.debuffs.mograineMark) }
-                        | Thane -> { p.Value.debuffs with thaneMark = Some (markDebuffDuration, updateStackCount p.Value.debuffs.thaneMark) }
-                        | Zeliek -> { p.Value.debuffs with zeliekMark = Some (markDebuffDuration, updateStackCount p.Value.debuffs.zeliekMark) }
-                        | Blaumeux -> { p.Value.debuffs with blaumeuxMark = Some (markDebuffDuration, updateStackCount p.Value.debuffs.blaumeuxMark) }
+                    let calcPlayerDamageFromDebuff (stack : int) =
+                        match stack with
+                        | 0 -> 0
+                        | 1 -> 250
+                        | 2 -> 1000
+                        | 3 -> 3000
+                        | x -> (x + 1) * 1000
 
-                    p.Value <- { !p with debuffs = newDebuffs }
+                    let (playerDamageTaken, newDebuffs) =
+                        let newStackCount : int =
+                            match b.type_ with
+                            | Mograine -> updateStackCount p.Value.debuffs.mograineMark
+                            | Thane -> updateStackCount p.Value.debuffs.thaneMark
+                            | Zeliek -> updateStackCount p.Value.debuffs.zeliekMark
+                            | Blaumeux -> updateStackCount p.Value.debuffs.blaumeuxMark
+
+                        let newDebuffState =
+                            match b.type_ with
+                            | Mograine -> { p.Value.debuffs with mograineMark = Some (markDebuffDuration, newStackCount) }
+                            | Thane -> { p.Value.debuffs with thaneMark = Some (markDebuffDuration, newStackCount) }
+                            | Zeliek -> { p.Value.debuffs with zeliekMark = Some (markDebuffDuration, newStackCount) }
+                            | Blaumeux -> { p.Value.debuffs with blaumeuxMark = Some (markDebuffDuration, newStackCount) }
+
+                        (calcPlayerDamageFromDebuff newStackCount, newDebuffState)
+
+                    // Update player debuffs and health
+                    p.Value <- { !p with debuffs = newDebuffs; currentHealth = p.Value.currentHealth - playerDamageTaken }
                 )
 
                 // Return the reset value of the mark timer (12 seconds)

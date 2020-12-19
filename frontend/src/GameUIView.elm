@@ -112,9 +112,42 @@ viewRHS m =
         ]
         ( [ clearScreen
           ]
+          ++ viewRenderPlayerStats m
           ++ viewRenderPlayerDebuffs m
         )
 
+
+--
+viewRenderPlayerStats : Model -> List Renderable
+viewRenderPlayerStats m =
+    let
+        renderStats : Player -> Int -> List Renderable
+        renderStats currentPlayer startY =
+            let
+                i = 0
+            in
+                [ standardText "Health: " (15, toFloat startY)
+                , standardText (String.fromInt currentPlayer.currentHealth ++ " / " ++ String.fromInt currentPlayer.maxHealth) (80, toFloat startY)
+                ]
+
+
+        stats =
+            let
+                currentPlayer : Maybe Player
+                currentPlayer = Dict.get m.currentPlayerGuid m.players
+            in
+            case currentPlayer of
+                Just p ->
+                    renderStats p 160
+
+                _ ->
+                    []
+    in
+    [ headerText "Stats" (6, 120) ]
+    ++ stats
+
+
+--
 viewRenderPlayerDebuffs : Model -> List Renderable
 viewRenderPlayerDebuffs m =
     let

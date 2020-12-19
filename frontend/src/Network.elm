@@ -115,6 +115,8 @@ buildPlayerFromPB pb =
     , direction = pb.direction
     , type_ = newType
     , name = pb.name
+    , currentHealth = pb.currentHealth
+    , maxHealth = pb.maxHealth
     , guid = pb.guid
     , debuffs = newPlayerDebuffs
     }

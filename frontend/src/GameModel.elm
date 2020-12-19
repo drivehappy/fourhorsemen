@@ -40,6 +40,8 @@ type alias Player =
     , direction : Float   -- Radians
     , type_ : PlayerType
     , name : String
+    , currentHealth : Int
+    , maxHealth : Int
     , guid : String
     , debuffs : PlayerDebuffs
     }
@@ -84,6 +86,8 @@ initPlayer =
     , direction = 0
     , type_ = Tank
     , name = "PlayerName"
+    , currentHealth = 0
+    , maxHealth = 0
     , guid = "TODO_GUID"
     , debuffs = initPlayerDebuffs
     }

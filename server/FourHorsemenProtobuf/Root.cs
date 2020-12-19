@@ -31,50 +31,51 @@ namespace Codegen.Proto {
             "RGVidWZmEikKCm1hcmtfdGhhbmUYAiABKAsyFS5jb2RlZ2VuLnByb3RvLkRl",
             "YnVmZhIsCg1tYXJrX2JsYXVtZXV4GAMgASgLMhUuY29kZWdlbi5wcm90by5E",
             "ZWJ1ZmYSKgoLbWFya196ZWxpZWsYBCABKAsyFS5jb2RlZ2VuLnByb3RvLkRl",
-            "YnVmZiKyAQoGUGxheWVyEgwKBG5hbWUYASABKAkSKQoFY2xhc3MYAiABKA4y",
+            "YnVmZiLeAQoGUGxheWVyEgwKBG5hbWUYASABKAkSKQoFY2xhc3MYAiABKA4y",
             "Gi5jb2RlZ2VuLnByb3RvLlBsYXllckNsYXNzEiUKCHBvc2l0aW9uGAMgASgL",
-            "MhMuY29kZWdlbi5wcm90by5WZWMyEhEKCWRpcmVjdGlvbhgEIAEoAhInCgdk",
-            "ZWJ1ZmZzGAUgASgLMhYuY29kZWdlbi5wcm90by5EZWJ1ZmZzEgwKBGd1aWQY",
-            "CiABKAkihAIKBEJvc3MSJgoEdHlwZRgBIAEoDjIYLmNvZGVnZW4ucHJvdG8u",
-            "Qm9zcy5UeXBlEgwKBG5hbWUYAiABKAkSJQoIcG9zaXRpb24YAyABKAsyEy5j",
-            "b2RlZ2VuLnByb3RvLlZlYzISEQoJZGlyZWN0aW9uGAQgASgCEhIKCmN1cnJl",
-            "bnRfaHAYBSABKAUSDgoGbWF4X2hwGAYgASgFEhEKCWlzX3NwaXJpdBgHIAEo",
-            "CBIaChJzaGllbGRfd2FsbF9hY3RpdmUYCCABKAgiOQoEVHlwZRIMCghNT0dS",
-            "QUlORRAAEgkKBVRIQU5FEAESDAoIQkxBVU1FVVgQAhIKCgZaRUxJRUsQAyIn",
-            "ChBDU19OZXdQbGF5ZXJKb2luEhMKC3BsYXllcl9uYW1lGAEgASgJIpsBCg9D",
-            "U19QbGF5ZXJBY3Rpb24SMQoEdHlwZRgBIAEoDjIjLmNvZGVnZW4ucHJvdG8u",
-            "Q1NfUGxheWVyQWN0aW9uLlR5cGUSEwoLZ3VpZF90YXJnZXQYAiABKAUiQAoE",
-            "VHlwZRIJCgVUQVVOVBAAEggKBEhFQUwQARIRCg1SQU5HRURfQVRUQUNLEAIS",
-            "EAoMTUVMRUVfQVRUQUNLEAMitwIKB0NTX01haW4SKQoEdHlwZRgBIAEoDjIb",
-            "LmNvZGVnZW4ucHJvdG8uQ1NfTWFpbi5UeXBlEjQKC3BsYXllcl9qb2luGAIg",
-            "ASgLMh8uY29kZWdlbi5wcm90by5DU19OZXdQbGF5ZXJKb2luEigKC3BsYXll",
-            "cl9tb3ZlGAMgASgLMhMuY29kZWdlbi5wcm90by5WZWMyEhgKEHBsYXllcl9k",
-            "aXJlY3Rpb24YBCABKAIihgEKBFR5cGUSDwoLUExBWUVSX0pPSU4QABIPCgtQ",
-            "TEFZRVJfTU9WRRABEhQKEFBMQVlFUl9ESVJFQ1RJT04QAhIWChJSRVFVRVNU",
-            "X0dBTUVfU1RBUlQQAxIWChJSRVFVRVNUX0dBTUVfUEFVU0UQBBIWChJSRVFV",
-            "RVNUX0dBTUVfUkVTRVQQBSJqCgxTQ19HYW1lU3RhdGUSLgoEdHlwZRgBIAEo",
-            "DjIgLmNvZGVnZW4ucHJvdG8uU0NfR2FtZVN0YXRlLlR5cGUiKgoEVHlwZRIJ",
-            "CgVMT0JCWRAAEgsKB1JVTk5JTkcQARIKCgZQQVVTRUQQAiKnAQoOU0NfQm9z",
-            "c0FiaWxpdHkSMAoEdHlwZRgBIAEoDjIiLmNvZGVnZW4ucHJvdG8uU0NfQm9z",
-            "c0FiaWxpdHkuVHlwZRIcChRwbGF5ZXJfZ3VpZF9hZmZlY3RlZBgCIAMoBSJF",
-            "CgRUeXBlEhIKDlJJR0hURU9VU19GSVJFEAASCgoGTUVURU9SEAESDgoKSE9M",
-            "WV9XUkFUSBACEg0KCVZPSURfWk9ORRADIrgCCgdTQ19NYWluEikKBHR5cGUY",
-            "ASABKA4yGy5jb2RlZ2VuLnByb3RvLlNDX01haW4uVHlwZRIaChJhc3NpZ25l",
-            "ZF9wbGF5ZXJfaWQYAiABKAkSMQoSYnVsa19wbGF5ZXJfdXBkYXRlGAYgAygL",
-            "MhUuY29kZWdlbi5wcm90by5QbGF5ZXISLQoQYnVsa19ib3NzX3VwZGF0ZRgH",
-            "IAMoCzITLmNvZGVnZW4ucHJvdG8uQm9zcxI9ChZib3NzX2FiaWxpdHlfcGVy",
-            "Zm9ybWVkGAwgAygLMh0uY29kZWdlbi5wcm90by5TQ19Cb3NzQWJpbGl0eSJF",
-            "CgRUeXBlEhEKDUlOSVRJQUxfU1RBVEUQABIUChBBU1NJR05fUExBWUVSX0lE",
-            "EAESFAoQR0FNRV9TVEVQX1VQREFURRACKkIKC1BsYXllckNsYXNzEggKBFRB",
-            "TksQABIKCgZIRUFMRVIQARIOCgpSQU5HRURfRFBTEAISDQoJTUVMRUVfRFBT",
-            "EANiBnByb3RvMw=="));
+            "MhMuY29kZWdlbi5wcm90by5WZWMyEhEKCWRpcmVjdGlvbhgEIAEoAhIWCg5j",
+            "dXJyZW50X2hlYWx0aBgFIAEoBRISCgptYXhfaGVhbHRoGAYgASgFEicKB2Rl",
+            "YnVmZnMYCSABKAsyFi5jb2RlZ2VuLnByb3RvLkRlYnVmZnMSDAoEZ3VpZBgK",
+            "IAEoCSKEAgoEQm9zcxImCgR0eXBlGAEgASgOMhguY29kZWdlbi5wcm90by5C",
+            "b3NzLlR5cGUSDAoEbmFtZRgCIAEoCRIlCghwb3NpdGlvbhgDIAEoCzITLmNv",
+            "ZGVnZW4ucHJvdG8uVmVjMhIRCglkaXJlY3Rpb24YBCABKAISEgoKY3VycmVu",
+            "dF9ocBgFIAEoBRIOCgZtYXhfaHAYBiABKAUSEQoJaXNfc3Bpcml0GAcgASgI",
+            "EhoKEnNoaWVsZF93YWxsX2FjdGl2ZRgIIAEoCCI5CgRUeXBlEgwKCE1PR1JB",
+            "SU5FEAASCQoFVEhBTkUQARIMCghCTEFVTUVVWBACEgoKBlpFTElFSxADIicK",
+            "EENTX05ld1BsYXllckpvaW4SEwoLcGxheWVyX25hbWUYASABKAkimwEKD0NT",
+            "X1BsYXllckFjdGlvbhIxCgR0eXBlGAEgASgOMiMuY29kZWdlbi5wcm90by5D",
+            "U19QbGF5ZXJBY3Rpb24uVHlwZRITCgtndWlkX3RhcmdldBgCIAEoBSJACgRU",
+            "eXBlEgkKBVRBVU5UEAASCAoESEVBTBABEhEKDVJBTkdFRF9BVFRBQ0sQAhIQ",
+            "CgxNRUxFRV9BVFRBQ0sQAyK3AgoHQ1NfTWFpbhIpCgR0eXBlGAEgASgOMhsu",
+            "Y29kZWdlbi5wcm90by5DU19NYWluLlR5cGUSNAoLcGxheWVyX2pvaW4YAiAB",
+            "KAsyHy5jb2RlZ2VuLnByb3RvLkNTX05ld1BsYXllckpvaW4SKAoLcGxheWVy",
+            "X21vdmUYAyABKAsyEy5jb2RlZ2VuLnByb3RvLlZlYzISGAoQcGxheWVyX2Rp",
+            "cmVjdGlvbhgEIAEoAiKGAQoEVHlwZRIPCgtQTEFZRVJfSk9JThAAEg8KC1BM",
+            "QVlFUl9NT1ZFEAESFAoQUExBWUVSX0RJUkVDVElPThACEhYKElJFUVVFU1Rf",
+            "R0FNRV9TVEFSVBADEhYKElJFUVVFU1RfR0FNRV9QQVVTRRAEEhYKElJFUVVF",
+            "U1RfR0FNRV9SRVNFVBAFImoKDFNDX0dhbWVTdGF0ZRIuCgR0eXBlGAEgASgO",
+            "MiAuY29kZWdlbi5wcm90by5TQ19HYW1lU3RhdGUuVHlwZSIqCgRUeXBlEgkK",
+            "BUxPQkJZEAASCwoHUlVOTklORxABEgoKBlBBVVNFRBACIqcBCg5TQ19Cb3Nz",
+            "QWJpbGl0eRIwCgR0eXBlGAEgASgOMiIuY29kZWdlbi5wcm90by5TQ19Cb3Nz",
+            "QWJpbGl0eS5UeXBlEhwKFHBsYXllcl9ndWlkX2FmZmVjdGVkGAIgAygFIkUK",
+            "BFR5cGUSEgoOUklHSFRFT1VTX0ZJUkUQABIKCgZNRVRFT1IQARIOCgpIT0xZ",
+            "X1dSQVRIEAISDQoJVk9JRF9aT05FEAMiuAIKB1NDX01haW4SKQoEdHlwZRgB",
+            "IAEoDjIbLmNvZGVnZW4ucHJvdG8uU0NfTWFpbi5UeXBlEhoKEmFzc2lnbmVk",
+            "X3BsYXllcl9pZBgCIAEoCRIxChJidWxrX3BsYXllcl91cGRhdGUYBiADKAsy",
+            "FS5jb2RlZ2VuLnByb3RvLlBsYXllchItChBidWxrX2Jvc3NfdXBkYXRlGAcg",
+            "AygLMhMuY29kZWdlbi5wcm90by5Cb3NzEj0KFmJvc3NfYWJpbGl0eV9wZXJm",
+            "b3JtZWQYDCADKAsyHS5jb2RlZ2VuLnByb3RvLlNDX0Jvc3NBYmlsaXR5IkUK",
+            "BFR5cGUSEQoNSU5JVElBTF9TVEFURRAAEhQKEEFTU0lHTl9QTEFZRVJfSUQQ",
+            "ARIUChBHQU1FX1NURVBfVVBEQVRFEAIqQgoLUGxheWVyQ2xhc3MSCAoEVEFO",
+            "SxAAEgoKBkhFQUxFUhABEg4KClJBTkdFRF9EUFMQAhINCglNRUxFRV9EUFMQ",
+            "A2IGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Codegen.Proto.PlayerClass), }, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Codegen.Proto.Vec2), global::Codegen.Proto.Vec2.Parser, new[]{ "PositionX", "PositionY" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Codegen.Proto.Debuff), global::Codegen.Proto.Debuff.Parser, new[]{ "StackCount", "RemainingMs" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Codegen.Proto.Debuffs), global::Codegen.Proto.Debuffs.Parser, new[]{ "MarkMograine", "MarkThane", "MarkBlaumeux", "MarkZeliek" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Codegen.Proto.Player), global::Codegen.Proto.Player.Parser, new[]{ "Name", "Class", "Position", "Direction", "Debuffs", "Guid" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Codegen.Proto.Player), global::Codegen.Proto.Player.Parser, new[]{ "Name", "Class", "Position", "Direction", "CurrentHealth", "MaxHealth", "Debuffs", "Guid" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Codegen.Proto.Boss), global::Codegen.Proto.Boss.Parser, new[]{ "Type", "Name", "Position", "Direction", "CurrentHp", "MaxHp", "IsSpirit", "ShieldWallActive" }, null, new[]{ typeof(global::Codegen.Proto.Boss.Types.Type) }, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Codegen.Proto.CS_NewPlayerJoin), global::Codegen.Proto.CS_NewPlayerJoin.Parser, new[]{ "PlayerName" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Codegen.Proto.CS_PlayerAction), global::Codegen.Proto.CS_PlayerAction.Parser, new[]{ "Type", "GuidTarget" }, null, new[]{ typeof(global::Codegen.Proto.CS_PlayerAction.Types.Type) }, null, null),
@@ -863,6 +864,8 @@ namespace Codegen.Proto {
       class_ = other.class_;
       position_ = other.position_ != null ? other.position_.Clone() : null;
       direction_ = other.direction_;
+      currentHealth_ = other.currentHealth_;
+      maxHealth_ = other.maxHealth_;
       debuffs_ = other.debuffs_ != null ? other.debuffs_.Clone() : null;
       guid_ = other.guid_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
@@ -917,8 +920,30 @@ namespace Codegen.Proto {
       }
     }
 
+    /// <summary>Field number for the "current_health" field.</summary>
+    public const int CurrentHealthFieldNumber = 5;
+    private int currentHealth_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CurrentHealth {
+      get { return currentHealth_; }
+      set {
+        currentHealth_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "max_health" field.</summary>
+    public const int MaxHealthFieldNumber = 6;
+    private int maxHealth_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int MaxHealth {
+      get { return maxHealth_; }
+      set {
+        maxHealth_ = value;
+      }
+    }
+
     /// <summary>Field number for the "debuffs" field.</summary>
-    public const int DebuffsFieldNumber = 5;
+    public const int DebuffsFieldNumber = 9;
     private global::Codegen.Proto.Debuffs debuffs_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public global::Codegen.Proto.Debuffs Debuffs {
@@ -956,6 +981,8 @@ namespace Codegen.Proto {
       if (Class != other.Class) return false;
       if (!object.Equals(Position, other.Position)) return false;
       if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Direction, other.Direction)) return false;
+      if (CurrentHealth != other.CurrentHealth) return false;
+      if (MaxHealth != other.MaxHealth) return false;
       if (!object.Equals(Debuffs, other.Debuffs)) return false;
       if (Guid != other.Guid) return false;
       return Equals(_unknownFields, other._unknownFields);
@@ -968,6 +995,8 @@ namespace Codegen.Proto {
       if (Class != global::Codegen.Proto.PlayerClass.Tank) hash ^= Class.GetHashCode();
       if (position_ != null) hash ^= Position.GetHashCode();
       if (Direction != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Direction);
+      if (CurrentHealth != 0) hash ^= CurrentHealth.GetHashCode();
+      if (MaxHealth != 0) hash ^= MaxHealth.GetHashCode();
       if (debuffs_ != null) hash ^= Debuffs.GetHashCode();
       if (Guid.Length != 0) hash ^= Guid.GetHashCode();
       if (_unknownFields != null) {
@@ -1002,8 +1031,16 @@ namespace Codegen.Proto {
         output.WriteRawTag(37);
         output.WriteFloat(Direction);
       }
+      if (CurrentHealth != 0) {
+        output.WriteRawTag(40);
+        output.WriteInt32(CurrentHealth);
+      }
+      if (MaxHealth != 0) {
+        output.WriteRawTag(48);
+        output.WriteInt32(MaxHealth);
+      }
       if (debuffs_ != null) {
-        output.WriteRawTag(42);
+        output.WriteRawTag(74);
         output.WriteMessage(Debuffs);
       }
       if (Guid.Length != 0) {
@@ -1035,8 +1072,16 @@ namespace Codegen.Proto {
         output.WriteRawTag(37);
         output.WriteFloat(Direction);
       }
+      if (CurrentHealth != 0) {
+        output.WriteRawTag(40);
+        output.WriteInt32(CurrentHealth);
+      }
+      if (MaxHealth != 0) {
+        output.WriteRawTag(48);
+        output.WriteInt32(MaxHealth);
+      }
       if (debuffs_ != null) {
-        output.WriteRawTag(42);
+        output.WriteRawTag(74);
         output.WriteMessage(Debuffs);
       }
       if (Guid.Length != 0) {
@@ -1063,6 +1108,12 @@ namespace Codegen.Proto {
       }
       if (Direction != 0F) {
         size += 1 + 4;
+      }
+      if (CurrentHealth != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(CurrentHealth);
+      }
+      if (MaxHealth != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(MaxHealth);
       }
       if (debuffs_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(Debuffs);
@@ -1095,6 +1146,12 @@ namespace Codegen.Proto {
       }
       if (other.Direction != 0F) {
         Direction = other.Direction;
+      }
+      if (other.CurrentHealth != 0) {
+        CurrentHealth = other.CurrentHealth;
+      }
+      if (other.MaxHealth != 0) {
+        MaxHealth = other.MaxHealth;
       }
       if (other.debuffs_ != null) {
         if (debuffs_ == null) {
@@ -1138,7 +1195,15 @@ namespace Codegen.Proto {
             Direction = input.ReadFloat();
             break;
           }
-          case 42: {
+          case 40: {
+            CurrentHealth = input.ReadInt32();
+            break;
+          }
+          case 48: {
+            MaxHealth = input.ReadInt32();
+            break;
+          }
+          case 74: {
             if (debuffs_ == null) {
               Debuffs = new global::Codegen.Proto.Debuffs();
             }
@@ -1182,7 +1247,15 @@ namespace Codegen.Proto {
             Direction = input.ReadFloat();
             break;
           }
-          case 42: {
+          case 40: {
+            CurrentHealth = input.ReadInt32();
+            break;
+          }
+          case 48: {
+            MaxHealth = input.ReadInt32();
+            break;
+          }
+          case 74: {
             if (debuffs_ == null) {
               Debuffs = new global::Codegen.Proto.Debuffs();
             }

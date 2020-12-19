@@ -145,6 +145,8 @@ type alias Player =
     , class : PlayerClass
     , position : Maybe Vec2
     , direction : Float
+    , currentHealth : Int
+    , maxHealth : Int
     , debuffs : Maybe Debuffs
     , guid : String
     }
@@ -416,12 +418,14 @@ debuffsDecoder =
 -}
 playerDecoder : Decode.Decoder Player
 playerDecoder =
-    Decode.message (Player "" Tank Nothing 0 Nothing "")
+    Decode.message (Player "" Tank Nothing 0 0 0 Nothing "")
         [ Decode.optional 1 Decode.string setName
         , Decode.optional 2 playerClassDecoder setClass
         , Decode.optional 3 (Decode.map Just vec2Decoder) setPosition
         , Decode.optional 4 Decode.float setDirection
-        , Decode.optional 5 (Decode.map Just debuffsDecoder) setDebuffs
+        , Decode.optional 5 Decode.int32 setCurrentHealth
+        , Decode.optional 6 Decode.int32 setMaxHealth
+        , Decode.optional 9 (Decode.map Just debuffsDecoder) setDebuffs
         , Decode.optional 10 Decode.string setGuid
         ]
 
@@ -690,7 +694,9 @@ toPlayerEncoder model =
         , ( 2, toPlayerClassEncoder model.class )
         , ( 3, (Maybe.withDefault Encode.none << Maybe.map toVec2Encoder) model.position )
         , ( 4, Encode.float model.direction )
-        , ( 5, (Maybe.withDefault Encode.none << Maybe.map toDebuffsEncoder) model.debuffs )
+        , ( 5, Encode.int32 model.currentHealth )
+        , ( 6, Encode.int32 model.maxHealth )
+        , ( 9, (Maybe.withDefault Encode.none << Maybe.map toDebuffsEncoder) model.debuffs )
         , ( 10, Encode.string model.guid )
         ]
 
@@ -836,6 +842,16 @@ setPosition value model =
 setDirection : a -> { b | direction : a } -> { b | direction : a }
 setDirection value model =
     { model | direction = value }
+
+
+setCurrentHealth : a -> { b | currentHealth : a } -> { b | currentHealth : a }
+setCurrentHealth value model =
+    { model | currentHealth = value }
+
+
+setMaxHealth : a -> { b | maxHealth : a } -> { b | maxHealth : a }
+setMaxHealth value model =
+    { model | maxHealth = value }
 
 
 setDebuffs : a -> { b | debuffs : a } -> { b | debuffs : a }

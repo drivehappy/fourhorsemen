@@ -16,6 +16,8 @@ type Player = {
     class_ : Class
     direction : float32   // Radians
     position : Vec2
+    currentHealth : int
+    maxHealth : int
 
     debuffs : MonsterMarks
 }
@@ -26,6 +28,8 @@ let initPlayer = {
     class_ = Healer
     direction = 0.0f
     position = { x = 0.0f; y = 0.0f }
+    currentHealth = 10000
+    maxHealth = 10000
     debuffs = {
         mograineMark = None
         thaneMark = None
