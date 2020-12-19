@@ -160,10 +160,10 @@ message SC_Main {
     
     Type type = 1;
     
-    repeated Player bulk_player_update = 2;
-    repeated Boss bulk_boss_update = 3;
+    string assigned_player_id = 2;
 
-    repeated SC_BossAbility boss_ability_performed = 4;
+    repeated Player bulk_player_update = 6;
+    repeated Boss bulk_boss_update = 7;
 
-    string assigned_player_id = 5;
+    repeated SC_BossAbility boss_ability_performed = 12;
 }

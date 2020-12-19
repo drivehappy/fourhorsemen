@@ -4,6 +4,9 @@ import Html exposing (Html, text)
 
 import Canvas.Settings exposing (..)
 import Canvas.Settings.Advanced exposing (..)
+import List.Extra as ListE exposing (..)
+
+import GameModel exposing (Player)
 
 
 viewZoomRatio = 6
@@ -32,3 +35,10 @@ htmlNone = text ""
 --
 zoomSetting : Setting
 zoomSetting = transform [ Scale viewZoomRatio viewZoomRatio ]
+
+
+--
+findCurrentPlayer : String -> List Player -> Maybe Player
+findCurrentPlayer guid players =
+    players
+        |> ListE.find (\p -> p.guid == guid)

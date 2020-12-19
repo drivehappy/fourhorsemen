@@ -2,6 +2,7 @@ module Network exposing (..)
 
 import Bytes exposing (..)
 import Base64 exposing (..)
+import Dict exposing (..)
 import Protobuf.Decode as PBD exposing (..)
 import Protobuf.Encode as PBE exposing (..)
 import List.Extra as ListE exposing (..)
@@ -69,6 +70,21 @@ buildBossFromPB pb =
     , name = pb.name
     }
 
+--
+buildPlayerDebuffsFromPB : PB.Debuffs -> PlayerDebuffs
+buildPlayerDebuffsFromPB pb =
+    let
+        debuffFromPB : Maybe PB.Debuff -> DebuffMark
+        debuffFromPB =
+            Maybe.map (\m -> (toFloat m.remainingMs, m.stackCount))
+                >> Maybe.withDefault (0, 0)
+    in
+    { mograineDebuff = debuffFromPB pb.markMograine
+    , thaneDebuff = debuffFromPB pb.markThane
+    , zeliekDebuff = debuffFromPB pb.markZeliek
+    , blaumeuxDebuff = debuffFromPB pb.markBlaumeux
+    }
+
 
 --
 buildPlayerFromPB : PB.Player -> GameModel.Player
@@ -83,12 +99,24 @@ buildPlayerFromPB pb =
                 PB.RangedDps -> GameModel.RangedDPS
                 PB.MeleeDps -> GameModel.MeleeDPS
                 _ -> GameModel.Tank
+
+        -- Transform debuffs
+        newPlayerDebuffs : PlayerDebuffs
+        newPlayerDebuffs =
+            case pb.debuffs of
+                Just db ->
+                    buildPlayerDebuffsFromPB db
+
+                _ ->
+                    initPlayerDebuffs
+
     in
     { position = newPosition
     , direction = pb.direction
     , type_ = newType
     , name = pb.name
     , guid = pb.guid
+    , debuffs = newPlayerDebuffs
     }
 
 
@@ -114,12 +142,8 @@ handleServerData m pbSCMain =
 
                 currPlayer = Just initPlayer
 
-                newCurrentPlayer =
-                    currPlayer
-                        |> Maybe.map (\cp -> { cp | guid = pbSCMain.assignedPlayerId })
-                    
                 newModel =
-                    { m | currentPlayer = newCurrentPlayer }
+                    { m | currentPlayerGuid = pbSCMain.assignedPlayerId }
             in
             (newModel, Cmd.none)
 
@@ -151,10 +175,32 @@ handleServerData m pbSCMain =
                             |> Maybe.withDefault m.bosses.blaumeux
                     }
 
-                newPlayers : List GameModel.Player
+                newPlayers : Dict String GameModel.Player
                 newPlayers =
                     pbSCMain.bulkPlayerUpdate
                         |> List.map buildPlayerFromPB
+                        |> List.filterMap (\p ->
+                            -- Update all players that are not the current player
+                            if p.guid /= m.currentPlayerGuid then
+                                Just (p.guid, p)
+                            else
+                                -- If we are the current player, update everything but the position, otherwise we get janky behavior
+                                -- from the server trying to update our position to an old one.
+                                let
+                                    clientPlayerPos : Maybe GameModel.Vec2
+                                    clientPlayerPos =
+                                        Dict.get m.currentPlayerGuid m.players
+                                            |> Maybe.map (\player -> player.position)
+
+                                    newPlayer : Maybe GameModel.Player
+                                    newPlayer =
+                                        clientPlayerPos
+                                            |> Maybe.map (\pos -> { p | position = pos })
+                                in
+                                newPlayer
+                                    |> Maybe.map (\player -> (player.guid, player))
+                        )
+                        |> Dict.fromList
 
                 newModel =
                     { m | bosses = newBossStates, players = newPlayers }

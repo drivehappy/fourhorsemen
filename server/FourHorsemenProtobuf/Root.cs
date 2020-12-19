@@ -59,11 +59,11 @@ namespace Codegen.Proto {
             "c0FiaWxpdHkuVHlwZRIcChRwbGF5ZXJfZ3VpZF9hZmZlY3RlZBgCIAMoBSJF",
             "CgRUeXBlEhIKDlJJR0hURU9VU19GSVJFEAASCgoGTUVURU9SEAESDgoKSE9M",
             "WV9XUkFUSBACEg0KCVZPSURfWk9ORRADIrgCCgdTQ19NYWluEikKBHR5cGUY",
-            "ASABKA4yGy5jb2RlZ2VuLnByb3RvLlNDX01haW4uVHlwZRIxChJidWxrX3Bs",
-            "YXllcl91cGRhdGUYAiADKAsyFS5jb2RlZ2VuLnByb3RvLlBsYXllchItChBi",
-            "dWxrX2Jvc3NfdXBkYXRlGAMgAygLMhMuY29kZWdlbi5wcm90by5Cb3NzEj0K",
-            "FmJvc3NfYWJpbGl0eV9wZXJmb3JtZWQYBCADKAsyHS5jb2RlZ2VuLnByb3Rv",
-            "LlNDX0Jvc3NBYmlsaXR5EhoKEmFzc2lnbmVkX3BsYXllcl9pZBgFIAEoCSJF",
+            "ASABKA4yGy5jb2RlZ2VuLnByb3RvLlNDX01haW4uVHlwZRIaChJhc3NpZ25l",
+            "ZF9wbGF5ZXJfaWQYAiABKAkSMQoSYnVsa19wbGF5ZXJfdXBkYXRlGAYgAygL",
+            "MhUuY29kZWdlbi5wcm90by5QbGF5ZXISLQoQYnVsa19ib3NzX3VwZGF0ZRgH",
+            "IAMoCzITLmNvZGVnZW4ucHJvdG8uQm9zcxI9ChZib3NzX2FiaWxpdHlfcGVy",
+            "Zm9ybWVkGAwgAygLMh0uY29kZWdlbi5wcm90by5TQ19Cb3NzQWJpbGl0eSJF",
             "CgRUeXBlEhEKDUlOSVRJQUxfU1RBVEUQABIUChBBU1NJR05fUExBWUVSX0lE",
             "EAESFAoQR0FNRV9TVEVQX1VQREFURRACKkIKC1BsYXllckNsYXNzEggKBFRB",
             "TksQABIKCgZIRUFMRVIQARIOCgpSQU5HRURfRFBTEAISDQoJTUVMRUVfRFBT",
@@ -81,7 +81,7 @@ namespace Codegen.Proto {
             new pbr::GeneratedClrTypeInfo(typeof(global::Codegen.Proto.CS_Main), global::Codegen.Proto.CS_Main.Parser, new[]{ "Type", "PlayerJoin", "PlayerMove", "PlayerDirection" }, null, new[]{ typeof(global::Codegen.Proto.CS_Main.Types.Type) }, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Codegen.Proto.SC_GameState), global::Codegen.Proto.SC_GameState.Parser, new[]{ "Type" }, null, new[]{ typeof(global::Codegen.Proto.SC_GameState.Types.Type) }, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Codegen.Proto.SC_BossAbility), global::Codegen.Proto.SC_BossAbility.Parser, new[]{ "Type", "PlayerGuidAffected" }, null, new[]{ typeof(global::Codegen.Proto.SC_BossAbility.Types.Type) }, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Codegen.Proto.SC_Main), global::Codegen.Proto.SC_Main.Parser, new[]{ "Type", "BulkPlayerUpdate", "BulkBossUpdate", "BossAbilityPerformed", "AssignedPlayerId" }, null, new[]{ typeof(global::Codegen.Proto.SC_Main.Types.Type) }, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Codegen.Proto.SC_Main), global::Codegen.Proto.SC_Main.Parser, new[]{ "Type", "AssignedPlayerId", "BulkPlayerUpdate", "BulkBossUpdate", "BossAbilityPerformed" }, null, new[]{ typeof(global::Codegen.Proto.SC_Main.Types.Type) }, null, null)
           }));
     }
     #endregion
@@ -2837,10 +2837,10 @@ namespace Codegen.Proto {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public SC_Main(SC_Main other) : this() {
       type_ = other.type_;
+      assignedPlayerId_ = other.assignedPlayerId_;
       bulkPlayerUpdate_ = other.bulkPlayerUpdate_.Clone();
       bulkBossUpdate_ = other.bulkBossUpdate_.Clone();
       bossAbilityPerformed_ = other.bossAbilityPerformed_.Clone();
-      assignedPlayerId_ = other.assignedPlayerId_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -2860,38 +2860,8 @@ namespace Codegen.Proto {
       }
     }
 
-    /// <summary>Field number for the "bulk_player_update" field.</summary>
-    public const int BulkPlayerUpdateFieldNumber = 2;
-    private static readonly pb::FieldCodec<global::Codegen.Proto.Player> _repeated_bulkPlayerUpdate_codec
-        = pb::FieldCodec.ForMessage(18, global::Codegen.Proto.Player.Parser);
-    private readonly pbc::RepeatedField<global::Codegen.Proto.Player> bulkPlayerUpdate_ = new pbc::RepeatedField<global::Codegen.Proto.Player>();
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public pbc::RepeatedField<global::Codegen.Proto.Player> BulkPlayerUpdate {
-      get { return bulkPlayerUpdate_; }
-    }
-
-    /// <summary>Field number for the "bulk_boss_update" field.</summary>
-    public const int BulkBossUpdateFieldNumber = 3;
-    private static readonly pb::FieldCodec<global::Codegen.Proto.Boss> _repeated_bulkBossUpdate_codec
-        = pb::FieldCodec.ForMessage(26, global::Codegen.Proto.Boss.Parser);
-    private readonly pbc::RepeatedField<global::Codegen.Proto.Boss> bulkBossUpdate_ = new pbc::RepeatedField<global::Codegen.Proto.Boss>();
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public pbc::RepeatedField<global::Codegen.Proto.Boss> BulkBossUpdate {
-      get { return bulkBossUpdate_; }
-    }
-
-    /// <summary>Field number for the "boss_ability_performed" field.</summary>
-    public const int BossAbilityPerformedFieldNumber = 4;
-    private static readonly pb::FieldCodec<global::Codegen.Proto.SC_BossAbility> _repeated_bossAbilityPerformed_codec
-        = pb::FieldCodec.ForMessage(34, global::Codegen.Proto.SC_BossAbility.Parser);
-    private readonly pbc::RepeatedField<global::Codegen.Proto.SC_BossAbility> bossAbilityPerformed_ = new pbc::RepeatedField<global::Codegen.Proto.SC_BossAbility>();
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public pbc::RepeatedField<global::Codegen.Proto.SC_BossAbility> BossAbilityPerformed {
-      get { return bossAbilityPerformed_; }
-    }
-
     /// <summary>Field number for the "assigned_player_id" field.</summary>
-    public const int AssignedPlayerIdFieldNumber = 5;
+    public const int AssignedPlayerIdFieldNumber = 2;
     private string assignedPlayerId_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public string AssignedPlayerId {
@@ -2899,6 +2869,36 @@ namespace Codegen.Proto {
       set {
         assignedPlayerId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
       }
+    }
+
+    /// <summary>Field number for the "bulk_player_update" field.</summary>
+    public const int BulkPlayerUpdateFieldNumber = 6;
+    private static readonly pb::FieldCodec<global::Codegen.Proto.Player> _repeated_bulkPlayerUpdate_codec
+        = pb::FieldCodec.ForMessage(50, global::Codegen.Proto.Player.Parser);
+    private readonly pbc::RepeatedField<global::Codegen.Proto.Player> bulkPlayerUpdate_ = new pbc::RepeatedField<global::Codegen.Proto.Player>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public pbc::RepeatedField<global::Codegen.Proto.Player> BulkPlayerUpdate {
+      get { return bulkPlayerUpdate_; }
+    }
+
+    /// <summary>Field number for the "bulk_boss_update" field.</summary>
+    public const int BulkBossUpdateFieldNumber = 7;
+    private static readonly pb::FieldCodec<global::Codegen.Proto.Boss> _repeated_bulkBossUpdate_codec
+        = pb::FieldCodec.ForMessage(58, global::Codegen.Proto.Boss.Parser);
+    private readonly pbc::RepeatedField<global::Codegen.Proto.Boss> bulkBossUpdate_ = new pbc::RepeatedField<global::Codegen.Proto.Boss>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public pbc::RepeatedField<global::Codegen.Proto.Boss> BulkBossUpdate {
+      get { return bulkBossUpdate_; }
+    }
+
+    /// <summary>Field number for the "boss_ability_performed" field.</summary>
+    public const int BossAbilityPerformedFieldNumber = 12;
+    private static readonly pb::FieldCodec<global::Codegen.Proto.SC_BossAbility> _repeated_bossAbilityPerformed_codec
+        = pb::FieldCodec.ForMessage(98, global::Codegen.Proto.SC_BossAbility.Parser);
+    private readonly pbc::RepeatedField<global::Codegen.Proto.SC_BossAbility> bossAbilityPerformed_ = new pbc::RepeatedField<global::Codegen.Proto.SC_BossAbility>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public pbc::RepeatedField<global::Codegen.Proto.SC_BossAbility> BossAbilityPerformed {
+      get { return bossAbilityPerformed_; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2915,10 +2915,10 @@ namespace Codegen.Proto {
         return true;
       }
       if (Type != other.Type) return false;
+      if (AssignedPlayerId != other.AssignedPlayerId) return false;
       if(!bulkPlayerUpdate_.Equals(other.bulkPlayerUpdate_)) return false;
       if(!bulkBossUpdate_.Equals(other.bulkBossUpdate_)) return false;
       if(!bossAbilityPerformed_.Equals(other.bossAbilityPerformed_)) return false;
-      if (AssignedPlayerId != other.AssignedPlayerId) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -2926,10 +2926,10 @@ namespace Codegen.Proto {
     public override int GetHashCode() {
       int hash = 1;
       if (Type != global::Codegen.Proto.SC_Main.Types.Type.InitialState) hash ^= Type.GetHashCode();
+      if (AssignedPlayerId.Length != 0) hash ^= AssignedPlayerId.GetHashCode();
       hash ^= bulkPlayerUpdate_.GetHashCode();
       hash ^= bulkBossUpdate_.GetHashCode();
       hash ^= bossAbilityPerformed_.GetHashCode();
-      if (AssignedPlayerId.Length != 0) hash ^= AssignedPlayerId.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -2950,13 +2950,13 @@ namespace Codegen.Proto {
         output.WriteRawTag(8);
         output.WriteEnum((int) Type);
       }
+      if (AssignedPlayerId.Length != 0) {
+        output.WriteRawTag(18);
+        output.WriteString(AssignedPlayerId);
+      }
       bulkPlayerUpdate_.WriteTo(output, _repeated_bulkPlayerUpdate_codec);
       bulkBossUpdate_.WriteTo(output, _repeated_bulkBossUpdate_codec);
       bossAbilityPerformed_.WriteTo(output, _repeated_bossAbilityPerformed_codec);
-      if (AssignedPlayerId.Length != 0) {
-        output.WriteRawTag(42);
-        output.WriteString(AssignedPlayerId);
-      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -2970,13 +2970,13 @@ namespace Codegen.Proto {
         output.WriteRawTag(8);
         output.WriteEnum((int) Type);
       }
+      if (AssignedPlayerId.Length != 0) {
+        output.WriteRawTag(18);
+        output.WriteString(AssignedPlayerId);
+      }
       bulkPlayerUpdate_.WriteTo(ref output, _repeated_bulkPlayerUpdate_codec);
       bulkBossUpdate_.WriteTo(ref output, _repeated_bulkBossUpdate_codec);
       bossAbilityPerformed_.WriteTo(ref output, _repeated_bossAbilityPerformed_codec);
-      if (AssignedPlayerId.Length != 0) {
-        output.WriteRawTag(42);
-        output.WriteString(AssignedPlayerId);
-      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -2989,12 +2989,12 @@ namespace Codegen.Proto {
       if (Type != global::Codegen.Proto.SC_Main.Types.Type.InitialState) {
         size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Type);
       }
-      size += bulkPlayerUpdate_.CalculateSize(_repeated_bulkPlayerUpdate_codec);
-      size += bulkBossUpdate_.CalculateSize(_repeated_bulkBossUpdate_codec);
-      size += bossAbilityPerformed_.CalculateSize(_repeated_bossAbilityPerformed_codec);
       if (AssignedPlayerId.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(AssignedPlayerId);
       }
+      size += bulkPlayerUpdate_.CalculateSize(_repeated_bulkPlayerUpdate_codec);
+      size += bulkBossUpdate_.CalculateSize(_repeated_bulkBossUpdate_codec);
+      size += bossAbilityPerformed_.CalculateSize(_repeated_bossAbilityPerformed_codec);
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -3009,12 +3009,12 @@ namespace Codegen.Proto {
       if (other.Type != global::Codegen.Proto.SC_Main.Types.Type.InitialState) {
         Type = other.Type;
       }
-      bulkPlayerUpdate_.Add(other.bulkPlayerUpdate_);
-      bulkBossUpdate_.Add(other.bulkBossUpdate_);
-      bossAbilityPerformed_.Add(other.bossAbilityPerformed_);
       if (other.AssignedPlayerId.Length != 0) {
         AssignedPlayerId = other.AssignedPlayerId;
       }
+      bulkPlayerUpdate_.Add(other.bulkPlayerUpdate_);
+      bulkBossUpdate_.Add(other.bulkBossUpdate_);
+      bossAbilityPerformed_.Add(other.bossAbilityPerformed_);
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -3034,19 +3034,19 @@ namespace Codegen.Proto {
             break;
           }
           case 18: {
+            AssignedPlayerId = input.ReadString();
+            break;
+          }
+          case 50: {
             bulkPlayerUpdate_.AddEntriesFrom(input, _repeated_bulkPlayerUpdate_codec);
             break;
           }
-          case 26: {
+          case 58: {
             bulkBossUpdate_.AddEntriesFrom(input, _repeated_bulkBossUpdate_codec);
             break;
           }
-          case 34: {
+          case 98: {
             bossAbilityPerformed_.AddEntriesFrom(input, _repeated_bossAbilityPerformed_codec);
-            break;
-          }
-          case 42: {
-            AssignedPlayerId = input.ReadString();
             break;
           }
         }
@@ -3068,19 +3068,19 @@ namespace Codegen.Proto {
             break;
           }
           case 18: {
+            AssignedPlayerId = input.ReadString();
+            break;
+          }
+          case 50: {
             bulkPlayerUpdate_.AddEntriesFrom(ref input, _repeated_bulkPlayerUpdate_codec);
             break;
           }
-          case 26: {
+          case 58: {
             bulkBossUpdate_.AddEntriesFrom(ref input, _repeated_bulkBossUpdate_codec);
             break;
           }
-          case 34: {
+          case 98: {
             bossAbilityPerformed_.AddEntriesFrom(ref input, _repeated_bossAbilityPerformed_codec);
-            break;
-          }
-          case 42: {
-            AssignedPlayerId = input.ReadString();
             break;
           }
         }

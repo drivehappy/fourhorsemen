@@ -229,19 +229,27 @@ update msg model =
             let
                 dt = (frameInt / 1000.0)
 
-                newCurrPlayer : Maybe GameModel.Player
-                newCurrPlayer =
-                    model.currentPlayer
-                        |> Maybe.map (\cp -> updatePlayerPos dt cp model.keyState)
+                oldCurrentPlayer : Maybe GameModel.Player
+                oldCurrentPlayer = Dict.get model.currentPlayerGuid model.players
+
+                updatedCurrPlayer : Dict String GameModel.Player
+                updatedCurrPlayer =
+                    Dict.get model.currentPlayerGuid model.players
+                        |> Maybe.map (\p -> updatePlayerPos dt p model.keyState)
+                        |> Maybe.map (\p -> Dict.insert model.currentPlayerGuid p model.players)
+                        |> Maybe.withDefault model.players
 
                 newModel =
-                    { model | currentPlayer = newCurrPlayer }
+                    { model | players = updatedCurrPlayer }
+
+                newCurrentPlayer : Maybe GameModel.Player
+                newCurrentPlayer = Dict.get model.currentPlayerGuid updatedCurrPlayer
 
                 -- Send the move command to the server
                 -- Note: This might be pretty spammy, once every frame, may need
                 --       to just track the direction and whether play is moving.
                 newCmd =
-                    case newCurrPlayer of
+                    case newCurrentPlayer of
                         Just ncp ->
                             let
                                 pbCSMain : PB.CSMain
@@ -252,15 +260,12 @@ update msg model =
                                     { p | playerMove = Just (vec2ToPB ncp.position) }
 
                                 oldPos =
-                                    model.currentPlayer
+                                    oldCurrentPlayer
                                         |> Maybe.map (\p -> p.position)
 
-                                newPos =
-                                    newCurrPlayer
-                                        |> Maybe.map (\p -> p.position)
-
+                                newPos = ncp.position
                             in
-                            if newPos /= oldPos then
+                            if (Just newPos) /= oldPos then
                                 -- Only send this if our player position changed
                                 sendWebsocketData pbCSMain
                             else
@@ -382,6 +387,13 @@ viewGame model visible =
                 , style "align-items" "center"
                 ]
                 [ GameView.view model
+                ]
+        ,   div
+                [ style "display" "flex"
+                , style "justify-content" "right"
+                , style "align-items" "center"
+                ]
+                [ GameUIView.viewRHS model
                 ]
         ]
     ]

@@ -1,5 +1,6 @@
 module Model exposing (..)
 
+import Dict exposing (..)
 
 import PortFunnels exposing (State)
 import GameModel exposing (..)
@@ -10,8 +11,8 @@ type alias Model =
     , serverCode : String
     , playerName : String
     , bosses : EncounterBosses
-    , players : List Player
-    , currentPlayer : Maybe Player
+    , players : Dict String Player
+    , currentPlayerGuid : String
     , keyState : KeyState
     }
 
@@ -22,7 +23,7 @@ initModel =
     , serverCode = ""
     , playerName = "Unknown"
     , bosses = initBossEncounters
-    , players = []
-    , currentPlayer = Nothing
+    , players = Dict.empty
+    , currentPlayerGuid = ""
     , keyState = initKeyState
     }

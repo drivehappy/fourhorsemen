@@ -1,5 +1,6 @@
 ﻿module GameState
 
+open Microsoft.FSharp.Data.UnitSystems.SI.UnitSymbols
 open World
 open Monster
 open Player
@@ -40,7 +41,7 @@ type GameStateMsg =
     | AddPlayer of Player
     | RemovePlayer of string            // Network client id
     | RunPlayerAction of PlayerAction
-    | RunGameStep of float              // dt
+    | RunGameStep of float<s>              // dt
     | RegisterBroadcast of (World -> Async<unit>)
 
 
@@ -66,37 +67,51 @@ let findClosestNeighborMaxRange (p : Entity.Vec2) (neighbors : Ref<Player> list)
 
 
 //
-let runAI (worldState : World) (monsters : Monster[]) (dt : float) : Monster[] =
+let runAI (worldState : World) (monsters : Monster[]) (dt : float<s>) : Monster[] =
     let rangeAggro = 65.0f
     let markRange = 65.0f   // 65-70 yards?'
-    let initMarkTimer = 75000.0<milli second>
+    let markDebuffDuration = secondToMillisecond 75.0<s>
 
-    // Run boss debuff
+    
     monsters
-    |> Array.iter (fun b ->
-        let playersAddNewMarks = findClosestNeighborMaxRange b.position worldState.players markRange
+    |> Array.map (fun b ->
+        // Run boss debuff timers and player applications
 
-        playersAddNewMarks
-        |> List.iter (fun p ->
-            let updateStackCount (m : MarkTimerAndStacks option) =
-                (m
-                 |> Option.map snd
-                 |> Option.defaultValue 0) + 1
+        // Check timer for this boss
+        let newMarkTimer =
+            let tempNewMarkTimer = b.markTimer - dt
 
-            let newDebuffs = 
-                match b.type_ with
-                | Mograine -> { p.Value.debuffs with mograineMark = Some (initMarkTimer, updateStackCount p.Value.debuffs.mograineMark) }
-                | Thane -> { p.Value.debuffs with thaneMark = Some (initMarkTimer, updateStackCount p.Value.debuffs.thaneMark) }
-                | Zeliek -> { p.Value.debuffs with zeliekMark = Some (initMarkTimer, updateStackCount p.Value.debuffs.zeliekMark) }
-                | Blaumeux -> { p.Value.debuffs with blaumeuxMark = Some (initMarkTimer, updateStackCount p.Value.debuffs.blaumeuxMark) }
+            if tempNewMarkTimer <= 0.0<s> then
+                // If the timer has reached 0 then:
+                //   1. Reset the timer
+                //   2. Apply debuff to all nearby players
+                let playersAddNewMarks = findClosestNeighborMaxRange b.position worldState.players markRange
 
-            p.Value <- { !p with debuffs = newDebuffs }
-        )
+                playersAddNewMarks
+                |> List.iter (fun p ->
+                    let updateStackCount (m : MarkTimerAndStacks option) =
+                        (m
+                         |> Option.map snd
+                         |> Option.defaultValue 0) + 1
+
+                    let newDebuffs = 
+                        match b.type_ with
+                        | Mograine -> { p.Value.debuffs with mograineMark = Some (markDebuffDuration, updateStackCount p.Value.debuffs.mograineMark) }
+                        | Thane -> { p.Value.debuffs with thaneMark = Some (markDebuffDuration, updateStackCount p.Value.debuffs.thaneMark) }
+                        | Zeliek -> { p.Value.debuffs with zeliekMark = Some (markDebuffDuration, updateStackCount p.Value.debuffs.zeliekMark) }
+                        | Blaumeux -> { p.Value.debuffs with blaumeuxMark = Some (markDebuffDuration, updateStackCount p.Value.debuffs.blaumeuxMark) }
+
+                    p.Value <- { !p with debuffs = newDebuffs }
+                )
+
+                // Return the reset value of the mark timer (12 seconds)
+                markTimerFreq
+            else
+                tempNewMarkTimer
+
+        // Update boss
+        { b with markTimer = newMarkTimer }
     )
-
-
-    //
-    monsters
     |> Array.map (fun b ->
         // ShieldWall
         let healthPercent = (float32 b.curHealth) / (float32 b.maxHealth)
@@ -254,6 +269,6 @@ let gameLoop (gameState : MailboxProcessor<GameStateMsg>) =
             sw.Start()
             do! Async.Sleep 100
             
-            gameState.Post (RunGameStep ((float sw.ElapsedMilliseconds) / 1000.0))
+            gameState.Post (RunGameStep (((float sw.ElapsedMilliseconds) / 1000.0) * 1.0<s>))
             sw.Reset()
     }

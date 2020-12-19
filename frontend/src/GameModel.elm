@@ -26,12 +26,22 @@ type alias EncounterBosses =
     , blaumeux : Boss
     }
 
+type alias DebuffMark = (Float, Int)
+
+type alias PlayerDebuffs =
+    { mograineDebuff : DebuffMark
+    , thaneDebuff : DebuffMark
+    , zeliekDebuff : DebuffMark
+    , blaumeuxDebuff : DebuffMark
+    }
+
 type alias Player =
     { position : Vec2
     , direction : Float   -- Radians
     , type_ : PlayerType
     , name : String
     , guid : String
+    , debuffs : PlayerDebuffs
     }
 
 -- We have to track whether each key is pressed and released
@@ -58,6 +68,16 @@ initKeyState =
 
 
 --
+initPlayerDebuffs : PlayerDebuffs
+initPlayerDebuffs = 
+    { mograineDebuff = (0.0, 0)
+    , thaneDebuff = (0.0, 0)
+    , zeliekDebuff = (0.0, 0)
+    , blaumeuxDebuff = (0.0, 0)
+    }
+
+
+--
 initPlayer : Player
 initPlayer =
     { position = { x = 0.5, y = 0.9 }
@@ -65,6 +85,7 @@ initPlayer =
     , type_ = Tank
     , name = "PlayerName"
     , guid = "TODO_GUID"
+    , debuffs = initPlayerDebuffs
     }
 
 

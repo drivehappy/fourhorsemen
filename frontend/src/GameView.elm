@@ -6,6 +6,7 @@ import Canvas.Settings.Advanced exposing (..)
 import Canvas.Settings.Line exposing (..)
 import Canvas.Settings.Text exposing (..)
 import Color
+import Dict exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 
@@ -30,13 +31,14 @@ view m =
                 ]
 
         -- Gather the list of players, with the exception of our current player
+        playersExceptCurrent : List Player
         playersExceptCurrent =
             m.players
-                |> List.filter (\p ->
-                    case m.currentPlayer of
-                        Just cp -> p.guid /= cp.guid
-                        Nothing -> False
-                )
+                |> Dict.filter (\ g _ -> g /= m.currentPlayerGuid)
+                |> Dict.values
+
+        currentPlayer : Maybe Player
+        currentPlayer = Dict.get m.currentPlayerGuid m.players
     in
     Canvas.toHtml
         (roomWidth * viewZoomRatio, roomHeight * viewZoomRatio)
@@ -48,7 +50,7 @@ view m =
         ++ viewRenderPlatform
         ++ (viewRenderBosses m.bosses)
         ++ (viewRenderPlayers playersExceptCurrent)
-        ++ (m.currentPlayer
+        ++ (currentPlayer
                 |> Maybe.map viewRenderCurrentPlayer
                 |> Maybe.withDefault []
            )

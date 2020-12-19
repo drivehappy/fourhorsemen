@@ -1,7 +1,12 @@
 ﻿module Entity
 
+open Microsoft.FSharp.Data.UnitSystems.SI.UnitSymbols
+
+
 [<Measure>] type milli
-[<Measure>] type second
+
+let secondToMillisecond (s : float<s>) : float<milli s> =
+    s * 1000.0<milli>
 
 
 type Vec2 = {
@@ -16,7 +21,7 @@ type Dimensions = {
 
 
 // Mark helpers
-type MarkTimerAndStacks = float<milli second> * int
+type MarkTimerAndStacks = float<milli s> * int
 
 type MonsterMarks = {
     mograineMark : MarkTimerAndStacks option
