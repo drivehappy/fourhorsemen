@@ -21,6 +21,10 @@ type Monster = {
     maxHealth : int
     curHealth : int
 
+    // Melee damage
+    meleeDamage : int
+    meleeSwingTimer : float<s>
+
     // Mark timer
     markTimer : float<s>
 
@@ -35,6 +39,9 @@ type Monster = {
     target : Ref<Player> option
     threat : (Ref<Player> * int) list
 }
+
+// We'll estimate the boss hits the player every 2 seconds
+let monsterResetSwingTimer = 2.0<s>
 
 // First mark waits until 20 seconds after start of encounter
 let initMarkTimer = 20.0<s>
@@ -51,6 +58,9 @@ let initMograine = {
     position = { x = 60.0f; y = 67.5f }
     maxHealth = 530000
     curHealth = 530000
+
+    meleeDamage = 1600
+    meleeSwingTimer = 0.0<s>
 
     markTimer = initMarkTimer
 
@@ -71,6 +81,9 @@ let initThane = {
     position = { x = 52.5f; y = 67.5f }
     maxHealth = 590000
     curHealth = 590000
+    
+    meleeDamage = 1600
+    meleeSwingTimer = 0.0<s>
 
     markTimer = initMarkTimer
 
@@ -91,6 +104,9 @@ let initZeliek = {
     position = { x = 67.5f; y = 67.5f }
     maxHealth = 230000
     curHealth = 230000
+    
+    meleeDamage = 1600
+    meleeSwingTimer = 0.0<s>
 
     markTimer = initMarkTimer
 
@@ -111,6 +127,9 @@ let initBlaumeux = {
     position = { x = 45.0f; y = 67.5f }
     maxHealth = 290000
     curHealth = 290000
+    
+    meleeDamage = 1600
+    meleeSwingTimer = 0.0<s>
 
     markTimer = initMarkTimer
 

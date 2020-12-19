@@ -211,6 +211,34 @@ let runAI (worldState : World) (monsters : Monster[]) (dt : float<s>) : Monster[
 
         newBossState
     )
+    |> Array.map (fun b ->
+        // Run the boss attacks (this doesn't handle mark debuffs and damage, which are done above).
+        // Note: Even as a spirit if players are too close they can be melee'd
+
+        // Calc remaining swing timer
+        let newSwingTimer = b.meleeSwingTimer - dt
+
+        // Check if our swing timer has reset and apply damage to our target
+        if newSwingTimer <= 0.0<s> then
+            b.target
+            |> Option.iter (fun p ->
+                let distSq = distanceSq b.position p.Value.position
+                let minDistanceSq = 8.0f * 8.0f
+
+                // Check if we're in a minimum range to attack the player
+                if distSq <= minDistanceSq then
+                    p.Value <- { p.Value with currentHealth = (p.Value.currentHealth - b.meleeDamage) }
+            )
+
+        // Update the swing timer or reset
+        let updatedSwingTimer =
+            if newSwingTimer <= 0.0<s> then
+                monsterResetSwingTimer
+            else
+                newSwingTimer
+
+        { b with meleeSwingTimer = updatedSwingTimer }
+    )
 
 
 
