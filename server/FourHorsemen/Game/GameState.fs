@@ -11,10 +11,10 @@ open System
 
 
 //
-let removePlayerFromWorldState (worldState : World) (player : Player.Player) : World =
+let removePlayerFromWorldState (worldState : World) (clientId : String) : World =
     let newPlayers =
         worldState.players
-        |> List.filter (fun p -> !p = player)
+        |> List.filter (fun p -> p.Value.networkClientId <> clientId)
 
     { worldState with players = newPlayers }
 
@@ -250,19 +250,15 @@ let gameState () =
                 let! msg = inbox.Receive()
                 match msg with
                 | AddPlayer p ->
+                    printfn "Adding player (clientId = %s)" p.networkClientId
+
                     let newPlayers = ref p :: worldState.players
                     let newWorld = { worldState with players = newPlayers }
                     return! loop newWorld broadcast
 
                 | RemovePlayer clientId ->
-                    let lookupPlayer =
-                        worldState.players
-                        |> List.tryFind (fun p -> p.Value.networkClientId = clientId)
-
                     let newWorld =
-                        match lookupPlayer with
-                        | Some p -> removePlayerFromWorldState worldState !p
-                        | None -> worldState
+                        removePlayerFromWorldState worldState clientId
 
                     return! loop newWorld broadcast
 
@@ -292,7 +288,7 @@ let gameState () =
                     return! loop worldState broadcast
 
                 | RunGameStep dt ->
-                    printfn "Game step: %f" dt
+                    //printfn "Game step: %f" dt
 
                     // Run AI updates
                     let newBosses = runAI worldState worldState.bosses dt

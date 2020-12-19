@@ -31,6 +31,8 @@ let runWebSocket (networkConns : MailboxProcessor<NetworkConnMsg>) (webSocket : 
         let clientId = buildClientId (context.connection.ipAddr.ToString()) (context.connection.port.ToString()) clientSalt
         let mutable loop = true
 
+        printfn "New connection: %s" clientId
+
         // Add this new connection to our state of all of the connections we currently maintain
         networkConns.Post (AddConnection (webSocket, clientId))
 
@@ -59,7 +61,7 @@ let runWebSocket (networkConns : MailboxProcessor<NetworkConnMsg>) (webSocket : 
                     ()
 
             | (Close, _, _) ->
-                printfn "Client closed"
+                printfn "Client closed: %s" clientId
                 networkConns.Post (RemoveConnection (webSocket, clientId))
                 let emptyResponse = [||] |> ByteSegment
                 do! webSocket.send Close emptyResponse true

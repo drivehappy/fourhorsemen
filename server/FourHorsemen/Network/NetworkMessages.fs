@@ -162,16 +162,14 @@ let networkConnections (gameState : MailboxProcessor<GameStateMsg>) =
                 match msg with
                 | AddConnection (ws, clientId) ->
                     let newPlayer = { initPlayer with networkClientId = clientId }
-                    //networkWorldState.Post(AddPlayer (clientId, newPlayer))
                     gameState.Post (GameState.AddPlayer newPlayer)
                     return! loop ((ws, clientId) :: conns)
 
                 | RemoveConnection (ws, clientId) ->
-                    //networkWorldState.Post(RemovePlayer clientId)
                     gameState.Post (GameState.RemovePlayer clientId)
                     let newConnsList =
                         conns
-                        |> List.filter (fun (w, _) -> w <> ws)
+                        |> List.filter (fun (_, id) -> id <> clientId)
 
                     return! loop newConnsList
 
@@ -189,14 +187,12 @@ let networkConnections (gameState : MailboxProcessor<GameStateMsg>) =
                                 printfn "Error: %A" e
                         )
 
-
-                    //networkWorldState.Post(ReceivedClientData (sendFunc, clientId, pbCSMain))
                     handleClientMessage sendFunc clientId gameState pbCSMain
 
                     return! loop conns
 
                 | BroadcastData data ->
-                    printfn "Sending %i bytes to %i connections" data.Count conns.Length
+                    //printfn "Sending %i bytes to %i connections" data.Count conns.Length
 
                     for (w, _) in conns do
                         let! _ = w.send Binary data true

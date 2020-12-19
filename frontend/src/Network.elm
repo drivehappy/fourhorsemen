@@ -137,12 +137,7 @@ handleServerData m pbSCMain =
 
         AssignPlayerId ->
             let
-                i = Debug.log "PlayerID " pbSCMain.assignedPlayerId
-
-                -- Assume we build our player at this point too
-                j = Debug.log "UpdaterPlayerName" ()
-
-                currPlayer = Just initPlayer
+                i = Debug.log "AssignPlayerID " pbSCMain.assignedPlayerId
 
                 newModel =
                     { m | currentPlayerGuid = pbSCMain.assignedPlayerId }
@@ -186,23 +181,35 @@ handleServerData m pbSCMain =
                             if p.guid /= m.currentPlayerGuid then
                                 Just (p.guid, p)
                             else
-                                -- If we are the current player, update everything but the position, otherwise we get janky behavior
-                                -- from the server trying to update our position to an old one.
+                                --
                                 let
-                                    clientPlayerPos : Maybe GameModel.Vec2
-                                    clientPlayerPos =
+                                    currentPlayer : Maybe GameModel.Player
+                                    currentPlayer =
                                         Dict.get m.currentPlayerGuid m.players
-                                            |> Maybe.map (\player -> player.position)
-
-                                    newPlayer : Maybe GameModel.Player
-                                    newPlayer =
-                                        clientPlayerPos
-                                            |> Maybe.map (\pos -> { p | position = pos })
                                 in
-                                newPlayer
-                                    |> Maybe.map (\player -> (player.guid, player))
+                                case currentPlayer of
+                                    Nothing ->
+                                        -- If we couldn't match the current player guid with any existing players in our list,
+                                        -- we need to add this player provided from the network to our player list
+                                        Just (p.guid, p)
+
+                                    Just player ->
+                                        -- Otherwise, if we are the current player, update everything but the position,
+                                        -- otherwise we get janky behavior from the server trying to update our position to an old one.
+                                        let
+                                            clientPlayerPos : GameModel.Vec2
+                                            clientPlayerPos = player.position
+
+                                            newPlayer : GameModel.Player
+                                            newPlayer = { p | position = player.position }
+                                        in
+                                        Just (newPlayer.guid, newPlayer)
                         )
                         |> Dict.fromList
+
+                i =
+                    Debug.log
+                    "PlayerList" newPlayers
 
                 newModel =
                     { m | bosses = newBossStates, players = newPlayers }

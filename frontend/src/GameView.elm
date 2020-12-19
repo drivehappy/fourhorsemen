@@ -38,7 +38,8 @@ view m =
                 |> Dict.values
 
         currentPlayer : Maybe Player
-        currentPlayer = Dict.get m.currentPlayerGuid m.players
+        currentPlayer =
+            Dict.get m.currentPlayerGuid m.players
     in
     Canvas.toHtml
         (roomWidth * viewZoomRatio, roomHeight * viewZoomRatio)
