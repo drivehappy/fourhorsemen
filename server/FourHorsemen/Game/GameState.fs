@@ -135,9 +135,18 @@ let runAI (worldState : World) (monsters : Monster[]) (dt : float<s>) : Monster[
                 b
 
             | [] ->
-                // We don't have any player on threat table, check for closest.
+                // Combine all the threat tables from the bosses
+                let combinedThreatTables : Ref<Player> seq =
+                    worldState.bosses
+                    |> Array.toSeq
+                    |> Seq.map (fun b -> b.threat |> List.map fst)
+                    |> Seq.concat
+
+                // We don't have any player on threat table, check for closest. Additionally, add any players found on
+                // other bosses' threat table - this will link them and cause all to attack at start.
                 // If we find one, apply it to the threat table with 0 threat.
                 findClosestNeighborMaxRange b.position worldState.players rangeAggro
+                |> List.append (Seq.toList combinedThreatTables)
                 |> List.tryHead
                 |> Option.map (fun p -> { b with threat = [ (p, 0) ]})
                 |> Option.defaultValue b
