@@ -279,27 +279,59 @@ update msg model =
 
         CanvasClick (x, y) ->
             let
-                -- TODO: Select boss
                 drawRadiusSizeSquared = 15 * 15
 
+                calcDistSq : Float -> Float -> Float
+                calcDistSq px py = (px * px) + (py * py)
+
+                calcDistPosSq : GameModel.Vec2 -> Float
+                calcDistPosSq v =
+                    calcDistSq
+                        (toFloat x - denormalizeX v.x)
+                        (toFloat y - denormalizeY v.y) 
+
+
                 -- Check each boss
-                x1 = (toFloat x - denormalizeX model.bosses.mograine.position.x)
-                y1 = (toFloat y - denormalizeY model.bosses.mograine.position.y)
+                dM = calcDistPosSq model.bosses.mograine.position
+                dT = calcDistPosSq model.bosses.thane.position
+                dZ = calcDistPosSq model.bosses.zeliek.position
+                dB = calcDistPosSq model.bosses.blaumeux.position
 
-
+                --
                 p = Debug.log "DebugSelect0 " drawRadiusSizeSquared
                 k = Debug.log "DebugSelect1 " (x, y)
                 a = Debug.log "DebugSelect3 " (denormalizeX model.bosses.mograine.position.x, denormalizeY model.bosses.mograine.position.y)
-                i = Debug.log "DebugSelect4 " (x1, y1)
-                w = Debug.log "DebugSelect5 " ((x1 * x1) + (y1 * y1))
 
-                b =
-                    if w <= drawRadiusSizeSquared then
-                        Debug.log "Selected mograine" ()
+                newTargetGuid =
+                    if dM <= drawRadiusSizeSquared then
+                        Debug.log "Selected mograine" (Just model.bosses.mograine.guid)
+                    else if dT <= drawRadiusSizeSquared then
+                        Debug.log "Selected thane" (Just model.bosses.thane.guid)
+                    else if dZ <= drawRadiusSizeSquared then
+                        Debug.log "Selected zeliek" (Just model.bosses.zeliek.guid)
+                    else if dB <= drawRadiusSizeSquared then
+                        Debug.log "Selected blaumeux" (Just model.bosses.blaumeux.guid)
                     else
-                        Debug.log "Did not select mograine " ()
+                        Debug.log "Did not select any bosses " Nothing
+
+                currentPlayer : Maybe GameModel.Player
+                currentPlayer =
+                    Dict.get model.currentPlayerGuid model.players
+
+                newPlayerModel : Maybe GameModel.Player
+                newPlayerModel =
+                    currentPlayer
+                        |> Maybe.map (\cp -> { cp | targetGuid = newTargetGuid })
+
+                updatedPlayers =
+                    newPlayerModel
+                        |> Maybe.map (\p2 -> Dict.insert model.currentPlayerGuid p2 model.players)
+                        |> Maybe.withDefault model.players
             in
-            (model, Cmd.none)
+            -- TODO: Send msg to server with new target
+            ( { model | players = updatedPlayers }
+            , Cmd.none
+            )
 
         UpdateServerCode newServerCode ->
             let

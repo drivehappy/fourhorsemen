@@ -41,6 +41,7 @@ message Player {
 
     Debuffs debuffs = 9;
     string guid = 10;
+    string target_guid = 11;
 }
 
 message Boss {
@@ -55,10 +56,12 @@ message Boss {
     string name = 2;
     Vec2 position = 3;
     float direction = 4;
-    int32 current_hp = 5;
-    int32 max_hp = 6;
+    int32 current_health = 5;
+    int32 max_health = 6;
     bool is_spirit = 7;
     bool shield_wall_active = 8;
+
+    string guid = 10;
 }
 
 

@@ -17,6 +17,9 @@ type alias Boss =
     { position : Vec2
     , direction : Float   -- Radians
     , name : String
+    , currentHealth : Int
+    , maxHealth : Int
+    , guid : String
     }
 
 type alias EncounterBosses =
@@ -43,8 +46,12 @@ type alias Player =
     , currentHealth : Int
     , maxHealth : Int
     , guid : String
+    , targetGuid : Maybe String
     , debuffs : PlayerDebuffs
     }
+
+type alias EntityTarget a =
+    { a | name : String, currentHealth : Int, maxHealth : Int }
 
 -- We have to track whether each key is pressed and released
 type alias KeyState =
@@ -89,6 +96,7 @@ initPlayer =
     , currentHealth = 0
     , maxHealth = 0
     , guid = "TODO_GUID"
+    , targetGuid = Nothing
     , debuffs = initPlayerDebuffs
     }
 
@@ -100,20 +108,32 @@ initBossEncounters =
         { position = { x = 0.5, y = 0.5 }
         , direction = 0.0
         , name = "Mograine"
+        , currentHealth = 0
+        , maxHealth = 0
+        , guid = "TODO_GUID"
         }
     , thane =
         { position = { x = 0.45, y = 0.5 }
         , direction = 0.0
         , name = "Thane"
+        , currentHealth = 0
+        , maxHealth = 0
+        , guid = "TODO_GUID"
         }
     , zeliek =
         { position = { x = 0.40, y = 0.5 }
         , direction = 0.0
         , name = "Zeliek"
+        , currentHealth = 0
+        , maxHealth = 0
+        , guid = "TODO_GUID"
         }
     , blaumeux =
         { position = { x = 0.55, y = 0.5 }
         , direction = 0.0
         , name = "Blaumeux"
+        , currentHealth = 0
+        , maxHealth = 0
+        , guid = "TODO_GUID"
         }
     }

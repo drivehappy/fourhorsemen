@@ -126,7 +126,10 @@ let buildSCWorldState (world : World) : ByteSegment =
                 | Blaumeux -> Proto.Boss.Types.Type.Blaumeux
             pb.Position <- normalizeVec2ToPB world.dimensions m.position
             pb.Direction <- m.direction
+            pb.CurrentHealth <- m.curHealth
+            pb.MaxHealth <- m.maxHealth
             pb.Name <- m.name
+            pb.Guid <- m.guid
             pb
 
         pbSCMain.BulkBossUpdate.Add(convertMonsterToProto b)

@@ -105,6 +105,32 @@ viewRHS m =
                 [ rect (0, 0) (uiWidth * viewZoomRatio) (uiHeight * viewZoomRatio)
                 ]
 
+        currentPlayer : Maybe Player
+        currentPlayer = Dict.get m.currentPlayerGuid m.players
+
+        targetEntity : Maybe (EntityTarget {})
+        targetEntity =
+            currentPlayer
+                |> Maybe.andThen .targetGuid
+                |> Maybe.andThen (\tg ->
+                    -- Check our list of players for the target guid first
+                    case Dict.get tg m.players of
+                        Just t ->
+                            Just { name = t.name, currentHealth = t.currentHealth, maxHealth = t.maxHealth }
+
+                        _ ->
+                            -- Check our bosses for the target guid
+                            if tg == m.bosses.mograine.guid then
+                                Just { name = m.bosses.mograine.name, currentHealth = m.bosses.mograine.currentHealth, maxHealth = m.bosses.mograine.maxHealth }
+                            else if tg == m.bosses.thane.guid then
+                                Just { name = m.bosses.thane.name, currentHealth = m.bosses.thane.currentHealth, maxHealth = m.bosses.thane.maxHealth }
+                            else if tg == m.bosses.zeliek.guid then
+                                Just { name = m.bosses.zeliek.name, currentHealth = m.bosses.zeliek.currentHealth, maxHealth = m.bosses.zeliek.maxHealth }
+                            else if tg == m.bosses.blaumeux.guid then
+                                Just { name = m.bosses.blaumeux.name, currentHealth = m.bosses.blaumeux.currentHealth, maxHealth = m.bosses.blaumeux.maxHealth }
+                            else
+                                Nothing
+                )
     in
     Canvas.toHtml
         (uiWidth * viewZoomRatio, uiHeight * viewZoomRatio)
@@ -112,38 +138,53 @@ viewRHS m =
         ]
         ( [ clearScreen
           ]
-          ++ viewRenderPlayerStats m
           ++ viewRenderPlayerDebuffs m
+          ++ (currentPlayer
+                |> Maybe.map (viewRenderPlayerStats "You" 120)
+                |> Maybe.withDefault []
+             )
+          ++ (targetEntity
+                |> Maybe.map (viewRenderTargetStats "Target" 190)
+                |> Maybe.withDefault []
+             )
         )
 
 
 --
-viewRenderPlayerStats : Model -> List Renderable
-viewRenderPlayerStats m =
+viewRenderPlayerStats : String -> Float -> GameModel.Player -> List Renderable
+viewRenderPlayerStats t posY p =
     let
-        renderStats : Player -> Int -> List Renderable
+        renderStats : Player -> Float -> List Renderable
         renderStats currentPlayer startY =
-            let
-                i = 0
-            in
-                [ standardText "Health: " (15, toFloat startY)
-                , standardText (String.fromInt currentPlayer.currentHealth ++ " / " ++ String.fromInt currentPlayer.maxHealth) (80, toFloat startY)
-                ]
-
+            [ standardText "Health: " (15, startY)
+            , standardText (String.fromInt currentPlayer.currentHealth ++ " / " ++ String.fromInt currentPlayer.maxHealth) (80, startY)
+            ]
 
         stats =
-            let
-                currentPlayer : Maybe Player
-                currentPlayer = Dict.get m.currentPlayerGuid m.players
-            in
-            case currentPlayer of
-                Just p ->
-                    renderStats p 160
-
-                _ ->
-                    []
+            renderStats p (posY + 20)
     in
-    [ headerText "Stats" (6, 120) ]
+    [ headerText t (6, posY) ]
+    ++ stats
+
+
+--
+viewRenderTargetStats : String -> Float -> EntityTarget a -> List Renderable
+viewRenderTargetStats t posY et =
+    let
+        percentHealth = round ((toFloat et.currentHealth / toFloat et.maxHealth) * 100.0)
+
+        renderStats : Float -> List Renderable
+        renderStats startY =
+            [ standardText "Name: " (15, startY)
+            , standardText et.name (80, startY)
+            , standardText "Health: " (15, startY + 20)
+            , standardText ("(" ++ String.fromInt percentHealth ++ "%)  " ++ String.fromInt et.currentHealth ++ " / " ++ String.fromInt et.maxHealth) (80, startY + 20)
+            ]
+
+        stats =
+            renderStats (posY + 20)
+    in
+    [ headerText t (6, posY) ]
     ++ stats
 
 

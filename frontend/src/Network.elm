@@ -68,6 +68,9 @@ buildBossFromPB pb =
     { position = newPosition
     , direction = pb.direction
     , name = pb.name
+    , currentHealth = pb.currentHealth
+    , maxHealth = pb.maxHealth
+    , guid = pb.guid
     }
 
 --
@@ -109,7 +112,6 @@ buildPlayerFromPB pb =
 
                 _ ->
                     initPlayerDebuffs
-
     in
     { position = newPosition
     , direction = pb.direction
@@ -118,6 +120,7 @@ buildPlayerFromPB pb =
     , currentHealth = pb.currentHealth
     , maxHealth = pb.maxHealth
     , guid = pb.guid
+    , targetGuid = Just pb.targetGuid
     , debuffs = newPlayerDebuffs
     }
 
@@ -194,22 +197,19 @@ handleServerData m pbSCMain =
                                         Just (p.guid, p)
 
                                     Just player ->
-                                        -- Otherwise, if we are the current player, update everything but the position,
-                                        -- otherwise we get janky behavior from the server trying to update our position to an old one.
+                                        -- Otherwise, if we are the current player, update everything but the:
+                                        --  1. Position: otherwise we get janky behavior from the server trying to update our position to an old one.
+                                        --  2. Target Guid: otherwise we might race and the server could replace the target with what we just clicked
                                         let
                                             clientPlayerPos : GameModel.Vec2
                                             clientPlayerPos = player.position
 
                                             newPlayer : GameModel.Player
-                                            newPlayer = { p | position = player.position }
+                                            newPlayer = { p | position = player.position, targetGuid = player.targetGuid }
                                         in
                                         Just (newPlayer.guid, newPlayer)
                         )
                         |> Dict.fromList
-
-                i =
-                    Debug.log
-                    "PlayerList" newPlayers
 
                 newModel =
                     { m | bosses = newBossStates, players = newPlayers }

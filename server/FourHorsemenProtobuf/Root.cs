@@ -31,52 +31,53 @@ namespace Codegen.Proto {
             "RGVidWZmEikKCm1hcmtfdGhhbmUYAiABKAsyFS5jb2RlZ2VuLnByb3RvLkRl",
             "YnVmZhIsCg1tYXJrX2JsYXVtZXV4GAMgASgLMhUuY29kZWdlbi5wcm90by5E",
             "ZWJ1ZmYSKgoLbWFya196ZWxpZWsYBCABKAsyFS5jb2RlZ2VuLnByb3RvLkRl",
-            "YnVmZiLeAQoGUGxheWVyEgwKBG5hbWUYASABKAkSKQoFY2xhc3MYAiABKA4y",
+            "YnVmZiLzAQoGUGxheWVyEgwKBG5hbWUYASABKAkSKQoFY2xhc3MYAiABKA4y",
             "Gi5jb2RlZ2VuLnByb3RvLlBsYXllckNsYXNzEiUKCHBvc2l0aW9uGAMgASgL",
             "MhMuY29kZWdlbi5wcm90by5WZWMyEhEKCWRpcmVjdGlvbhgEIAEoAhIWCg5j",
             "dXJyZW50X2hlYWx0aBgFIAEoBRISCgptYXhfaGVhbHRoGAYgASgFEicKB2Rl",
             "YnVmZnMYCSABKAsyFi5jb2RlZ2VuLnByb3RvLkRlYnVmZnMSDAoEZ3VpZBgK",
-            "IAEoCSKEAgoEQm9zcxImCgR0eXBlGAEgASgOMhguY29kZWdlbi5wcm90by5C",
-            "b3NzLlR5cGUSDAoEbmFtZRgCIAEoCRIlCghwb3NpdGlvbhgDIAEoCzITLmNv",
-            "ZGVnZW4ucHJvdG8uVmVjMhIRCglkaXJlY3Rpb24YBCABKAISEgoKY3VycmVu",
-            "dF9ocBgFIAEoBRIOCgZtYXhfaHAYBiABKAUSEQoJaXNfc3Bpcml0GAcgASgI",
-            "EhoKEnNoaWVsZF93YWxsX2FjdGl2ZRgIIAEoCCI5CgRUeXBlEgwKCE1PR1JB",
-            "SU5FEAASCQoFVEhBTkUQARIMCghCTEFVTUVVWBACEgoKBlpFTElFSxADIicK",
-            "EENTX05ld1BsYXllckpvaW4SEwoLcGxheWVyX25hbWUYASABKAkimwEKD0NT",
-            "X1BsYXllckFjdGlvbhIxCgR0eXBlGAEgASgOMiMuY29kZWdlbi5wcm90by5D",
-            "U19QbGF5ZXJBY3Rpb24uVHlwZRITCgtndWlkX3RhcmdldBgCIAEoBSJACgRU",
-            "eXBlEgkKBVRBVU5UEAASCAoESEVBTBABEhEKDVJBTkdFRF9BVFRBQ0sQAhIQ",
-            "CgxNRUxFRV9BVFRBQ0sQAyK3AgoHQ1NfTWFpbhIpCgR0eXBlGAEgASgOMhsu",
-            "Y29kZWdlbi5wcm90by5DU19NYWluLlR5cGUSNAoLcGxheWVyX2pvaW4YAiAB",
-            "KAsyHy5jb2RlZ2VuLnByb3RvLkNTX05ld1BsYXllckpvaW4SKAoLcGxheWVy",
-            "X21vdmUYAyABKAsyEy5jb2RlZ2VuLnByb3RvLlZlYzISGAoQcGxheWVyX2Rp",
-            "cmVjdGlvbhgEIAEoAiKGAQoEVHlwZRIPCgtQTEFZRVJfSk9JThAAEg8KC1BM",
-            "QVlFUl9NT1ZFEAESFAoQUExBWUVSX0RJUkVDVElPThACEhYKElJFUVVFU1Rf",
-            "R0FNRV9TVEFSVBADEhYKElJFUVVFU1RfR0FNRV9QQVVTRRAEEhYKElJFUVVF",
-            "U1RfR0FNRV9SRVNFVBAFImoKDFNDX0dhbWVTdGF0ZRIuCgR0eXBlGAEgASgO",
-            "MiAuY29kZWdlbi5wcm90by5TQ19HYW1lU3RhdGUuVHlwZSIqCgRUeXBlEgkK",
-            "BUxPQkJZEAASCwoHUlVOTklORxABEgoKBlBBVVNFRBACIqcBCg5TQ19Cb3Nz",
-            "QWJpbGl0eRIwCgR0eXBlGAEgASgOMiIuY29kZWdlbi5wcm90by5TQ19Cb3Nz",
-            "QWJpbGl0eS5UeXBlEhwKFHBsYXllcl9ndWlkX2FmZmVjdGVkGAIgAygFIkUK",
-            "BFR5cGUSEgoOUklHSFRFT1VTX0ZJUkUQABIKCgZNRVRFT1IQARIOCgpIT0xZ",
-            "X1dSQVRIEAISDQoJVk9JRF9aT05FEAMiuAIKB1NDX01haW4SKQoEdHlwZRgB",
-            "IAEoDjIbLmNvZGVnZW4ucHJvdG8uU0NfTWFpbi5UeXBlEhoKEmFzc2lnbmVk",
-            "X3BsYXllcl9pZBgCIAEoCRIxChJidWxrX3BsYXllcl91cGRhdGUYBiADKAsy",
-            "FS5jb2RlZ2VuLnByb3RvLlBsYXllchItChBidWxrX2Jvc3NfdXBkYXRlGAcg",
-            "AygLMhMuY29kZWdlbi5wcm90by5Cb3NzEj0KFmJvc3NfYWJpbGl0eV9wZXJm",
-            "b3JtZWQYDCADKAsyHS5jb2RlZ2VuLnByb3RvLlNDX0Jvc3NBYmlsaXR5IkUK",
-            "BFR5cGUSEQoNSU5JVElBTF9TVEFURRAAEhQKEEFTU0lHTl9QTEFZRVJfSUQQ",
-            "ARIUChBHQU1FX1NURVBfVVBEQVRFEAIqQgoLUGxheWVyQ2xhc3MSCAoEVEFO",
-            "SxAAEgoKBkhFQUxFUhABEg4KClJBTkdFRF9EUFMQAhINCglNRUxFRV9EUFMQ",
-            "A2IGcHJvdG8z"));
+            "IAEoCRITCgt0YXJnZXRfZ3VpZBgLIAEoCSKaAgoEQm9zcxImCgR0eXBlGAEg",
+            "ASgOMhguY29kZWdlbi5wcm90by5Cb3NzLlR5cGUSDAoEbmFtZRgCIAEoCRIl",
+            "Cghwb3NpdGlvbhgDIAEoCzITLmNvZGVnZW4ucHJvdG8uVmVjMhIRCglkaXJl",
+            "Y3Rpb24YBCABKAISFgoOY3VycmVudF9oZWFsdGgYBSABKAUSEgoKbWF4X2hl",
+            "YWx0aBgGIAEoBRIRCglpc19zcGlyaXQYByABKAgSGgoSc2hpZWxkX3dhbGxf",
+            "YWN0aXZlGAggASgIEgwKBGd1aWQYCiABKAkiOQoEVHlwZRIMCghNT0dSQUlO",
+            "RRAAEgkKBVRIQU5FEAESDAoIQkxBVU1FVVgQAhIKCgZaRUxJRUsQAyInChBD",
+            "U19OZXdQbGF5ZXJKb2luEhMKC3BsYXllcl9uYW1lGAEgASgJIpsBCg9DU19Q",
+            "bGF5ZXJBY3Rpb24SMQoEdHlwZRgBIAEoDjIjLmNvZGVnZW4ucHJvdG8uQ1Nf",
+            "UGxheWVyQWN0aW9uLlR5cGUSEwoLZ3VpZF90YXJnZXQYAiABKAUiQAoEVHlw",
+            "ZRIJCgVUQVVOVBAAEggKBEhFQUwQARIRCg1SQU5HRURfQVRUQUNLEAISEAoM",
+            "TUVMRUVfQVRUQUNLEAMitwIKB0NTX01haW4SKQoEdHlwZRgBIAEoDjIbLmNv",
+            "ZGVnZW4ucHJvdG8uQ1NfTWFpbi5UeXBlEjQKC3BsYXllcl9qb2luGAIgASgL",
+            "Mh8uY29kZWdlbi5wcm90by5DU19OZXdQbGF5ZXJKb2luEigKC3BsYXllcl9t",
+            "b3ZlGAMgASgLMhMuY29kZWdlbi5wcm90by5WZWMyEhgKEHBsYXllcl9kaXJl",
+            "Y3Rpb24YBCABKAIihgEKBFR5cGUSDwoLUExBWUVSX0pPSU4QABIPCgtQTEFZ",
+            "RVJfTU9WRRABEhQKEFBMQVlFUl9ESVJFQ1RJT04QAhIWChJSRVFVRVNUX0dB",
+            "TUVfU1RBUlQQAxIWChJSRVFVRVNUX0dBTUVfUEFVU0UQBBIWChJSRVFVRVNU",
+            "X0dBTUVfUkVTRVQQBSJqCgxTQ19HYW1lU3RhdGUSLgoEdHlwZRgBIAEoDjIg",
+            "LmNvZGVnZW4ucHJvdG8uU0NfR2FtZVN0YXRlLlR5cGUiKgoEVHlwZRIJCgVM",
+            "T0JCWRAAEgsKB1JVTk5JTkcQARIKCgZQQVVTRUQQAiKnAQoOU0NfQm9zc0Fi",
+            "aWxpdHkSMAoEdHlwZRgBIAEoDjIiLmNvZGVnZW4ucHJvdG8uU0NfQm9zc0Fi",
+            "aWxpdHkuVHlwZRIcChRwbGF5ZXJfZ3VpZF9hZmZlY3RlZBgCIAMoBSJFCgRU",
+            "eXBlEhIKDlJJR0hURU9VU19GSVJFEAASCgoGTUVURU9SEAESDgoKSE9MWV9X",
+            "UkFUSBACEg0KCVZPSURfWk9ORRADIrgCCgdTQ19NYWluEikKBHR5cGUYASAB",
+            "KA4yGy5jb2RlZ2VuLnByb3RvLlNDX01haW4uVHlwZRIaChJhc3NpZ25lZF9w",
+            "bGF5ZXJfaWQYAiABKAkSMQoSYnVsa19wbGF5ZXJfdXBkYXRlGAYgAygLMhUu",
+            "Y29kZWdlbi5wcm90by5QbGF5ZXISLQoQYnVsa19ib3NzX3VwZGF0ZRgHIAMo",
+            "CzITLmNvZGVnZW4ucHJvdG8uQm9zcxI9ChZib3NzX2FiaWxpdHlfcGVyZm9y",
+            "bWVkGAwgAygLMh0uY29kZWdlbi5wcm90by5TQ19Cb3NzQWJpbGl0eSJFCgRU",
+            "eXBlEhEKDUlOSVRJQUxfU1RBVEUQABIUChBBU1NJR05fUExBWUVSX0lEEAES",
+            "FAoQR0FNRV9TVEVQX1VQREFURRACKkIKC1BsYXllckNsYXNzEggKBFRBTksQ",
+            "ABIKCgZIRUFMRVIQARIOCgpSQU5HRURfRFBTEAISDQoJTUVMRUVfRFBTEANi",
+            "BnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Codegen.Proto.PlayerClass), }, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Codegen.Proto.Vec2), global::Codegen.Proto.Vec2.Parser, new[]{ "PositionX", "PositionY" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Codegen.Proto.Debuff), global::Codegen.Proto.Debuff.Parser, new[]{ "StackCount", "RemainingMs" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Codegen.Proto.Debuffs), global::Codegen.Proto.Debuffs.Parser, new[]{ "MarkMograine", "MarkThane", "MarkBlaumeux", "MarkZeliek" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Codegen.Proto.Player), global::Codegen.Proto.Player.Parser, new[]{ "Name", "Class", "Position", "Direction", "CurrentHealth", "MaxHealth", "Debuffs", "Guid" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Codegen.Proto.Boss), global::Codegen.Proto.Boss.Parser, new[]{ "Type", "Name", "Position", "Direction", "CurrentHp", "MaxHp", "IsSpirit", "ShieldWallActive" }, null, new[]{ typeof(global::Codegen.Proto.Boss.Types.Type) }, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Codegen.Proto.Player), global::Codegen.Proto.Player.Parser, new[]{ "Name", "Class", "Position", "Direction", "CurrentHealth", "MaxHealth", "Debuffs", "Guid", "TargetGuid" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Codegen.Proto.Boss), global::Codegen.Proto.Boss.Parser, new[]{ "Type", "Name", "Position", "Direction", "CurrentHealth", "MaxHealth", "IsSpirit", "ShieldWallActive", "Guid" }, null, new[]{ typeof(global::Codegen.Proto.Boss.Types.Type) }, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Codegen.Proto.CS_NewPlayerJoin), global::Codegen.Proto.CS_NewPlayerJoin.Parser, new[]{ "PlayerName" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Codegen.Proto.CS_PlayerAction), global::Codegen.Proto.CS_PlayerAction.Parser, new[]{ "Type", "GuidTarget" }, null, new[]{ typeof(global::Codegen.Proto.CS_PlayerAction.Types.Type) }, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Codegen.Proto.CS_Main), global::Codegen.Proto.CS_Main.Parser, new[]{ "Type", "PlayerJoin", "PlayerMove", "PlayerDirection" }, null, new[]{ typeof(global::Codegen.Proto.CS_Main.Types.Type) }, null, null),
@@ -868,6 +869,7 @@ namespace Codegen.Proto {
       maxHealth_ = other.maxHealth_;
       debuffs_ = other.debuffs_ != null ? other.debuffs_.Clone() : null;
       guid_ = other.guid_;
+      targetGuid_ = other.targetGuid_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -964,6 +966,17 @@ namespace Codegen.Proto {
       }
     }
 
+    /// <summary>Field number for the "target_guid" field.</summary>
+    public const int TargetGuidFieldNumber = 11;
+    private string targetGuid_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string TargetGuid {
+      get { return targetGuid_; }
+      set {
+        targetGuid_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
       return Equals(other as Player);
@@ -985,6 +998,7 @@ namespace Codegen.Proto {
       if (MaxHealth != other.MaxHealth) return false;
       if (!object.Equals(Debuffs, other.Debuffs)) return false;
       if (Guid != other.Guid) return false;
+      if (TargetGuid != other.TargetGuid) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -999,6 +1013,7 @@ namespace Codegen.Proto {
       if (MaxHealth != 0) hash ^= MaxHealth.GetHashCode();
       if (debuffs_ != null) hash ^= Debuffs.GetHashCode();
       if (Guid.Length != 0) hash ^= Guid.GetHashCode();
+      if (TargetGuid.Length != 0) hash ^= TargetGuid.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -1047,6 +1062,10 @@ namespace Codegen.Proto {
         output.WriteRawTag(82);
         output.WriteString(Guid);
       }
+      if (TargetGuid.Length != 0) {
+        output.WriteRawTag(90);
+        output.WriteString(TargetGuid);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -1088,6 +1107,10 @@ namespace Codegen.Proto {
         output.WriteRawTag(82);
         output.WriteString(Guid);
       }
+      if (TargetGuid.Length != 0) {
+        output.WriteRawTag(90);
+        output.WriteString(TargetGuid);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -1120,6 +1143,9 @@ namespace Codegen.Proto {
       }
       if (Guid.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(Guid);
+      }
+      if (TargetGuid.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(TargetGuid);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -1161,6 +1187,9 @@ namespace Codegen.Proto {
       }
       if (other.Guid.Length != 0) {
         Guid = other.Guid;
+      }
+      if (other.TargetGuid.Length != 0) {
+        TargetGuid = other.TargetGuid;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -1212,6 +1241,10 @@ namespace Codegen.Proto {
           }
           case 82: {
             Guid = input.ReadString();
+            break;
+          }
+          case 90: {
+            TargetGuid = input.ReadString();
             break;
           }
         }
@@ -1266,6 +1299,10 @@ namespace Codegen.Proto {
             Guid = input.ReadString();
             break;
           }
+          case 90: {
+            TargetGuid = input.ReadString();
+            break;
+          }
         }
       }
     }
@@ -1306,10 +1343,11 @@ namespace Codegen.Proto {
       name_ = other.name_;
       position_ = other.position_ != null ? other.position_.Clone() : null;
       direction_ = other.direction_;
-      currentHp_ = other.currentHp_;
-      maxHp_ = other.maxHp_;
+      currentHealth_ = other.currentHealth_;
+      maxHealth_ = other.maxHealth_;
       isSpirit_ = other.isSpirit_;
       shieldWallActive_ = other.shieldWallActive_;
+      guid_ = other.guid_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -1362,25 +1400,25 @@ namespace Codegen.Proto {
       }
     }
 
-    /// <summary>Field number for the "current_hp" field.</summary>
-    public const int CurrentHpFieldNumber = 5;
-    private int currentHp_;
+    /// <summary>Field number for the "current_health" field.</summary>
+    public const int CurrentHealthFieldNumber = 5;
+    private int currentHealth_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int CurrentHp {
-      get { return currentHp_; }
+    public int CurrentHealth {
+      get { return currentHealth_; }
       set {
-        currentHp_ = value;
+        currentHealth_ = value;
       }
     }
 
-    /// <summary>Field number for the "max_hp" field.</summary>
-    public const int MaxHpFieldNumber = 6;
-    private int maxHp_;
+    /// <summary>Field number for the "max_health" field.</summary>
+    public const int MaxHealthFieldNumber = 6;
+    private int maxHealth_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int MaxHp {
-      get { return maxHp_; }
+    public int MaxHealth {
+      get { return maxHealth_; }
       set {
-        maxHp_ = value;
+        maxHealth_ = value;
       }
     }
 
@@ -1406,6 +1444,17 @@ namespace Codegen.Proto {
       }
     }
 
+    /// <summary>Field number for the "guid" field.</summary>
+    public const int GuidFieldNumber = 10;
+    private string guid_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string Guid {
+      get { return guid_; }
+      set {
+        guid_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
       return Equals(other as Boss);
@@ -1423,10 +1472,11 @@ namespace Codegen.Proto {
       if (Name != other.Name) return false;
       if (!object.Equals(Position, other.Position)) return false;
       if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Direction, other.Direction)) return false;
-      if (CurrentHp != other.CurrentHp) return false;
-      if (MaxHp != other.MaxHp) return false;
+      if (CurrentHealth != other.CurrentHealth) return false;
+      if (MaxHealth != other.MaxHealth) return false;
       if (IsSpirit != other.IsSpirit) return false;
       if (ShieldWallActive != other.ShieldWallActive) return false;
+      if (Guid != other.Guid) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -1437,10 +1487,11 @@ namespace Codegen.Proto {
       if (Name.Length != 0) hash ^= Name.GetHashCode();
       if (position_ != null) hash ^= Position.GetHashCode();
       if (Direction != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Direction);
-      if (CurrentHp != 0) hash ^= CurrentHp.GetHashCode();
-      if (MaxHp != 0) hash ^= MaxHp.GetHashCode();
+      if (CurrentHealth != 0) hash ^= CurrentHealth.GetHashCode();
+      if (MaxHealth != 0) hash ^= MaxHealth.GetHashCode();
       if (IsSpirit != false) hash ^= IsSpirit.GetHashCode();
       if (ShieldWallActive != false) hash ^= ShieldWallActive.GetHashCode();
+      if (Guid.Length != 0) hash ^= Guid.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -1473,13 +1524,13 @@ namespace Codegen.Proto {
         output.WriteRawTag(37);
         output.WriteFloat(Direction);
       }
-      if (CurrentHp != 0) {
+      if (CurrentHealth != 0) {
         output.WriteRawTag(40);
-        output.WriteInt32(CurrentHp);
+        output.WriteInt32(CurrentHealth);
       }
-      if (MaxHp != 0) {
+      if (MaxHealth != 0) {
         output.WriteRawTag(48);
-        output.WriteInt32(MaxHp);
+        output.WriteInt32(MaxHealth);
       }
       if (IsSpirit != false) {
         output.WriteRawTag(56);
@@ -1488,6 +1539,10 @@ namespace Codegen.Proto {
       if (ShieldWallActive != false) {
         output.WriteRawTag(64);
         output.WriteBool(ShieldWallActive);
+      }
+      if (Guid.Length != 0) {
+        output.WriteRawTag(82);
+        output.WriteString(Guid);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -1514,13 +1569,13 @@ namespace Codegen.Proto {
         output.WriteRawTag(37);
         output.WriteFloat(Direction);
       }
-      if (CurrentHp != 0) {
+      if (CurrentHealth != 0) {
         output.WriteRawTag(40);
-        output.WriteInt32(CurrentHp);
+        output.WriteInt32(CurrentHealth);
       }
-      if (MaxHp != 0) {
+      if (MaxHealth != 0) {
         output.WriteRawTag(48);
-        output.WriteInt32(MaxHp);
+        output.WriteInt32(MaxHealth);
       }
       if (IsSpirit != false) {
         output.WriteRawTag(56);
@@ -1529,6 +1584,10 @@ namespace Codegen.Proto {
       if (ShieldWallActive != false) {
         output.WriteRawTag(64);
         output.WriteBool(ShieldWallActive);
+      }
+      if (Guid.Length != 0) {
+        output.WriteRawTag(82);
+        output.WriteString(Guid);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -1551,17 +1610,20 @@ namespace Codegen.Proto {
       if (Direction != 0F) {
         size += 1 + 4;
       }
-      if (CurrentHp != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(CurrentHp);
+      if (CurrentHealth != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(CurrentHealth);
       }
-      if (MaxHp != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(MaxHp);
+      if (MaxHealth != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(MaxHealth);
       }
       if (IsSpirit != false) {
         size += 1 + 1;
       }
       if (ShieldWallActive != false) {
         size += 1 + 1;
+      }
+      if (Guid.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Guid);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -1589,17 +1651,20 @@ namespace Codegen.Proto {
       if (other.Direction != 0F) {
         Direction = other.Direction;
       }
-      if (other.CurrentHp != 0) {
-        CurrentHp = other.CurrentHp;
+      if (other.CurrentHealth != 0) {
+        CurrentHealth = other.CurrentHealth;
       }
-      if (other.MaxHp != 0) {
-        MaxHp = other.MaxHp;
+      if (other.MaxHealth != 0) {
+        MaxHealth = other.MaxHealth;
       }
       if (other.IsSpirit != false) {
         IsSpirit = other.IsSpirit;
       }
       if (other.ShieldWallActive != false) {
         ShieldWallActive = other.ShieldWallActive;
+      }
+      if (other.Guid.Length != 0) {
+        Guid = other.Guid;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -1635,11 +1700,11 @@ namespace Codegen.Proto {
             break;
           }
           case 40: {
-            CurrentHp = input.ReadInt32();
+            CurrentHealth = input.ReadInt32();
             break;
           }
           case 48: {
-            MaxHp = input.ReadInt32();
+            MaxHealth = input.ReadInt32();
             break;
           }
           case 56: {
@@ -1648,6 +1713,10 @@ namespace Codegen.Proto {
           }
           case 64: {
             ShieldWallActive = input.ReadBool();
+            break;
+          }
+          case 82: {
+            Guid = input.ReadString();
             break;
           }
         }
@@ -1684,11 +1753,11 @@ namespace Codegen.Proto {
             break;
           }
           case 40: {
-            CurrentHp = input.ReadInt32();
+            CurrentHealth = input.ReadInt32();
             break;
           }
           case 48: {
-            MaxHp = input.ReadInt32();
+            MaxHealth = input.ReadInt32();
             break;
           }
           case 56: {
@@ -1697,6 +1766,10 @@ namespace Codegen.Proto {
           }
           case 64: {
             ShieldWallActive = input.ReadBool();
+            break;
+          }
+          case 82: {
+            Guid = input.ReadString();
             break;
           }
         }

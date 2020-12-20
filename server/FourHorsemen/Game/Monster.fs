@@ -14,6 +14,7 @@ type MonsterType =
 
 type Monster = {
     name : string
+    guid : string
     type_ : MonsterType
     direction : float32   // Radians
     speed : float<m/s>
@@ -52,6 +53,7 @@ let markTimerFreq = 12.0<s>
 
 let initMograine = {
     name = "Mograine"
+    guid = (Guid.NewGuid().ToByteArray() |> System.Convert.ToBase64String)
     type_ = Mograine
     direction = 0.0f
     speed = 15.0<m/s>
@@ -75,6 +77,7 @@ let initMograine = {
 
 let initThane = {
     name = "Thane"
+    guid = (Guid.NewGuid().ToByteArray() |> System.Convert.ToBase64String)
     type_ = Thane
     direction = 0.0f
     speed = 15.0<m/s>
@@ -98,6 +101,7 @@ let initThane = {
 
 let initZeliek = {
     name = "Zeliek"
+    guid = (Guid.NewGuid().ToByteArray() |> System.Convert.ToBase64String)
     type_ = Zeliek
     direction = 0.0f
     speed = 15.0<m/s>
@@ -121,6 +125,7 @@ let initZeliek = {
 
 let initBlaumeux = {
     name = "Blaumeux"
+    guid = (Guid.NewGuid().ToByteArray() |> System.Convert.ToBase64String)
     type_ = Blaumeux
     direction = 0.0f
     speed = 15.0<m/s>

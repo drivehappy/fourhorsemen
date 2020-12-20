@@ -149,6 +149,7 @@ type alias Player =
     , maxHealth : Int
     , debuffs : Maybe Debuffs
     , guid : String
+    , targetGuid : String
     }
 
 
@@ -159,10 +160,11 @@ type alias Boss =
     , name : String
     , position : Maybe Vec2
     , direction : Float
-    , currentHp : Int
-    , maxHp : Int
+    , currentHealth : Int
+    , maxHealth : Int
     , isSpirit : Bool
     , shieldWallActive : Bool
+    , guid : String
     }
 
 
@@ -418,7 +420,7 @@ debuffsDecoder =
 -}
 playerDecoder : Decode.Decoder Player
 playerDecoder =
-    Decode.message (Player "" Tank Nothing 0 0 0 Nothing "")
+    Decode.message (Player "" Tank Nothing 0 0 0 Nothing "" "")
         [ Decode.optional 1 Decode.string setName
         , Decode.optional 2 playerClassDecoder setClass
         , Decode.optional 3 (Decode.map Just vec2Decoder) setPosition
@@ -427,6 +429,7 @@ playerDecoder =
         , Decode.optional 6 Decode.int32 setMaxHealth
         , Decode.optional 9 (Decode.map Just debuffsDecoder) setDebuffs
         , Decode.optional 10 Decode.string setGuid
+        , Decode.optional 11 Decode.string setTargetGuid
         ]
 
 
@@ -434,15 +437,16 @@ playerDecoder =
 -}
 bossDecoder : Decode.Decoder Boss
 bossDecoder =
-    Decode.message (Boss Mograine "" Nothing 0 0 0 False False)
+    Decode.message (Boss Mograine "" Nothing 0 0 0 False False "")
         [ Decode.optional 1 bossTypeDecoder setType_
         , Decode.optional 2 Decode.string setName
         , Decode.optional 3 (Decode.map Just vec2Decoder) setPosition
         , Decode.optional 4 Decode.float setDirection
-        , Decode.optional 5 Decode.int32 setCurrentHp
-        , Decode.optional 6 Decode.int32 setMaxHp
+        , Decode.optional 5 Decode.int32 setCurrentHealth
+        , Decode.optional 6 Decode.int32 setMaxHealth
         , Decode.optional 7 Decode.bool setIsSpirit
         , Decode.optional 8 Decode.bool setShieldWallActive
+        , Decode.optional 10 Decode.string setGuid
         ]
 
 
@@ -698,6 +702,7 @@ toPlayerEncoder model =
         , ( 6, Encode.int32 model.maxHealth )
         , ( 9, (Maybe.withDefault Encode.none << Maybe.map toDebuffsEncoder) model.debuffs )
         , ( 10, Encode.string model.guid )
+        , ( 11, Encode.string model.targetGuid )
         ]
 
 
@@ -710,10 +715,11 @@ toBossEncoder model =
         , ( 2, Encode.string model.name )
         , ( 3, (Maybe.withDefault Encode.none << Maybe.map toVec2Encoder) model.position )
         , ( 4, Encode.float model.direction )
-        , ( 5, Encode.int32 model.currentHp )
-        , ( 6, Encode.int32 model.maxHp )
+        , ( 5, Encode.int32 model.currentHealth )
+        , ( 6, Encode.int32 model.maxHealth )
         , ( 7, Encode.bool model.isSpirit )
         , ( 8, Encode.bool model.shieldWallActive )
+        , ( 10, Encode.string model.guid )
         ]
 
 
@@ -864,19 +870,14 @@ setGuid value model =
     { model | guid = value }
 
 
+setTargetGuid : a -> { b | targetGuid : a } -> { b | targetGuid : a }
+setTargetGuid value model =
+    { model | targetGuid = value }
+
+
 setType_ : a -> { b | type_ : a } -> { b | type_ : a }
 setType_ value model =
     { model | type_ = value }
-
-
-setCurrentHp : a -> { b | currentHp : a } -> { b | currentHp : a }
-setCurrentHp value model =
-    { model | currentHp = value }
-
-
-setMaxHp : a -> { b | maxHp : a } -> { b | maxHp : a }
-setMaxHp value model =
-    { model | maxHp = value }
 
 
 setIsSpirit : a -> { b | isSpirit : a } -> { b | isSpirit : a }
